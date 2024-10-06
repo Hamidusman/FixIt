@@ -1,7 +1,7 @@
 import GetStarted from "../base-components/start"
 function Hero() {
     return(
-        <section className="lg:px-20 py-10 px-5 w-full h-[90vh] bg-secondary
+        <section className="md:px-10 lg:px-20 py-10 px-5 w-full h-[90vh] bg-secondary
                             flex flex-col lg:flex-row justify-between items-center">
             <div className="lg:w-[50%]">
                 <h1 className="hero-text text-[40px]  lg:text-[75px] font-bold my-0">Technical Service Made Easy</h1>
@@ -10,7 +10,7 @@ function Hero() {
             </div>
 
             <div>
-                <img src="src\assets\electrical-safety-training.jpg" className="rounded-3xl w-[100vw] lg:w-[560px] mt-0 h-[220px] lg:h-[450px] " alt="" />
+                <img src="src\assets\electrical-safety-training.jpg" className="rounded-3xl w-[100vw] lg:w-[560px] mt-0 h-[220px] md:h-[340px] lg:h-[450px] " alt="" />
             </div>
         </section>
     )
