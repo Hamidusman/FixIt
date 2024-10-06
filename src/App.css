@@ -5,3 +5,8 @@
 *{
   @apply text-gray
 }
+
+.hero-text{
+  letter-spacing: -1px; 
+  margin-right: 20px;
+}

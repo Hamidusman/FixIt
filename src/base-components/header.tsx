@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import GetStarted from './start';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,13 +13,14 @@ const Header = () => {
                     Fix<span>It</span>
                 </h2>
                 <ul className={`md:flex ${isOpen ? 'block' : 'hidden'} md:block mt-5 md:mt-0 absolute top-16 left-0 w-full h-full bg-dark  shadow-lg md:static md:bg-transparent md:shadow-none transition duration-700 ease-in-out`}>
-                    <li className=" md:border-b-0 md:border-none text-[20px] text-secondary transition ease-in-out duration-300 cursor-pointer px-4 py-2">Services</li>
-                    <li className=" md:border-b-0 md:border-none text-[20px] text-secondary transition ease-in-out duration-300 cursor-pointer px-4 py-2">Locations</li>
-                    <li className=" md:border-b-0 md:border-none text-[20px] text-secondary transition ease-in-out duration-300 cursor-pointer px-4 py-2">Consultation</li>
+                    <li className=" md:border-b-0 md:border-none text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">Services</li>
+                    <li className=" md:border-b-0 md:border-none text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">Locations</li>
+                    <li className=" md:border-b-0 md:border-none text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">Consultation</li>
                 </ul>
             </div>
             <div className='flex items-center'>
-                <a href="http://" className="px-7 py-3 bg-primary text-secondary rounded-2xl text-[16px] md:text-base">Start Now</a>
+                <GetStarted />
+                
                 <button
                     className="md:hidden ml-4 focus:outline-none"
                     onClick={() => setIsOpen(!isOpen)}
