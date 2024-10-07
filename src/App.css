@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-  @apply text-gray
+body{
+  @apply text-gray bg-secondary
 }
 
 .hero-text{
-  letter-spacing: -1px; 
+  letter-spacing: -3px; 
   margin-right: 20px;
 }

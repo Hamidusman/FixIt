@@ -7,7 +7,7 @@ const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <header className="px-4 md:px-20 h-[90px] flex justify-between items-center  shadow-lg">
+        <header className=" bg-white px-4 md:px-20 h-[90px] flex justify-between items-center  shadow-lg">
             <div className="flex items-center">
                 <h2 className="text-primary text-[28px] md:text-[35px] font-extrabold">
                     Fix<span>It</span>
