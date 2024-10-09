@@ -2,32 +2,36 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHammer, faLocation, faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
 import { faHamburger } from '@fortawesome/free-solid-svg-icons/faHamburger';
-function Container(){
+
+const ServiceCard = ({title, content, icon}) =>{
+    return(
+        <article className="shadow-lg bg-white px-5 py-5 rounded-2xl w-full lg:w-[390px]
+                            flex-flex-col ">
+            <h1 className="font-bold text-[22px]">{title}</h1>
+            <p className="my-4">{content}</p>
+            <div className=''>
+                <FontAwesomeIcon icon={icon} size='xl' className=' mb[] p-5 w-[30px] h-[30px] bg-primary rounded-[100%] '/>
+            </div>
+        </article>
+    )
+}
+const Services = () => {
     return(
         <>
             <section className="bg-secondary px-5 md:px-20 py-5 flex flex-col lg:flex-row justify-between gap-5">
-                <article className="shadow-lg bg-white px-5 py-5 rounded-2xl w-full lg:w-[390px]
-                                    flex-flex-col ">
-                    <h1 className="font-bold text-[22px]">Home Repairs</h1>
-                    <p className="my-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis.</p>
-                    <div className=''>
-                        <FontAwesomeIcon icon={faHammer} size='xl' className=' mb[] p-5 w-[30px] h-[30px] bg-primary rounded-[100%] '/>
-                    </div>
-                </article>
-                <article className="shadow-lg bg-white px-5 py-5 rounded-2xl w-full lg:w-[390px]
-                                    flex-flex-col ">
-                    <h1 className="font-bold text-[22px] mb-5">Home Repairs</h1>
-                    <p className="my-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis.</p>
-                    <div className=''>
-                        <FontAwesomeIcon icon={faPeopleGroup} size='xl' className='p-5 w-[30px] h-[30px] bg-primary rounded-[100%]'/>
-                    </div>
-                </article>
-                <article className="shadow-lg bg-white px-5 py-5 rounded-2xl w-full lg:w-[390px]
-                                    flex-flex-col ">
-                    <h1 className="font-bold text-[22px] mb-5">Home Repairs</h1>
-                    <p className="my-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis.</p>
-                    <FontAwesomeIcon icon={faLocation} size='xl' className='p-5 w-[30px] h-[30px] bg-primary rounded-[100%]'/>
-                </article>
+                <ServiceCard 
+                title="Home Repairs"
+                content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis."
+                icon={faHammer} />
+            <ServiceCard
+                title="Group Services"
+                content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis."
+                icon={faPeopleGroup}/>
+
+            <ServiceCard
+                title="Location Services"
+                content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis."
+                icon={faLocation} />
             </section>
 
             <h1 className='text-[40px] text-center font-bold my-10'>Our Result For <span className='text-primary'>Hardwork And Dedication</span></h1>
@@ -58,4 +62,4 @@ function Container(){
     )
 }
 
-export default Container
+export default Services

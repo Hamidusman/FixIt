@@ -8,7 +8,7 @@ const AccordionItem = ({ title, children, isOpen, onToggle }) => {
                             bg-white rounded-t-xl mt-2"
                 onClick={onToggle}
             >
-                <h2 className="text-[24px] font-semibold">{title}</h2>
+                <h2 className="text-[18px] md:text-[24px] font-semibold">{title}</h2>
                 <span className="transform transition-transform duration-200">
                     {isOpen ? '−' : '+'}
                 </span>
