@@ -8,15 +8,12 @@ import Container from './home-page/container'
 import Accordion from './home-page/mou'
 import Reviews from './home-page/reviews'
 import Faq from './home-page/faq'
+import Service from './services/services'
 function App() {
   return (
     <>
       <Header />
-      <Hero />
-      <Container />
-      <Accordion />
-      <Reviews />
-      <Faq />
+      <Service />
     </>
   )
 }
