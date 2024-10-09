@@ -5,7 +5,8 @@ import './App.css'
 import Header from './base-components/header'
 import Hero from './home-page/hero'
 import Container from './home-page/container'
-import Accordion from './home-page/faq'
+import Accordion from './home-page/mou'
+import Reviews from './home-page/reviews'
 function App() {
   return (
     <>
@@ -13,7 +14,7 @@ function App() {
       <Hero />
       <Container />
       <Accordion />
-
+      <Reviews />
     </>
   )
 }

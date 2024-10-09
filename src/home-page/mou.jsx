@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const AccordionItem = ({ title, children, isOpen, onToggle }) => {
     return (
-        <div className=" lg:w-[550px]">
+        <div className=" lg:w-[550px] shadow-lg">
             <header
                 className="flex justify-between items-center p-4 cursor-pointer
                             bg-white rounded-t-xl mt-2"
@@ -32,14 +32,18 @@ const Accordion = () => {
     };
 
     return (
+        <>
+            
+            <h1 className='text-[40px] text-center font-bold my-10'>How We <span className='text-primary'>Operate</span></h1>
+
         <section className="mx-5 mt-10 md:mx-20 lg:flex justify-between">
-            <img src="src\assets\Electrician-cuate.png"
-                 className='w-full lg:w-[50%] h-[320px] md:h-[480px] ' alt="" />
+            <img src="src\assets\Pipeline maintenance-amico.png"
+                 className='w-full lg:w-[50%] h-[320px] md:h-[420px] ' alt="" />
 
             <div>
                 
                 <AccordionItem
-                    title="Accordion Item 1"
+                    title="Book For A Fixer"
                     isOpen={openIndex === 0}
                     onToggle={() => handleToggle(0)}
                 
@@ -47,7 +51,7 @@ const Accordion = () => {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique veritatis nobis repellendus modi repudiandae at perspiciatis maiores aperiam. Laborum, recusandae omnis molestiae sequi adipisci consectetur similique eveniet corrupti dolor voluptas.
                 </AccordionItem>
                 <AccordionItem
-                    title="Accordion Item 2"
+                    title="Conduct Full Building Installment"
                     isOpen={openIndex === 1}
                     onToggle={() => handleToggle(1)}
                 >
@@ -62,6 +66,7 @@ const Accordion = () => {
                 </AccordionItem>
             </div>
         </section>
+        </>
     );
 };
 
