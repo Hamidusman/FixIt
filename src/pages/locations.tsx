@@ -1,4 +1,4 @@
-import { li } from "framer-motion/client";
+
 import Header from "../base-components/header";
 import React from "react";
 
@@ -42,8 +42,9 @@ const Location = () =>{
         },
         ]
     return(
-        <section className="md:px-10 lg:px-20 px-5 w-full bg-secondary 
+        <section className="md:px-10 lg:px-20 px-5 w-full bg-secondary
                             ">
+            <Header />
             <h1 className='text-[40px] lg:text-[50px] text-center font-bold mt-10 mb-5 lg:mb-16'><span className='text-dark'>Locations</span></h1>
 
             <div className="flex flex-wrap mb-10 gap-4 justify-center items-center">

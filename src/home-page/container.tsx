@@ -1,7 +1,6 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHammer, faLocation, faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
-import { faHamburger } from '@fortawesome/free-solid-svg-icons/faHamburger';
+import { faHammer, faLocation, faPeopleGroup } from '@fortawesome/free-solid-svg-icons'; 
 import Reveal from '../assets/reveal'
 import React from 'react';
 

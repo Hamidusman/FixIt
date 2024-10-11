@@ -1,17 +1,7 @@
-import { section } from "framer-motion/client"
-import React from "react"
 import Calendar from "react-calendar"
-import 'react-calendar/dist/Calendar.css'
-import { useState } from "react"
-
-
-
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+import 'react-calendar/dist/Calendar.css' 
 
 const Form = () =>{
-    const [value, onChange] = useState<Value>(new Date());
 
     return(
         <section className="mb-20 mx-5 md:mx-20">
