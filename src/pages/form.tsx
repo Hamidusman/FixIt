@@ -14,9 +14,9 @@ const Form = () =>{
     const [value, onChange] = useState<Value>(new Date());
 
     return(
-        <section className="mb-20 mx-5 md:mx-20 text-center">
-            <div className="my-10">
-                <h1 className="text-3xl font-bold">Need Help? No worries.</h1>
+        <section className="mb-20 mx-5 md:mx-20">
+            <div className="my-10 text-center">
+                <h1 className="text-3xl font-bold">Need help? No worries.</h1>
                 <p className="text-lg">Lorem, ipsum dolor sit amet consectetur.</p>
             </div>
 
@@ -29,7 +29,7 @@ const Form = () =>{
                     <input type="text" className="focus:ring-1 focus:ring-primary focus:outline-none bg-accent_low w-full h-[50px] rounded-lg hover:text-pr px-5" />
                 </label>
                 
-                <label htmlFor="" className="flex flex-col gap-2">
+                <label htmlFor="" className="flex gap-2 justify-center lg:justify-start">
                     <Calendar />
                 </label>
                 
@@ -68,7 +68,7 @@ const Form = () =>{
                 
                 </div>
 
-                <div>
+                <div className="text-center">
                     
                 <button type="submit" className="px-40 py-3 rounded-2xl border bg-primary hover:bg-primary_dark transition duration-400 ease-in-out font-bold text-xl">Submit</button>
                 </div>

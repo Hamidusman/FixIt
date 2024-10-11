@@ -2,9 +2,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHammer, faLocation, faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
 import { faHamburger } from '@fortawesome/free-solid-svg-icons/faHamburger';
+import Reveal from '../assets/reveal'
 
 const ServiceCard = ({title, content, icon}) =>{
     return(
+        <Reveal>
         <article className="shadow-lg bg-white px-5 py-5 rounded-2xl w-full lg:w-[390px]
                             flex-flex-col ">
             <h1 className="font-bold text-[22px]">{title}</h1>
@@ -13,6 +15,7 @@ const ServiceCard = ({title, content, icon}) =>{
                 <FontAwesomeIcon icon={icon} size='xl' className=' mb[] p-5 w-[30px] h-[30px] bg-primary rounded-[100%] '/>
             </div>
         </article>
+        </Reveal>
     )
 }
 const Services = () => {

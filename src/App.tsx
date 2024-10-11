@@ -5,10 +5,11 @@ import './App.css'
 import Location from './pages/locations'
 import Header from './base-components/header'
 import Form from './pages/form'
+import Homepage from './home-page/landing'
 function App() {
   return (
     <>
-      <Form />
+      <Homepage />
     </>
   )
 }
