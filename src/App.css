@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body{
-  @apply text-gray bg-secondary
+  @apply text-dark bg-secondary
 }
 
 .hero-text{

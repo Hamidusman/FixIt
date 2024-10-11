@@ -9,7 +9,7 @@ interface ServiceProp {
 
 const Services: React.FC<ServiceProp> = ({header, description, image}) => {
     return(
-        <div className=' md:even:flex-row-reverse flex flex-col md:flex-row justify-between my-10'>
+        <div className=' md:even:flex-row-reverse flex flex-wrap justify-between my-10'>
             <div className="md:w-[50%] h-full">
                 <Reveal>
                     

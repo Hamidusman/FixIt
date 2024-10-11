@@ -4,11 +4,11 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Location from './pages/locations'
 import Header from './base-components/header'
+import Form from './pages/form'
 function App() {
   return (
     <>
-      <Header />
-      <Location />
+      <Form />
     </>
   )
 }
