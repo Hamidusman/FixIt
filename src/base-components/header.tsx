@@ -3,23 +3,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import GetStarted from './start';
 import Headroom from 'react-headroom';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <Headroom>
-            <header className="bg-white px-4 md:px-20 h-[90px] flex justify-between items-center shadow-lg relative">
+            <header className="bg-white px-4 md:px-20 h-[90px] flex justify-between items-center shadow-md relative">
                 <div className="flex items-center">
                     <h2 className="text-primary text-[28px] md:text-[35px] font-extrabold">
                         Fix<span>It</span>
                     </h2>
                     <ul className={`md:flex ${isOpen ? 'block' : 'hidden'} md:block absolute md:static top-16 left-0 w-full md:w-auto h-[100vh] md:h-auto bg-dark md:bg-transparent shadow-lg md:shadow-none transition-all duration-500 ease-in-out z-10`}>
                         <li className="text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
-                            Services
+                            <Link to="/services">Services</Link>
                         </li>
                         <li className="text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
-                            Locations
+                            <Link to="/locations">Locations</Link>
                         </li>
                         <li className="text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
                             Consultation
