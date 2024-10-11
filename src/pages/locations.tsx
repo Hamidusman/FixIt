@@ -13,7 +13,7 @@ const LocationCard: React.FC<LocationProp> = ({state, regions}) =>{
                             rounded-xl ">
             <h1 className="text-[22px] font-bold text-primary">{state}</h1>
     
-            <ul className="flex text-[18px] gap-1">
+            <ul className="flex text-[16px] gap-1">
                 {regions.map((region, index) =>
                 <li key={index}>{region}</li>
                 )
@@ -30,15 +30,15 @@ const Location = () =>{
     const locations = [
         {
             state: 'Abuja',
-            regions: ['Jabi', 'Jaji']
+            regions: ['Grwarimpa', 'Jaji', 'Asoroko', 'Kuje', 'Logbe', 'Kubwa']
         },
         {
-            state: 'Abuja',
-            regions: ['Jabi', 'Jaji']
+            state: 'Lagos',
+            regions: ['Lekki', 'Apapa', 'Ikeja']
         },
         {
-            state: 'Abuja',
-            regions: ['Jabi', 'Jaji']
+            state: 'Kaduna',
+            regions: ['Sabon Gari', 'Sabon Riga', 'Kawo']
         },
         ]
     return(
