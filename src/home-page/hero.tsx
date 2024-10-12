@@ -15,7 +15,7 @@ function Hero() {
             </div>
 
             <Reveal>
-                <img src="src\assets\Electrician-bro (1).png" className="rounded-3xl w-full lg:w-[440px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " alt="" />
+                <img src="src\assets\Electrician-bro (1).png" className="w-full lg:w-[440px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " alt="" />
             </Reveal>
         </section>
     )

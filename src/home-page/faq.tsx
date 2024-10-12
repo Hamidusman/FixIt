@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
-const FaqItem = ({ title, children, isOpen, onToggle }) => {
+interface FAQProps {
+    title: string;
+    children: React.ReactNode;
+    isOpen: boolean;
+    onToggle: () => void;
+  }
+  
+const FaqItem:  React.FC<FAQProps> = ({ title, children, isOpen, onToggle }) => {
     return (
         <div className=" w-full shadow-lg">
             <header
@@ -25,9 +32,9 @@ const FaqItem = ({ title, children, isOpen, onToggle }) => {
 };
 
 const Faq = () => {
-    const [openIndex, setOpenIndex] = useState(null);
+    const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-    const handleToggle = (index) => {
+    const handleToggle = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
@@ -40,26 +47,25 @@ const Faq = () => {
             <div>
                 
                 <FaqItem
-                    title="Book For A Fixer"
+                    title="Can I book for full Installment on my building"
                     isOpen={openIndex === 0}
                     onToggle={() => handleToggle(0)}
-                
-                >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique veritatis nobis repellendus modi repudiandae at perspiciatis maiores aperiam. Laborum, recusandae omnis molestiae sequi adipisci consectetur similique eveniet corrupti dolor voluptas.
+                    children={"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate vitae aut cum blanditiis? Maxime, aperiam. Iste, officiis odio cum blanditiis quos amet consequuntur recusandae illum magnam ullam animi fugit voluptatum."}
+                    >
                 </FaqItem>
                 <FaqItem
-                    title="Conduct Full Building Installment"
+                    title="Can I cancel after booking?"
                     isOpen={openIndex === 1}
                     onToggle={() => handleToggle(1)}
                 >
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate vitae aut cum blanditiis? Maxime, aperiam. Iste, officiis odio cum blanditiis quos amet consequuntur recusandae illum magnam ullam animi fugit voluptatum.
                 </FaqItem>
                 <FaqItem
-                    title="Accordion Item 3"
+                    title="How does payment work?"
                     isOpen={openIndex === 2}
                     onToggle={() => handleToggle(2)}
                 >
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente eius delectus non illum illo minus quae molestiae, temporibus dolor maxime cupiditate nisi nemo ipsam necessitatibus perferendis blanditiis, vero consequatur tenetur?
+                     quae molestiae, temporibus dolor maxime cupiditate nisi nemo ipsam necessitatibus perferendis blanditiis, vero consequatur tenetur?
                 </FaqItem>
             </div>
         </section>

@@ -15,7 +15,7 @@ const Header = () => {
                     <h2 className="text-primary text-[28px] md:text-[35px] font-extrabold">
                         Fix<span>It</span>
                     </h2>
-                    <ul className={`md:flex ${isOpen ? 'block' : 'hidden'} md:block absolute md:static top-16 left-0 w-full md:w-auto h-[100vh] md:h-auto bg-dark md:bg-transparent shadow-lg md:shadow-none transition-all duration-500 ease-in-out z-10`}>
+                    <ul className={`md:flex ${isOpen ? 'block' : 'hidden'} ${isOpen ? 'mt-5': 'mt-0'} md:block absolute md:static top-16 left-0 w-full md:w-auto h-[100vh] md:h-auto bg-dark md:bg-transparent shadow-lg md:shadow-none transition-all duration-500 ease-in-out z-10`}>
                         <li className="text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
                             <Link to="/services">Services</Link>
                         </li>

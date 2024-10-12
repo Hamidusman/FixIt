@@ -1,7 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
 
-const Reveal = ({ children, width = "fit-content" }) => {
+interface RevealItem{
+    children: React.ReactNode,
+    width?: string
+}
+
+const Reveal: React.FC<RevealItem> = ({ children, width = "fit-content" }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
     const controls = useAnimation();
@@ -19,7 +24,7 @@ const Reveal = ({ children, width = "fit-content" }) => {
                     hidden: { opacity: 0, y: 100 },
                     visible: { opacity: 1, y: 0 },
                 }}
-                transition={{ duration: .8 }}
+                transition={{ duration: 1.2 }}
                 initial="hidden"
                 animate={controls}
             >

@@ -23,10 +23,28 @@ const ServiceCard: React.FC<ServiceProp> = ({title, content, icon}) =>{
         </Reveal>
     )
 }
+
+interface StatProp{
+    number: number,
+    description: string
+}
+
+const StatItem: React.FC<StatProp> = ({number, description}) =>{
+    return(
+        <Reveal>
+            
+        <div className='text-center'>
+            <h1 className='text-[50px] text-accent font-bold '>{number}</h1>
+            <p className=''>{description}</p>
+        </div>
+        </Reveal>
+
+    )
+}
 const Services = () => {
     return(
         <>
-            <section className="bg-secondary px-5 md:px-20 py-5 flex flex-col lg:flex-row justify-between">
+            <section className="bg-secondary px-5 md:px-20 py-5 flex flex-col lg:flex-row justify-between items-center ">
                 <ServiceCard 
                 title="Home Repairs"
                 content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis."
@@ -46,22 +64,30 @@ const Services = () => {
 
             <section className='px-5 md:px-20'>
                 <article className=' shadow-xl rounded-xl w-full bg-white px-2 lg:px-20 py-5 md:py-10 gap-3 flex flex-col sm:flex-row justify-between'>
-                    <div className='text-center'>
-                        <h1 className='text-[50px] text-accent font-bold '>2</h1>
-                        <p className=''>Years of dedicated service</p>
-                    </div>
-                    <div className='text-center'>
-                        <h1 className='text-[50px] text-accent font-bold '>10,000</h1>
-                        <p className=''>Jobs Completed</p>
-                    </div>
-                    <div className='text-center'>
-                        <h1 className='text-[50px] text-accent font-bold '>200+</h1>
-                        <p className=''>Registered professionals</p>
-                    </div>
-                    <div className='text-center'>
-                        <h1 className='text-[50px] text-accent font-bold '>7</h1>
-                        <p className=''>Total branches</p>
-                    </div>
+                    
+                    <StatItem
+                        number={2}
+                        description={"Years of dedicated services"}>
+
+                    </StatItem>
+                    
+                    <StatItem
+                        number={10000}
+                        description={"Jobs completed"}>
+
+                    </StatItem>
+                    
+                    <StatItem
+                        number={20}
+                        description={"Registered professionals and more"}>
+
+                    </StatItem>
+                    
+                    <StatItem
+                        number={3}
+                        description={"Total Branches"}>
+
+                    </StatItem>
                 </article>
                 
             </section>

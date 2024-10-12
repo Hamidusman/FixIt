@@ -1,5 +1,5 @@
 import React, { useState, ReactNode } from 'react';
-
+import Reveal from '../assets/reveal';
 interface AccordionItemProps {
     title: string;
     children: ReactNode;
@@ -42,14 +42,18 @@ const Accordion: React.FC = () => {
         <>
             <h1 className="text-[40px] text-center font-bold my-10">How We <span className="text-primary">Operate</span></h1>
 
+            
             <section className="mx-5 mt-10 md:mx-20 lg:flex justify-between">
+                    
+                <Reveal>
                 <img 
                     src="src/assets/Pipeline maintenance-amico.png"
-                    className="w-full lg:w-[50%] h-[320px] md:h-[420px]" 
+                    className="w-full lg:w-[440px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " 
                     alt=""
                 />
+                </Reveal>
 
-                <div>
+                <Reveal>
                     <AccordionItem
                         title="Book For A Fixer"
                         isOpen={openIndex === 0}
@@ -71,7 +75,7 @@ const Accordion: React.FC = () => {
                     >
                         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente eius delectus non illum illo minus quae molestiae.
                     </AccordionItem>
-                </div>
+                </Reveal>
             </section>
         </>
     );
