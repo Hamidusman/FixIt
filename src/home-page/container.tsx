@@ -17,7 +17,7 @@ const ServiceCard: React.FC<ServiceProp> = ({title, content, icon}) =>{
             <h1 className="font-bold text-[22px]">{title}</h1>
             <p className="my-4">{content}</p>
             <div className=''>
-                <FontAwesomeIcon icon={icon} size='xl' className=' mb[] p-5 w-[30px] h-[30px] bg-accent rounded-[100%] '/>
+                <FontAwesomeIcon icon={icon} size='xl' className=' mb[] p-5 w-[30px] h-[30px] bg-primary rounded-[100%] '/>
             </div>
         </article>
         </Reveal>

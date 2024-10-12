@@ -11,7 +11,7 @@ const ReviewItem: React.FC<ReviewProps> = ({ rating, comment, customer }) => {
         <Reveal>
             <article className="shadow-2xl py-12 px-10 w-[360px] sm:w-[420px] min-h-[290px] bg-white rounded-xl
                                 flex flex-col justify-between">
-                <span className=" font-extrabold text-accent text-xl">{rating}/5</span>
+                <span className=" font-extrabold text-primary text-xl">{rating}/5</span>
                 <p className="text-lg ">{comment}</p>
                 
                 <p className="font-bold text-[14px] ">{customer}</p>

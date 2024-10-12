@@ -11,7 +11,7 @@ const LocationCard: React.FC<LocationProp> = ({state, regions}) =>{
     return(
         <article className="w-[380px] h-[170px] bg-white px-5 py-7 flex flex-col justify-between
                             rounded-xl ">
-            <h1 className="text-[22px] font-bold text-accent">{state}</h1>
+            <h1 className="text-[22px] font-bold text-primary">{state}</h1>
     
             <ul className="flex text-[16px] gap-1">
                 {regions.map((region, index) =>

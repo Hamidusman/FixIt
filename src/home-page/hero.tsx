@@ -1,5 +1,6 @@
 import GetStarted from "../base-components/start"
 import Reveal from '../assets/reveal'
+import electritian from '../assets/Electrician-bro (1).png'
 
 function Hero() {
     return(
@@ -15,7 +16,7 @@ function Hero() {
             </div>
 
             <Reveal>
-                <img src="src\assets\Electrician-bro (1).png" className="w-full lg:w-[440px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " alt="" />
+                <img src={electritian} className="w-full lg:w-[440px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " alt="" />
             </Reveal>
         </section>
     )
