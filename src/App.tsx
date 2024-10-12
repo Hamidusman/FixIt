@@ -2,7 +2,6 @@
 import './App.css'
 import Location from './pages/locations'
 import Service from './pages/services'
-import Header from './base-components/header'
 import Form from './pages/form'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -13,7 +12,7 @@ function App() {
     <Router>
       <Routes>
 
-      <Route path='/a' element={<Homepage />} />
+      <Route path='/' element={<Homepage />} />
       <Route path='/services' element={<Service />} />
       <Route path='/locations' element={<Location />} />
       <Route path='/booking' element={<Form />} />

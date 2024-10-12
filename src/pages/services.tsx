@@ -1,6 +1,8 @@
 import GetStarted from '../base-components/start'
 import Reveal from '../assets/reveal'
 import React from 'react'
+import Header from '../base-components/header'
+
 interface ServiceProp {
     header: string,
     description: string, 
@@ -28,7 +30,8 @@ const Services: React.FC<ServiceProp> = ({header, description, image}) => {
 
 const Service = () =>{
     return(
-        
+        <>
+        <Header />
         <section className="md:px-10 lg:px-20 py-5 md:py-20 px-5 w-full bg-secondary
                             flex flex-col justify-between">
                 
@@ -52,6 +55,7 @@ const Service = () =>{
             
 
         </section>
+        </>
     )
 }
 
