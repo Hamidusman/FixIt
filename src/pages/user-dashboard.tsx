@@ -58,9 +58,9 @@ const LogItem: React.FC<LogProp> = ({ faIcon, category, isOpen, onToggle }) => {
                     <FontAwesomeIcon
                     icon={faIcon}
                     size="lg"
-                    className="p-2 rounded-full bg-white">
+                    className="px-3 py-2 rounded-full text-accent bg-white hover:animate-pulse">
                     </FontAwesomeIcon>
-                    <h1>Request for {category} on (pending)</h1>
+                    <h1 className="">Request for {category} on (pending)</h1>
                 </div>
                 
                 <span className="transform bg transition-transform duration-200">
@@ -101,28 +101,69 @@ const UserDashboard = () =>{
     return(
         <>
         <DashboardNav />
-        <section className="w-[100vw] px-2 py-[20px] flex flex-col md:flex-row gap-10">
-            <div className="flex flex-col">
-                
-            <div className="flex gap-3 flex-wrap">
-                <StatItem
-                count={2}
-                description="Jobs Booked" >
-                </StatItem>
-                
-                <StatItem
-                count={2}
-                description="Completed" >
-                </StatItem>
-                
-                <StatItem
-                count={0}
-                description="Pending" >
-                </StatItem>
-            </div>
+        <section className=" px-5 py-[20px] flex flex-col lg:flex-row justify-center items-center lg:items-start gap-20">
+            <article className="w-[360px] h-[420px] bg-primary  rounded-xl ">
+                <header className="h-40 bg-accent flex justify-center items-end rounded-t-xl">
+                    <div className="w-[120px] h-[120px] bg-white relative top-[25%] rounded-full"></div>
+                </header>
 
-            <section className="mt-[30px]">
-                <h1 className="font-bold text-xl">Latest Blogposts</h1>
+                
+                <main className="flex flex-col px-2 justify-center pt-12">
+                    <p className="ml-auto">edit</p>
+                    <div className="text-center">
+                        <h3 className="text-[18px] font-semibold">Abdulhamid Usman</h3>
+                        <p className="text-">No 237 GRA, Bida</p>
+                        <p>+2348160803194</p>
+                    </div>
+                </main>
+            </article>
+
+            <div className="flex flex-col xl:flex-row gap-20">
+                
+            <article className="">
+                <div className="flex gap-3 flex-wrap">
+                    <StatItem
+                    count={2}
+                    description="Jobs Booked" >
+                    </StatItem>
+                    
+                    <StatItem
+                    count={2}
+                    description="Completed" >
+                    </StatItem>
+                    
+                    <StatItem
+                    count={0}
+                    description="Pending" >
+                    </StatItem>
+                </div>
+
+                <aside>
+                    <h1 className="font-bold text-xl mt-10 mb-3">Your Logs</h1>
+                    <div className=" bg-red w-fit h-fit border-[10px] border-white">
+                    <article className="w-[420px] lg:w-[460px] overflow-y-scroll h-[250px] px-3 bg-white flex flex-col gap-2">
+                        <LogItem
+                        faIcon={faHammer}
+                        category="Carpenter"
+                        isOpen={openIndex === 0}
+                        onToggle={() => handleToggle(0)}
+                        >
+                        </LogItem>
+                        
+                        <LogItem
+                        faIcon={faLightbulb}
+                        category="Electritian"
+                        isOpen={openIndex === 1}
+                        onToggle={() => handleToggle(1)}
+                        >
+                        </LogItem>
+                    </article>
+                    </div>
+                </aside>
+            </article>
+
+            <section className="">
+                <h1 className="font-bold text-xl">Personalized Blog feeds</h1>
                 <BlogPosts 
                  category="Plumbing"
                  heading="How to lorem"
@@ -138,27 +179,10 @@ const UserDashboard = () =>{
                  heading="How to lorem"
                 ></BlogPosts>
             </section>
+
+
+
             </div>
-            <aside>
-                <h1 className="font-bold text-xl">Logs</h1>
-                <article className="w-[420px] md:w-[680px] px-3 py-3 h-fit bg-white flex flex-col gap-2">
-                    <LogItem
-                    faIcon={faHammer}
-                    category="Carpenter"
-                    isOpen={openIndex === 0}
-                    onToggle={() => handleToggle(0)}
-                    >
-                    </LogItem>
-                    
-                    <LogItem
-                    faIcon={faLightbulb}
-                    category="Electritian"
-                    isOpen={openIndex === 1}
-                    onToggle={() => handleToggle(1)}
-                    >
-                    </LogItem>
-                </article>
-            </aside>
         </section>
         
         </>
