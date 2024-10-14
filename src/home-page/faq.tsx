@@ -1,3 +1,5 @@
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 interface FAQProps {
@@ -17,7 +19,14 @@ const FaqItem:  React.FC<FAQProps> = ({ title, children, isOpen, onToggle }) => 
             >
                 <h2 className="text-[18px] md:text-[24px] font-semibold">{title}</h2>
                 <span className="transform transition-transform duration-200">
-                    {isOpen ? '−' : '+'}
+                    {isOpen ? 
+                    <FontAwesomeIcon
+                    icon={faArrowDown}>
+                    </FontAwesomeIcon> 
+                    :
+                    <FontAwesomeIcon
+                    icon={faArrowUp}>
+                    </FontAwesomeIcon>}
                 </span>
             </header>
             <div

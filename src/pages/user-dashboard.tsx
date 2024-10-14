@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DashboardNav from "../components/dashboard-nav";
-import { faFaucet, faHammer, faVault, faWrench, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faArrowUp,  faHammer, faLightbulb, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 interface StatProp{
     count: number,
@@ -39,28 +40,63 @@ const BlogPosts: React.FC<BlogProp> = ({ category, heading }) =>{
 }
 
 interface LogProp{
-    faIcon: IconDefinition,
-    category: string
+    faIcon: IconDefinition;
+    category: string;
+
+    isOpen: boolean;
+    onToggle: () => void;
 }
 
-
-const Log: React.FC<LogProp> = ({ faIcon, category }) =>{
+const LogItem: React.FC<LogProp> = ({ faIcon, category, isOpen, onToggle }) => {
     return(
-        
-        <div className="bg-secondary px-2 py-1 flex items-center gap-3">
-        <FontAwesomeIcon
-         icon={faIcon}
-         size="lg"
-         className="p-2 rounded-full bg-white">
+        <div className="flex flex-col">
+            <div className="bg-secondary px-3 py-1 
+                flex justify-between items-center gap-3"
+                onClick={onToggle}>
 
-        </FontAwesomeIcon>
+                <div className="flex items-center gap-2">
+                    <FontAwesomeIcon
+                    icon={faIcon}
+                    size="lg"
+                    className="p-2 rounded-full bg-white">
+                    </FontAwesomeIcon>
+                    <h1>Request for {category} on (pending)</h1>
+                </div>
+                
+                <span className="transform bg transition-transform duration-200">
+                {isOpen ? 
+                    <FontAwesomeIcon
+                    icon={faArrowUp}>
+                    </FontAwesomeIcon> 
+                    :
+                    <FontAwesomeIcon
+                    icon={faArrowDown}>
+                    </FontAwesomeIcon>}
+                </span>
+            </div>
 
-        <h1>Request for {category} on (pending)</h1>
-
-    </div>
+            <div
+                className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? 'max-h-40' : 'max-h-0'}`}
+            >
+                <div className="p-4 mt-[-2px] bg-secondary ">
+                    <ul className="text-[16px]">
+                        <li>Date: 18-09-2024</li>
+                        <li>Location: 5th Avenue</li>
+                        <li>Description: Problem stated</li>
+                        <li>Status: Completed | Pending | Cancelled</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     )
 }
 const UserDashboard = () =>{
+    const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+    const handleToggle = (index: number) => {
+        setOpenIndex(openIndex === index ? null : index);
+    };
+
 
     return(
         <>
@@ -69,7 +105,6 @@ const UserDashboard = () =>{
             <div className="flex flex-col">
                 
             <div className="flex gap-3 flex-wrap">
-                
                 <StatItem
                 count={2}
                 description="Jobs Booked" >
@@ -84,12 +119,10 @@ const UserDashboard = () =>{
                 count={0}
                 description="Pending" >
                 </StatItem>
-
             </div>
 
             <section className="mt-[30px]">
                 <h1 className="font-bold text-xl">Latest Blogposts</h1>
-
                 <BlogPosts 
                  category="Plumbing"
                  heading="How to lorem"
@@ -104,17 +137,26 @@ const UserDashboard = () =>{
                  category="Plumbing"
                  heading="How to lorem"
                 ></BlogPosts>
-
             </section>
             </div>
             <aside>
                 <h1 className="font-bold text-xl">Logs</h1>
                 <article className="w-[420px] md:w-[680px] px-3 py-3 h-fit bg-white flex flex-col gap-2">
-                    <Log
+                    <LogItem
                     faIcon={faHammer}
-                    category="Carpenter">
-
-                    </Log>
+                    category="Carpenter"
+                    isOpen={openIndex === 0}
+                    onToggle={() => handleToggle(0)}
+                    >
+                    </LogItem>
+                    
+                    <LogItem
+                    faIcon={faLightbulb}
+                    category="Electritian"
+                    isOpen={openIndex === 1}
+                    onToggle={() => handleToggle(1)}
+                    >
+                    </LogItem>
                 </article>
             </aside>
         </section>
