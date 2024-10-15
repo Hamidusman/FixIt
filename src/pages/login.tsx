@@ -1,4 +1,4 @@
-import { faEnvelope, faHashtag, faLock, faPerson } from "@fortawesome/free-solid-svg-icons"
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from "react-router-dom"
 
@@ -7,12 +7,12 @@ const Login = () =>{
 
     return(
         <section className="px-5 flex flex-col justify-center items-center h-[100vh]">
-            <form action="" className="w-[360px] md:w-[420px] min-h-60 bg-secondary shadow-2xl  flex flex-col rounded-xl pt-10 px-10">
+            <form action="" className="w-[360px] md:w-[420px] min-h-60 bg-white shadow-2xl  flex flex-col rounded-xl pt-10 px-7">
                 <div className="font-bold text-3xl"
                     >Login
                 </div>
-                <p>Get back online</p>
-                <div className="pt-14 gap-14 text-dark flex flex-col justify-center items-center">
+                <p>Happy to have you back</p>
+                <div className="pt-14 gap-10 text-dark flex flex-col justify-center items-center">
                     
                     <label htmlFor="" className="flex gap-5 items-center">
                         <FontAwesomeIcon

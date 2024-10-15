@@ -9,7 +9,7 @@ export default {
         primary_dark: '#A5640D',
         secondary: '#dcdcdc',
         accent: '#008080',
-        accent_low: '#0080800f',
+        accent_low: '#00808030',
         gray: '#404040',
         dark: '#212141'
 

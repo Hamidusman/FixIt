@@ -1,4 +1,4 @@
-import { faEnvelope, faHashtag, faPerson } from "@fortawesome/free-solid-svg-icons"
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from "react-router-dom"
 
@@ -7,28 +7,12 @@ const Register = () =>{
 
     return(
         <section className="px-5 flex flex-col justify-center items-center h-[100vh]">
-            <form action="" className="w-[360px] md:w-[420px] min-h-60 bg-secondary shadow-2xl  flex flex-col rounded-xl pt-10 px-10">
+            <form action="" className="w-[360px] md:w-[420px] min-h-60 bg-white shadow-2xl  flex flex-col rounded-xl pt-10 px-7">
                 <div className="font-bold text-3xl"
                                 >Register
                 </div>
                 <p>Fill in the form to get started</p>
-                <div className="pt-14 gap-14 text-dark flex flex-col justify-center items-center">
-                    
-                    <label htmlFor="" className="flex gap-5 items-center">
-                        <FontAwesomeIcon icon={faPerson}
-                        size="2xl"
-                        color={iconColor}></FontAwesomeIcon>
-                        <input type="text" name="" id="" placeholder="First Name" className="w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none" />
-                    </label>
-
-                    
-                    <label htmlFor="" className="flex gap-5 items-center">
-                        <FontAwesomeIcon
-                        icon={faPerson}
-                        size="2xl"
-                        color={iconColor}></FontAwesomeIcon>
-                        <input type="text" name="" id="" placeholder="Last Name" className="w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none" />
-                    </label>
+                <div className="pt-14 gap-10 text-dark flex flex-col justify-center items-center">
                     
                     <label htmlFor="" className="flex gap-5 items-center">
                         <FontAwesomeIcon
@@ -40,10 +24,18 @@ const Register = () =>{
                     
                     <label htmlFor="" className="flex gap-5 items-center">
                         <FontAwesomeIcon
-                        icon={faHashtag}
+                        icon={faLock}
                         size="xl"
                         color={iconColor}></FontAwesomeIcon>
                         <input type="password" name="" id="" placeholder="Password" className="w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none" />
+                    </label>
+                    
+                    <label htmlFor="" className="flex gap-5 items-center">
+                        <FontAwesomeIcon
+                        icon={faLock}
+                        size="xl"
+                        color={iconColor}></FontAwesomeIcon>
+                        <input type="password" name="" id="" placeholder="Confirm Password" className="w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none" />
                     </label>
                 </div>
                 <div className="flex flex-col justify-center gap-3 items-center my-10">
