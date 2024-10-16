@@ -2,6 +2,9 @@ import GetStarted from '../base-components/start'
 import Reveal from '../assets/reveal'
 import React from 'react'
 import Header from '../base-components/header'
+import plumber from '../assets/Pipeline maintenance-amico.png'
+import electritian from '../assets/Electrician-bro (1).png'
+import carpenter from '../assets/Woodworker-amico.png'
 
 interface ServiceProp {
     header: string,
@@ -11,7 +14,7 @@ interface ServiceProp {
 
 const Services: React.FC<ServiceProp> = ({header, description, image}) => {
     return(
-        <div className=' md:even:flex-row-reverse flex flex-wrap justify-between my-10'>
+        <div className=' md:even:flex-row-reverse flex flex-col md:flex-row justify-between items-center mt-10 mb-20 md:mb-0'>
             <div className="md:w-[50%] h-full">
                 <Reveal>
                     
@@ -20,12 +23,9 @@ const Services: React.FC<ServiceProp> = ({header, description, image}) => {
                 </Reveal>
                 <GetStarted />
             </div>
-            
-            <Reveal>
-                <img src={image} className="rounded-3xl mx-50 w-full lg:w-[440px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " alt="" />
-            </Reveal>
 
-            </div>)
+            <img src={image} className="rounded-3xl mx-50 w-[360px] lg:w-[440px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " alt="" />
+        </div>)
 }
 
 const Service = () =>{
@@ -38,19 +38,19 @@ const Service = () =>{
             <Services
             header='Electrical Repairs and Installment'
             description='Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio cum ex quidem aut exercitationem reprehenderit laudantium quae dicta suscipit? Animi tenetur dolores nostrum tempore recusandae voluptate enim distinctio itaque sed?'
-            image='src\assets\Electrician-bro (1).png'>
+            image={electritian}>
             </Services>
             
             <Services
             header='Plumbing'
             description='Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio cum ex quidem aut exercitationem reprehenderit laudantium quae dicta suscipit? Animi tenetur dolores nostrum tempore recusandae voluptate enim distinctio itaque sed?'
-            image='src\assets\Pipeline maintenance-amico.png'>
+            image={plumber}>
             </Services>
             
             <Services
             header='Carpentry'
             description='Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio cum ex quidem aut exercitationem reprehenderit laudantium quae dicta suscipit? Animi tenetur dolores nostrum tempore recusandae voluptate enim distinctio itaque sed?'
-            image='src\assets\Woodworker-amico.png'>
+            image={carpenter}>
             </Services>
             
 
