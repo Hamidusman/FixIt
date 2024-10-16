@@ -1,6 +1,6 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHammer, faLocation, faPeopleGroup } from '@fortawesome/free-solid-svg-icons'; 
+import { faHammer, faPeopleGroup, faThumbsUp } from '@fortawesome/free-solid-svg-icons'; 
 import Reveal from '../assets/reveal'
 import React from 'react';
 
@@ -50,20 +50,20 @@ const Services = () => {
                 content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis."
                 icon={faHammer} />
             <ServiceCard
-                title="Group Services"
+                title="Fully Installment"
                 content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis."
                 icon={faPeopleGroup}/>
 
             <ServiceCard
-                title="Location Services"
+                title="Maximum Satisfaction"
                 content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis."
-                icon={faLocation} />
+                icon={faThumbsUp} />
             </section>
 
             <h1 className='text-[40px] text-center font-bold my-10'>Our Result For <span className='text-primary'>Hardwork And Dedication</span></h1>
 
             <section className='px-5 md:px-20'>
-                <article className=' shadow-xl rounded-xl w-full bg-white px-2 lg:px-20 py-5 md:py-10 gap-3 flex flex-col sm:flex-row justify-between'>
+                <article className=' shadow-xl rounded-xl w-full bg-white px-2 lg:px-20 py-5 md:py-10 gap-3 flex flex-col sm:flex-row justify-between items-center'>
                     
                     <StatItem
                         number={2}

@@ -1,5 +1,7 @@
 import React, { useState, ReactNode } from 'react';
 import Reveal from '../assets/reveal';
+import plumber from '../assets/Pipeline maintenance-amico.png'
+
 interface AccordionItemProps {
     title: string;
     children: ReactNode;
@@ -43,15 +45,13 @@ const Accordion: React.FC = () => {
             <h1 className="text-[40px] text-center font-bold my-10">How We <span className="text-primary">Operate</span></h1>
 
             
-            <section className="mx-5 mt-10 md:mx-20 lg:flex justify-between">
-                    
-                <Reveal>
+            <section className="mx-5 mt-10 md:mx-20 lg:flex justify-center items-center md:justify-between">
+                     
                 <img 
-                    src="src/assets/Pipeline maintenance-amico.png"
+                    src={plumber}
                     className="w-full lg:w-[440px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " 
                     alt=""
-                />
-                </Reveal>
+                /> 
 
                 <Reveal>
                     <AccordionItem
