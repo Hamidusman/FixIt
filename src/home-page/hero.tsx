@@ -5,7 +5,7 @@ import electritian from '../assets/Electrician-bro (1).png'
 function Hero() {
     return(
         <section className="pt-10 md md:px-10 xl:px-20 md:pt-20 px-5 w-full h-[90vh]
-                            flex flex-col lg:flex-row items-center lg:items-start lg:justify-between bg-secondary">
+                            flex flex-col lg:flex-row items-center lg:items-start lg:justify-between">
             <div className=" lg:w-[60%] text-center lg:text-start">
                 <Reveal>
                     
