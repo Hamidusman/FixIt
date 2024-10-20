@@ -4,6 +4,7 @@ import Services from "./container";
 import Accordion from "./mou"
 import Reviews from "./reviews";
 import Faq from "./faq";
+import Footer from "./footer";
 
 function Homepage(){
     return(
@@ -14,6 +15,7 @@ function Homepage(){
         <Accordion />
         <Reviews />
         <Faq />
+        <Footer />
         </>
     )
 }
