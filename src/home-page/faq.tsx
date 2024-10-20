@@ -38,7 +38,7 @@ const FaqItem:  React.FC<FAQProps> = ({ title, children, isOpen, onToggle }) => 
             <div
                 className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? 'max-h-40' : 'max-h-0'}`}
             >
-                <div className="p-4 mt-[-2px] xl:text-[21px] text-gray rounded-b-xl">
+                <div className="p-4 mt-[-2px] xl:text-[21px] rounded-b-xl">
                     {children}
                 </div>
             </div>

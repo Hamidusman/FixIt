@@ -3,12 +3,23 @@ import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () =>{
     return (
-        <footer className="pt-10 pb-14 bg-dark text-smoke
-        flex flex-col items-center text-center">
+        <footer className=" pt-10 pb-14 bg-dark text-smoke
+        flex flex-col items-center md:text-center">
             <h1 className="text-[35px] md:text-[45px] ">Developed By Hamid</h1>
-            <div className="px-[20%] my-5 text-[17px]">
-                <p>FixIt is a personal project i decided to get on to sharpen my frontend skill. As a backend developer, it was to come sooner or later.</p>
+            <div className=" px-5 md:px-40 my-5 text-[18px]">
+                <p>FixIt is a personal project I decided to get on to sharpen my frontend skill. As a backend developer, I had to learn it sooner or later.</p>
                 <p>If you would want to check the repository or reachout to me, be sure to use any of the links below.</p>
+                
+                <div className="mt-5 text-primary font-bold flex flex-col gap-4">
+                    <p className="">Technologies:</p>
+                    <ol className="flex flex-col md:flex-row md:justify-center gap-2">
+                        <li>React</li>
+                        <li>Django</li>
+                        <li>TypeScript</li>
+                        <li>Tailwind</li>
+                        <li>Framer-Motion</li>
+                    </ol>
+                </div>
             </div>
 
             <div className="flex gap-5">
@@ -16,7 +27,7 @@ const Footer = () =>{
                     <FontAwesomeIcon icon={faLinkedin} 
                     size="2xl"/>
                 </a>
-                <a href="https://github.com/Hamidusman/" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/Hamidusman/" className="  " target="_blank" rel="noopener noreferrer">
                     <FontAwesomeIcon icon={faGithub}
                     size="2xl"/>
                 </a>
