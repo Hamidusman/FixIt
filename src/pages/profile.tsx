@@ -49,9 +49,9 @@ const CreateProfile = () =>{
                         </FontAwesomeIcon>
                         
                         <select name="" className="w-[270px] md:w-[320px] text-xl  border-b-dark border-b-2 focus:outline-none">
-                            <option value="">Asoroko</option>
                             <option value="">Jabi</option>
-                            <option value="">Jahi</option>
+                            <option value="">Kawo</option>
+                            <option value="">Lekki</option>
                         </select>
                     </label>
 

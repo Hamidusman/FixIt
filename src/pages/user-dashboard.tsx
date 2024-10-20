@@ -10,10 +10,10 @@ interface StatProp{
 
 const StatItem: React.FC<StatProp> = ({ count, description }) =>{
     return(
-        <article className="rounded-tl-[30px] rounded-br-[30px] shadow-2xl w-[140px] h-[150px] bg-primary flex flex-col justify-center px-5">
-            <h1 className="text-3xl font-semibold">{count}</h1>
-            <p className="font-medium">{description}</p>
-        </article>
+        <>
+            <h1 className="text-[22px] text-primary font-extrabold">{count}</h1>
+            <p>{description}</p>
+        </>
     )
 }
 
@@ -22,6 +22,8 @@ interface BlogProp{
     heading: string
 }
 
+{/*
+    
 const BlogPosts: React.FC<BlogProp> = ({ category, heading }) =>{
     return(
 
@@ -39,6 +41,7 @@ const BlogPosts: React.FC<BlogProp> = ({ category, heading }) =>{
     )
 }
 
+*/}
 interface LogProp{
     faIcon: IconDefinition;
     category: string;
@@ -101,47 +104,45 @@ const UserDashboard = () =>{
     return(
         <>
         <DashboardNav />
-        <section className=" px-5 py-[20px] flex flex-col lg:flex-row justify-center items-center lg:items-start gap-20">
-            <article className="w-[360px] h-[420px] bg-primary  rounded-xl ">
-                <header className="h-40 bg-accent flex justify-center items-end rounded-t-xl">
-                    <div className="w-[120px] h-[120px] bg-white relative top-[25%] rounded-full"></div>
-                </header>
+        <section className=" pt-[20px] flex flex-col lg:flex-row justify-center items-center lg:items-start gap-20">
 
-                
-                <main className="flex flex-col px-2 justify-center pt-12">
-                    <p className="ml-auto">edit</p>
-                    <div className="text-center">
-                        <h3 className="text-[18px] font-semibold">Abdulhamid Usman</h3>
-                        <p className="text-">No 237 GRA, Bida</p>
-                        <p>+2348160803194</p>
-                    </div>
-                </main>
-            </article>
+                <article className="w-[350px] h-[480px] bg-white shadow-lg rounded-md p-4 flex flex-col items-center text-center">
+                    <p className="relative ml-auto">kk</p> {/** to work on the dropdown */}
+                    <div className="w-[90px] h-[90px] bg-gray rounded-full"></div>
 
-            <div className="flex flex-col xl:flex-row gap-20">
+                    
+                    <main className="flex flex-col px-2 justify-center pt-5">
+                        <div className="text-center">
+                            <h3 className="text-[18px] font-semibold">Abdulhamid Usman</h3>
+                            <p className="text-">No 237 GRA, Bida</p>
+                            <p>+2348160803194</p>
+                        </div>
+                        <div className="mt-5">
+                            <StatItem
+                            count={2}
+                            description="Completed" >
+                            </StatItem><StatItem
+                            count={2}
+                            description="Jobs Booked" >
+                            </StatItem>
+                            <StatItem
+                            count={2}
+                            description="Pending" >
+                            </StatItem>
+                        </div>
+                    </main>
+                </article>
+
+
+
+            <div className="flex flex-col xl:flex-row">
                 
             <article className="">
-                <div className="flex gap-3 flex-wrap">
-                    <StatItem
-                    count={2}
-                    description="Jobs Booked" >
-                    </StatItem>
-                    
-                    <StatItem
-                    count={2}
-                    description="Completed" >
-                    </StatItem>
-                    
-                    <StatItem
-                    count={0}
-                    description="Pending" >
-                    </StatItem>
-                </div>
 
                 <aside>
-                    <h1 className="font-bold text-xl mt-10 mb-3">Your Logs</h1>
+                    <h1 className="font-bold text-xl mb-3">Your Logs</h1>
                     <div className=" bg-red w-fit h-fit border-[10px] border-white">
-                    <article className="w-[420px] lg:w-[460px] overflow-y-scroll h-[250px] px-3 bg-white flex flex-col gap-2">
+                    <article className="w-[360px] sm:w-[420px] lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
                         <LogItem
                         faIcon={faHammer}
                         category="Carpenter"
@@ -161,7 +162,7 @@ const UserDashboard = () =>{
                     </div>
                 </aside>
             </article>
-
+{/*
             <section className="">
                 <h1 className="font-bold text-xl">Personalized Blog feeds</h1>
                 <BlogPosts 
@@ -179,6 +180,8 @@ const UserDashboard = () =>{
                  heading="How to lorem"
                 ></BlogPosts>
             </section>
+
+*/            }
 
 
 

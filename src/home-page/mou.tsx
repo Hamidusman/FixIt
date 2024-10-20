@@ -1,3 +1,5 @@
+import { faTurnDown, faTurnUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, ReactNode } from 'react';
 import Reveal from '../assets/reveal';
 import plumber from '../assets/Pipeline maintenance-amico.png'
@@ -10,8 +12,9 @@ interface AccordionItemProps {
 }
 
 const AccordionItem: React.FC<AccordionItemProps> = ({ title, children, isOpen, onToggle }) => {
+    const colorIcon = '#E68C1A'
     return (
-        <div className="lg:w-[550px] shadow-lg">
+        <div className="lg:w-[550px] shadow-2xl my-5 bg-secondary">
             <header
                 className="flex justify-between items-center p-4 cursor-pointer
                             bg-white rounded-t-xl mt-2"
@@ -19,7 +22,17 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, children, isOpen, 
             >
                 <h2 className="text-[18px] md:text-[24px] font-semibold">{title}</h2>
                 <span className="transform transition-transform duration-200">
-                    {isOpen ? '−' : '+'}
+                    {isOpen ? 
+                    <FontAwesomeIcon
+                    icon={faTurnUp}
+                    color={colorIcon}
+                    size="xl">
+                    </FontAwesomeIcon>
+                    :
+                    <FontAwesomeIcon
+                    icon={faTurnDown}
+                    size="xl">
+                    </FontAwesomeIcon> }
                 </span>
             </header>
             <div
@@ -42,18 +55,19 @@ const Accordion: React.FC = () => {
 
     return (
         <>
-            <h1 className="text-[40px] text-center font-bold my-10">How We <span className="text-primary">Operate</span></h1>
+            <h1 className="text-[33px] lg:text-[40px] text-center font-bold mt-20">How We <span className="text-primary">Operate</span></h1>
 
             
-            <section className="mx-5 mt-10 md:mx-20 lg:flex justify-center items-center md:justify-between">
-                     
+            <section className="mx-5 md:mx-20 lg:flex justify-center items-center md:justify-between">
+
+            <div className='flex justify-center'>
                 <img 
                     src={plumber}
-                    className="w-full lg:w-[440px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " 
+                    className="w-[360px] lg:w-[550px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " 
                     alt=""
                 /> 
-
-                <Reveal>
+            </div>
+            <div className=''> 
                     <AccordionItem
                         title="Book For A Fixer"
                         isOpen={openIndex === 0}
@@ -74,8 +88,8 @@ const Accordion: React.FC = () => {
                         onToggle={() => handleToggle(2)}
                     >
                         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente eius delectus non illum illo minus quae molestiae.
-                    </AccordionItem>
-                </Reveal>
+                    </AccordionItem> 
+                </div>
             </section>
         </>
     );

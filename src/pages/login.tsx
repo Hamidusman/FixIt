@@ -7,7 +7,7 @@ const Login = () =>{
 
     return(
         <section className="px-5 flex flex-col justify-center items-center h-[100vh]">
-            <form action="" className="w-[360px] md:w-[420px] min-h-60 bg-white shadow-2xl  flex flex-col rounded-xl pt-10 px-7">
+            <form action="" className=" bg-white w-[360px] md:w-[420px] min-h-60 shadow-2xl  flex flex-col rounded-xl pt-10 px-7">
                 <div className="font-bold text-3xl"
                     >Login
                 </div>
