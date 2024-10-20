@@ -1,4 +1,4 @@
-
+import NumberCount from '../assets/numberCount.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHammer, faPeopleGroup, faThumbsUp } from '@fortawesome/free-solid-svg-icons'; 
 import Reveal from '../assets/reveal'
@@ -29,12 +29,17 @@ interface StatProp{
     description: string
 }
 
-const StatItem: React.FC<StatProp> = ({number, description}) =>{
+const StatItem: React.FC<StatProp> = ({ number, description }) =>{
     return(
         <Reveal>
             
         <div className='text-center'>
-            <h1 className='text-[40px] md:text-[55px] text-accent font-bold '>{number}</h1>
+            <h1 className='text-[40px] md:text-[55px] text-accent font-bold'>
+            <NumberCount from={0} to={number} duration={2000}>
+
+            </NumberCount>
+
+            </h1>
             <p className='text-sm md:text-[16px]'>{description}</p>
         </div>
         </Reveal>
