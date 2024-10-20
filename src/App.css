@@ -4,8 +4,7 @@
 
 *{}
 body{
-  background-color: #dcdcdc;
-  @apply text-dark
+  @apply text-dark bg-secondary
 }
 
 .hero-text{

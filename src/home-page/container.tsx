@@ -11,16 +11,16 @@ interface ServiceProp{
 }
 const ServiceCard: React.FC<ServiceProp> = ({title, content, icon}) =>{
     return(
-        <Reveal>
-        <article className="shadow-md bg-white mb-5 px-5 py-5 rounded-2xl w-full lg:w-[390px]
+        <article className="shadow-2xl bg-white mb-5 px-5 py-5 rounded-2xl  lg:w-[390px]
                             flex-flex-col ">
-            <h1 className="font-bold text-[22px]">{title}</h1>
-            <p className="my-4">{content}</p>
-            <div className=''>
-                <FontAwesomeIcon icon={icon} size='xl' className=' mb[] p-5 w-[30px] h-[30px] bg-primary rounded-[100%] '/>
-            </div>
+            <Reveal>
+                <h1 className="font-bold text-[22px]">{title}</h1>
+                <p className="my-4">{content}</p>
+                <div className=''>
+                    <FontAwesomeIcon icon={icon} size='xl' className=' mb[] p-5 w-[30px] h-[30px] bg-primary rounded-[100%] '/>
+                </div>
+            </Reveal>
         </article>
-        </Reveal>
     )
 }
 
@@ -34,8 +34,8 @@ const StatItem: React.FC<StatProp> = ({number, description}) =>{
         <Reveal>
             
         <div className='text-center'>
-            <h1 className='text-[50px] text-accent font-bold '>{number}</h1>
-            <p className=''>{description}</p>
+            <h1 className='text-[40px] md:text-[55px] text-accent font-bold '>{number}</h1>
+            <p className='text-sm md:text-[16px]'>{description}</p>
         </div>
         </Reveal>
 
@@ -44,7 +44,7 @@ const StatItem: React.FC<StatProp> = ({number, description}) =>{
 const Services = () => {
     return(
         <>
-            <section className="bg-secondary px-5 md:px-20 py-5 flex flex-col lg:flex-row justify-between items-center ">
+            <section className=" px-5 md:px-20 py-5 flex flex-col gap-5 lg:flex-row justify-between items-center bg-secondary">
                 <ServiceCard 
                 title="Home Repairs"
                 content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis."
@@ -60,10 +60,10 @@ const Services = () => {
                 icon={faThumbsUp} />
             </section>
 
-            <h1 className='text-[40px] text-center font-bold my-10'>Our Result For <span className='text-primary'>Hardwork And Dedication</span></h1>
+            <h1 className='text-[35px] lg:text-[40px] text-center font-bold my-10'>Our Result For <span className='text-primary'>Hardwork And Dedication</span></h1>
 
             <section className='px-5 md:px-20'>
-                <article className=' shadow-xl rounded-xl w-full bg-white px-2 lg:px-20 py-5 md:py-10 gap-3 flex flex-col sm:flex-row justify-between items-center'>
+                <article className=' shadow-xl rounded-xl bg-white px-2 lg:px-20 py-5 md:py-10 gap-5 lg:gap-3 flex flex-col md:flex-row justify-around items-center'>
                     
                     <StatItem
                         number={2}
@@ -72,14 +72,14 @@ const Services = () => {
                     </StatItem>
                     
                     <StatItem
-                        number={10000}
+                        number={900}
                         description={"Jobs completed"}>
 
                     </StatItem>
                     
                     <StatItem
                         number={20}
-                        description={"Registered professionals and more"}>
+                        description={"Registered professionals"}>
 
                     </StatItem>
                     

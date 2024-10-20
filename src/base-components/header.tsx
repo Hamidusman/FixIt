@@ -11,8 +11,8 @@ const Header = () => {
     return (
         <Headroom>
             <header className="bg-white px-4 md:px-20 h-[90px] flex justify-between items-center shadow-md relative">
-                <div className="flex items-center">
-                    <Link to='/' className="text-primary text-[28px] md:text-[35px] font-extrabold">
+                <div className="flex items-center gap-3">
+                    <Link to='/' className="text-primary text-[50px] font-medium italic md:text-[50px]">
                         Fix<span>It</span>
                     </Link>
                     <ul className={`md:flex ${isOpen ? 'block' : 'hidden'} ${isOpen ? 'mt-5': 'mt-0'} md:block absolute md:static top-16 left-0 w-full md:w-auto h-[100vh] md:h-auto bg-dark md:bg-transparent shadow-lg md:shadow-none transition-all duration-500 ease-in-out z-10`}>
@@ -23,22 +23,7 @@ const Header = () => {
                             <Link to="/locations">Locations</Link>
                         </li>
                         <li className="text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
-                            <Link to="/login">Login</Link>
-                        </li>
-                        <li className="text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
-                            <Link to="/register">Register</Link>
-                        </li>
-                        <li className="text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
-                            <Link to="/user">profile</Link>
-                        </li>
-                        <li className="text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
-                            <Link to="/user-profile">Create Profile</Link>
-                        </li>
-                        <li className="text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
-                            <Link to="/booking">Book service</Link>
-                        </li>
-                        <li className="text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
-                            <Link to="/locations">Locations</Link>
+                            <Link to="/booking">Booking</Link>
                         </li>
                     </ul>
                 </div>
