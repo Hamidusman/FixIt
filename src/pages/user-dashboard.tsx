@@ -24,6 +24,10 @@ interface BlogProp{
     heading: string
 }
 
+<<<<<<< HEAD
+=======
+{/*
+>>>>>>> 02235df2c36d83331704e1e6f968d50dced70e84
     
 const BlogPosts: React.FC<BlogProp> = ({ category, heading }) =>{
     return(
