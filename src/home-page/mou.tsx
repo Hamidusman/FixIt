@@ -93,8 +93,8 @@ const Accordion: React.FC = () => {
                         title={acc.title}
                         isOpen={openIndex === index}
                         onToggle={() => handleToggle(index)}
+                        children={acc.children}
                     >
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique veritatis nobis repellendus modi repudiandae at perspiciatis maiores aperiam.
                     </AccordionItem>
                 )}
                 </div>

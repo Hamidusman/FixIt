@@ -47,9 +47,9 @@ const Location = () =>{
         <Header />
         <section className="md:px-10 lg:px-20 px-5 w-full
                             ">
-            <div className="mb-5 lg:mb-16 text-center">
-                <h1 className='text-[40px] lg:text-[50px] text-center font-bold mt-10 '><span className='text-dark'>Locations</span></h1>
-                <p className="text-[18px] flex flex-wrap">We have operational branches in the following regions</p>
+            <div className="mb-5 lg:mb-16 flex flex-col text-center items-center">
+                <h1 className='text-[40px] lg:text-[50px] font-bold mt-10 '><span className='text-dark'>Locations</span></h1>
+                <p className="text-[18px] flex flex-wrap ">We have operational branches in the following regions</p>
             </div>
 
             <div className="flex flex-wrap mb-10 gap-4 justify-center items-center">
