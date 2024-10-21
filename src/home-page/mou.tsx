@@ -2,6 +2,7 @@ import { faTurnDown, faTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, ReactNode} from 'react';
 import plumber from '../assets/Pipeline maintenance-amico.png'
+import { title } from "process";
 
 interface AccordionItemProps {
     title: string;
