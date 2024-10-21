@@ -53,6 +53,21 @@ const Faq = () => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
+    const faqs = [
+        {
+            title: "Can I book for full Installment on my building?",
+            content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate vitae aut cum blanditiis? Maxime, aperiam. Iste, officiis odio cum blanditiis quos amet consequuntur recusandae illum magnam ullam animi fugit voluptatum."
+        },
+        {
+            title: "Can I cancel after booking?",
+            content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate vitae aut cum blanditiis? Maxime, aperiam. Iste, officiis odio cum blanditiis quos amet consequuntur recusandae illum magnam ullam animi fugit voluptatum."
+        },
+        {
+            title: "How does payment work?",
+            content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate vitae aut cum blanditiis? Maxime, aperiam. Iste, officiis odio cum blanditiis quos amet consequuntur recusandae illum magnam ullam animi fugit voluptatum."
+        }
+    ]
+
     return (
         <>
             
@@ -60,28 +75,17 @@ const Faq = () => {
 
         <section className=" my-10 mx-5 mt-10 md:mx-20 lg:flex justify-between">
             <div className=" flex flex-col gap-y-1">
-                
-                <FaqItem
-                    title="Can I book for full Installment on my building"
-                    isOpen={openIndex === 0}
-                    onToggle={() => handleToggle(0)}
-                    children={"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate vitae aut cum blanditiis? Maxime, aperiam. Iste, officiis odio cum blanditiis quos amet consequuntur recusandae illum magnam ullam animi fugit voluptatum."}
-                    >
-                </FaqItem>
-                <FaqItem
-                    title="Can I cancel after booking?"
-                    isOpen={openIndex === 1}
-                    onToggle={() => handleToggle(1)}
-                    children={"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate vitae aut cum blanditiis? Maxime, aperiam. Iste, officiis odio cum blanditiis quos amet consequuntur recusandae illum magnam ullam animi fugit voluptatum."}
-                >
+                {faqs.map((faq, index) =>(
+                    
+                    <FaqItem
+                        key={index}
+                        title={faq.title}
+                        isOpen={openIndex === index}
+                        onToggle={() => handleToggle(index)}
+                        children={faq.content}
+                        >
                     </FaqItem>
-                <FaqItem
-                    title="How does payment work?"
-                    isOpen={openIndex === 2}
-                    onToggle={() => handleToggle(2)}
-                    children={"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate vitae aut cum blanditiis? Maxime, aperiam. Iste, officiis odio cum blanditiis quos amet consequuntur recusandae illum magnam ullam animi fugit voluptatum."}
-                >
-                </FaqItem>
+                ))}
             </div>
         </section>
         </>
