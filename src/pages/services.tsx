@@ -4,7 +4,7 @@ import React from 'react'
 import Header from '../base-components/header'
 import plumber from '../assets/Pipeline maintenance-amico.png'
 import electritian from '../assets/Electrician-bro (1).png'
-import carpenter from '../assets/Woodworker-amico.png'
+import Footer from '../home-page/footer'
 
 interface ServiceProp {
     header: string,
@@ -29,32 +29,36 @@ const Services: React.FC<ServiceProp> = ({header, description, image}) => {
 }
 
 const Service = () =>{
+    const services = [
+        {
+            header: "Electrical Repairs and Installment",
+            description: "Our expert electricians are ready to handle all types of electrical repairs and installations, ensuring safety and efficiency. Whether you need wiring for a new home or maintenance for existing systems, we deliver top-notch service with precision and care.",
+            image: electritian
+        },
+        {
+            header: "Plumbing",
+            description: "From minor leaks to major installations, our skilled plumbers have you covered. We provide comprehensive plumbing services, ensuring that your water systems function smoothly, efficiently, and are always up to code. No job is too big or small for us!",
+            image: plumber
+        }
+    ]
     return(
         <>
         <Header />
         <section className="md:px-10 lg:px-20 py-5 md:py-20 px-5 w-full bg-secondary
                             flex flex-col justify-between">
                 
-            <Services
-            header='Electrical Repairs and Installment'
-            description='Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio cum ex quidem aut exercitationem reprehenderit laudantium quae dicta suscipit? Animi tenetur dolores nostrum tempore recusandae voluptate enim distinctio itaque sed?'
-            image={electritian}>
-            </Services>
-            
-            <Services
-            header='Plumbing'
-            description='Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio cum ex quidem aut exercitationem reprehenderit laudantium quae dicta suscipit? Animi tenetur dolores nostrum tempore recusandae voluptate enim distinctio itaque sed?'
-            image={plumber}>
-            </Services>
-            
-            <Services
-            header='Carpentry'
-            description='Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio cum ex quidem aut exercitationem reprehenderit laudantium quae dicta suscipit? Animi tenetur dolores nostrum tempore recusandae voluptate enim distinctio itaque sed?'
-            image={carpenter}>
-            </Services>
+            {services.map((service, index) => (
+                <Services
+                key={index}
+                header={service.header}
+                description={service.description}
+                image={service.image}
+                />
+            ))}
             
 
         </section>
+        <Footer />
         </>
     )
 }

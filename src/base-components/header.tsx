@@ -15,16 +15,16 @@ const Header = () => {
                     <Link to='/' className="text-primary text-[50px] font-medium italic md:text-[50px]">
                         Fix<span>It</span>
                     </Link>
-                    <ul className={`md:flex ${isOpen ? 'block' : 'hidden'} ${isOpen ? 'mt-5': 'mt-0'} md:block absolute md:static top-16 left-0 w-full md:w-auto h-[100vh] md:h-auto bg-dark md:bg-transparent shadow-lg md:shadow-none transition-all duration-500 ease-in-out z-10`}>
-                        <li className="text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
+                    <ul className={`md:flex ${isOpen ? 'block' : 'hidden'} ${isOpen ? 'mt-5': 'mt-0'} md:block absolute md:static top-16 left-0 w-fit md:w-auto h-[100vh] md:h-auto bg-dark md:bg-transparent shadow-lg md:shadow-none transition-all duration-500 ease-in-out z-10`}>
+                        <li className=" text-[20px] hover:text-primary text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
                             <Link to="/services">Services</Link>
                         </li>
-                        <li className="text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
+                        <li className="text-[20px] hover:text-primary text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
                             <Link to="/locations">Locations</Link>
                         </li>
-                        <li className="text-[20px] text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
-                            <Link to="/booking">Booking</Link>
-                        </li>
+                        <li className="text-[20px] hover:text-primary text-secondary md:text-dark transition ease-in-out duration-300 cursor-pointer px-4 py-2">
+                            <Link to="/">Blogposts (Comming Soon)</Link>
+                        </li> 
                     </ul>
                 </div>
                 <div className="flex items-center">

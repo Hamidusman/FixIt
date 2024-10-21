@@ -1,6 +1,6 @@
 import { faTurnDown, faTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, ReactNode } from 'react';
+import React, { useState, ReactNode} from 'react';
 import plumber from '../assets/Pipeline maintenance-amico.png'
 
 interface AccordionItemProps {
@@ -52,6 +52,25 @@ const Accordion: React.FC = () => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
+    const accordion= [
+        {
+            title: "Book A Fixer",
+            children: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique veritatis nobis repellendus modi repudiandae at perspiciatis maiores aperiam."
+            
+        },
+        {
+            title: "Conduct Full Building Installment",
+            children: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique veritatis nobis repellendus modi repudiandae at perspiciatis maiores aperiam."
+            
+        },
+        {
+            title: "Detailed Blog Posts",
+            children: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique veritatis nobis repellendus modi repudiandae at perspiciatis maiores aperiam."
+            
+        },
+
+    ]
+
     return (
         <>
             <h1 className="text-[33px] lg:text-[40px] text-center font-bold mt-20">How We <span className="text-primary">Operate</span></h1>
@@ -66,28 +85,18 @@ const Accordion: React.FC = () => {
                     alt=""
                 /> 
             </div>
-            <div className=''> 
+            <div className=''>
+                {accordion.map((acc, index) =>
+                    
                     <AccordionItem
-                        title="Book For A Fixer"
-                        isOpen={openIndex === 0}
-                        onToggle={() => handleToggle(0)}
+                    key={index}
+                        title={acc.title}
+                        isOpen={openIndex === index}
+                        onToggle={() => handleToggle(index)}
                     >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique veritatis nobis repellendus modi repudiandae at perspiciatis maiores aperiam.
                     </AccordionItem>
-                    <AccordionItem
-                        title="Conduct Full Building Installment"
-                        isOpen={openIndex === 1}
-                        onToggle={() => handleToggle(1)}
-                    >
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate vitae aut cum blanditiis? Maxime, aperiam.
-                    </AccordionItem>
-                    <AccordionItem
-                        title="Accordion Item 3"
-                        isOpen={openIndex === 2}
-                        onToggle={() => handleToggle(2)}
-                    >
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente eius delectus non illum illo minus quae molestiae.
-                    </AccordionItem> 
+                )}
                 </div>
             </section>
         </>
