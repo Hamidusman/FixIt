@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DashboardNav from "../components/dashboard-nav";
 import { faArrowDown, faArrowUp,  faHammer, faLightbulb, IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "../utils/axiosConfig";
 
 interface StatProp{
     count: number,
@@ -24,11 +25,6 @@ interface BlogProp{
     heading: string
 }
 
-<<<<<<< HEAD
-=======
-{/*
->>>>>>> 02235df2c36d83331704e1e6f968d50dced70e84
-    
 const BlogPosts: React.FC<BlogProp> = ({ category, heading }) =>{
     return(
 
@@ -99,6 +95,26 @@ const LogItem: React.FC<LogProp> = ({ faIcon, category, isOpen, onToggle }) => {
     )
 }
 const UserDashboard = () =>{
+    const [user, setUser] = useState<any>(null);
+    const [error, setError] = useState<string | null>(null);
+    
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get('http://localhost:8000/auth/users/me/', {
+                    headers: {
+                        Authorization: `token ${token}`
+                    }
+                });
+                setUser(response.data);
+            } catch (err) {
+                setError("Failed to fetch user data");
+            }
+        };
+    
+        fetchUser();
+    }, []);
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     const handleToggle = (index: number) => {
@@ -117,11 +133,18 @@ const UserDashboard = () =>{
 
                     
                     <main className="flex flex-col px-2 justify-center pt-5">
-                        <div className="text-center">
-                            <h3 className="text-[18px] font-semibold">Abdulhamid Usman</h3>
-                            <p className="text-">No 237 GRA, Bida</p>
-                            <p>+2348160803194</p>
-                        </div>
+                    <div className="text-center">
+                        {/* Conditional rendering for user data */}
+                        {user ? (
+                            <>
+                                <h3 className="text-[18px] font-semibold">{user.email}</h3>
+                                <p>No 237 GRA, Bida</p>
+                                <p>+2348160803194</p>
+                            </>
+                        ) : (
+                            <p>Loading user data...</p>
+                        )}
+                    </div>
                         <div className="mt-5">
                             <StatItem
                             count={2}
