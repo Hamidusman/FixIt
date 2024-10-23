@@ -2,6 +2,7 @@ import { faTurnDown, faTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, ReactNode} from 'react';
 import plumber from '../assets/Pipeline maintenance-amico.png'
+import { motion } from "framer-motion";
 
 interface AccordionItemProps {
     title: string;
@@ -13,7 +14,10 @@ interface AccordionItemProps {
 const AccordionItem: React.FC<AccordionItemProps> = ({ title, children, isOpen, onToggle }) => {
     const colorIcon = '#E68C1A'
     return (
-        <div className="lg:w-[550px] shadow-2xl my-5 bg-secondary">
+        <motion.div
+        whileHover={{y: -10}}
+        transition={{duration: 0.4}}
+        className="lg:w-[550px] shadow-2xl my-5 bg-secondary">
             <header
                 className="flex justify-between items-center p-4 cursor-pointer
                             bg-white rounded-t-xl mt-2"
@@ -41,7 +45,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, children, isOpen, 
                     {children}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

@@ -4,7 +4,7 @@ import { easeInOut } from "framer-motion/dom"
 const GetStarted = () =>{
     return(
         <motion.div
-        whileHover={{rotate: '-2.5deg', scale: '1.1'}}
+        whileHover={{rotate: '-2.5deg'}}
         whileTap={{rotate: '2.5deg'}}
         transition={{duration: '0.4', ease:easeInOut}}
         >
