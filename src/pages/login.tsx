@@ -15,6 +15,7 @@ const Login: React.FC = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setError(null); // Reset error state before making the request
         try {
             const response = await axios.post("http://localhost:8000/auth/token/login/", {
                 email,
@@ -22,14 +23,24 @@ const Login: React.FC = () => {
             });
 
             if (response.status === 200) {
-                localStorage.setItem('token', response.data.auth_token);
-                navigate('/user');
+                const token = response.data.auth_token;
+                if (token) {
+                    // Store the token in localStorage
+                    localStorage.setItem('authToken', token);
+                    console.log("Token stored successfully:", token);
+
+                    // Navigate to the user profile page after successful login
+                    navigate('/user');
+                } else {
+                    console.error("No token found in response.");
+                    setError("No authentication token received from the server.");
+                }
             }
-        } catch (err) {
-            setError("Failed to login");
+        } catch (err: any) {
+            console.error("Login error:", err.response ? err.response.data : err.message);
+            setError("Failed to login. Please check your email and password.");
         }
     };
-
     return (
         <section className="px-5 flex flex-col justify-center items-center h-[100vh]">
             <form onSubmit={handleSubmit} className="bg-white w-[360px] md:w-[420px] min-h-60 shadow-2xl flex flex-col rounded-xl pt-10 px-7">

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import axios from '../utils/axiosConfig';
-import { isAxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import axios, { isAxiosError } from 'axios';
 import { faBuilding, faMap, faMapLocation, faPerson, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -15,6 +15,7 @@ const CreateProfile = () => {
     });
 
     const iconColor = '#E68C1A';
+    const navigate = useNavigate()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setProfileData({
@@ -25,22 +26,24 @@ const CreateProfile = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+    
         try {
             const token = localStorage.getItem('authToken');
             if (!token) {
-                throw new Error("No authentication token found");
+                alert("No authentication token found. Please log in again.");
+                return;  // Prevent the submission if no token
             }
     
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Token ${token}`
+                    'Authorization': `token ${token}`
                 }
             };
     
-            const response = await axios.post('/profile/', profileData, config);
+            const response = await axios.post('http://localhost:8000/profile/', profileData, config);
             console.log('Profile created:', response.data);
+            navigate('/user')
             // Handle success (e.g., show a success message or redirect)
         } catch (error) {
             if (isAxiosError(error)) {
@@ -52,6 +55,7 @@ const CreateProfile = () => {
             }
         }
     };
+    
 
     return (
         <section className="px-5 flex flex-col justify-center items-center h-[100vh]">

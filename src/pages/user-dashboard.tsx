@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DashboardNav from "../components/dashboard-nav";
-import { faArrowDown, faArrowUp,  faHammer, faLightbulb, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faArrowUp,  faEdit,  faHammer, faLightbulb, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import axios from "../utils/axiosConfig";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 interface StatProp{
     count: number,
@@ -62,7 +64,7 @@ const LogItem: React.FC<LogProp> = ({ faIcon, category, isOpen, onToggle }) => {
                     <FontAwesomeIcon
                     icon={faIcon}
                     size="lg"
-                    className="px-3 py-2 rounded-full text-accent bg-white hover:animate-pulse">
+                    className="px-3 py-2 rounded-full text-accent hover:animate-pulse">
                     </FontAwesomeIcon>
                     <h1 className="">Request for {category} on (pending)</h1>
                 </div>
@@ -128,8 +130,18 @@ const UserDashboard = () =>{
         <section className=" pt-[20px] flex flex-col lg:flex-row justify-center items-center lg:items-start gap-20">
 
                 <article className="w-[350px] h-[480px] bg-white shadow-lg rounded-md p-4 flex flex-col items-center text-center">
-                    <p className="relative ml-auto">kk</p> {/** to work on the dropdown */}
-                    <div className="w-[90px] h-[90px] bg-gray rounded-full"></div>
+                    <Link to='/create-profile' className="relative ml-auto">
+                        <motion.div
+                        whileHover={{scale: 1.2}}
+                        whileTap={{y: 5}}
+                        transition={{duration: .6}}>
+                            <FontAwesomeIcon 
+                            icon={faEdit}
+                            size="xl"/>
+
+                        </motion.div>
+                    </Link> {/** to work on the dropdown */}
+                    <div className="w-[90px] h-[90px] bg-dark rounded-full"></div>
 
                     
                     <main className="flex flex-col px-2 justify-center pt-5">
