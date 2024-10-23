@@ -2,7 +2,7 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
-import axios from "../utils/axiosConfig";
+import axios from "axios";
 import { motion } from "framer-motion";
 
 
@@ -16,7 +16,7 @@ const Login: React.FC = () => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            const response = await axios.post("/auth/token/login/", {
+            const response = await axios.post("http://localhost:8000/auth/token/login/", {
                 email,
                 password,
             });
