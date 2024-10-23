@@ -2,8 +2,8 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link, useNavigate } from "react-router-dom"
 import { FormEvent, useState } from "react"
-import axios from "axios"
-
+import axios from "../utils/axiosConfig"
+import { motion } from "framer-motion"
 
 interface RegisterState {
     email: string,
@@ -43,13 +43,13 @@ const Register = () =>{
         }
 
         try{
-            const response = await axios.post("http://localhost:8000/auth/users/", {
+            const response = await axios.post("/auth/users/", {
                 email: formState.email,
                 password: formState.password,
                 re_password: formState.confirm
             });
             if(response.status === 201) {
-                navigate('/login');
+                navigate('/create-profile');
             }
         } catch (err) {
             setError("Failed to register");
@@ -116,9 +116,14 @@ const Register = () =>{
                 </div>
                 <div className="flex flex-col justify-center gap-3 items-center my-10">
                         
-                    <button type="submit" className="px-20 py-3 rounded-xl text-lg font-bold bg-primary 
+                    <motion.button
+                        whileHover={{scale: '1.06'}}
+                        whileTap={{scale: '0.7'}}
+                        type="submit" className="px-14 py-2
+                        
+                        rounded-xl text-lg font-bold bg-primary
                         hover:bg-dark hover:text-primary
-                        transition duration-500 ease-in">Register</button>
+                        transition duration-200 ease-in">Register</motion.button>
                         {error && <p className="text-red-500">{error}</p>}
                     <p>Already have an account? <Link to="/login"  className="text-primary mt-10">Login</Link> here.</p>
                 </div>
