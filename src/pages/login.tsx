@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
 import axios from "../utils/axiosConfig";
+import { motion } from "framer-motion";
 
 
 const Login: React.FC = () => {
@@ -59,9 +60,12 @@ const Login: React.FC = () => {
                     </label>
                 </div>
                 <div className="flex flex-col justify-center gap-3 items-center my-10">
-                    <button type="submit" className="px-20 py-3 rounded-xl text-lg font-bold bg-primary hover:bg-dark hover:text-primary transition duration-500 ease-in">
+                    <motion.button 
+                        whileHover={{scale: '1.06'}}
+                        whileTap={{scale: '0.7'}}
+                        type="submit" className="px-14 py-2 rounded-xl text-lg font-bold bg-primary hover:bg-dark hover:text-primary transition duration-200 ease-in">
                         Login
-                    </button>
+                    </motion.button>
                     {error && <p className="text-red-500">{error}</p>}
                     <p>Don't have an account? <Link to="/register" className="text-primary mt-10">Register</Link> here.</p>
                 </div>
