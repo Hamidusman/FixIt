@@ -13,10 +13,10 @@ interface StatProp{
 
 const StatItem: React.FC<StatProp> = ({ count, description }) =>{
     return(
-        <>
+        <div className="flex flex-col">
             <h1 className="text-[22px] text-primary font-extrabold">{count}</h1>
             <p>{description}</p>
-        </>
+        </div>
     )
 }
 
@@ -100,136 +100,104 @@ const UserDashboard = () =>{
     const [user, setUser] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
     
+    const token = localStorage.getItem('authToken');
+    if (!token){
+        console.log('No token found')
+    }
+
     useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:8000/auth/users/me/', {
-                    headers: {
-                        Authorization: `token ${token}`
-                    }
-                });
-                setUser(response.data);
-            } catch (err) {
-                setError("Failed to fetch user data");
+        fetch('http://127.0.0.1:8000/profile/me/', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'application/json',
+            },
+        })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error("Failed to fetch user data");
             }
-        };
-    
-        fetchUser();
-    }, []);
+            return res.json();
+        })
+        .then((data) => {
+            setUser(data);
+        })
+        .catch((error) => {
+            setError(error.message);
+            console.error(error);
+        });
+    })
+
+    ;
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     const handleToggle = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
-
-    return(
+    return (
         <>
-        <DashboardNav />
-        <section className=" pt-[20px] flex flex-col lg:flex-row justify-center items-center lg:items-start gap-20">
-
-                <article className="w-[350px] h-[480px] bg-white shadow-lg rounded-md p-4 flex flex-col items-center text-center">
+            <DashboardNav />
+            <section className="pt-[20px] flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10">
+                <article className="w-full h-[fit-content] bg-white shadow-lg rounded-md p-4 flex flex-col items-center text-center">
                     <Link to='/create-profile' className="relative ml-auto">
                         <motion.div
-                        whileHover={{scale: 1.2}}
-                        whileTap={{y: 5}}
-                        transition={{duration: .6}}>
-                            <FontAwesomeIcon 
-                            icon={faEdit}
-                            size="xl"/>
-
+                            whileHover={{ scale: 1.2 }}
+                            whileTap={{ y: 5 }}
+                            transition={{ duration: 0.6 }}>
+                            <FontAwesomeIcon icon={faEdit} size="xl" />
                         </motion.div>
-                    </Link> {/** to work on the dropdown */}
+                    </Link>
                     <div className="w-[90px] h-[90px] bg-dark rounded-full"></div>
-
-                    
                     <main className="flex flex-col px-2 justify-center pt-5">
-                    <div className="text-center">
-                        {/* Conditional rendering for user data */}
-                        {user ? (
-                            <>
-                                <h3 className="text-[18px] font-semibold">{user.email}</h3>
-                                <p>No 237 GRA, Bida</p>
-                                <p>+2348160803194</p>
-                            </>
-                        ) : (
-                            <p>Loading user data...</p>
-                        )}
-                    </div>
-                        <div className="mt-5">
-                            <StatItem
-                            count={2}
-                            description="Completed" >
-                            </StatItem><StatItem
-                            count={2}
-                            description="Jobs Booked" >
-                            </StatItem>
-                            <StatItem
-                            count={2}
-                            description="Pending" >
-                            </StatItem>
+                        <div className="text-center">
+                            {user ? (
+                                <>
+                                    <h3 className="text-[18px] font-semibold">
+                                        {user.firstname} {user.lastname}
+                                    </h3>
+                                    <p>{user.state}</p>
+                                    <p>{user.phone_number}</p>
+                                </>
+                            ) : (
+                                <p>Loading user data...</p>
+                            )}
+                        </div>
+
+
+                        <div className="mt-5 flex gap-3">
+                            <StatItem count={2} description="Completed" />
+                            <StatItem count={2} description="Jobs Booked" />
+                            <StatItem count={2} description="Pending" />
                         </div>
                     </main>
                 </article>
-
-
-
-            <div className="flex flex-col xl:flex-row">
-                
-            <article className="">
-
-                <aside>
-                    <h1 className="font-bold text-xl mb-3">Your Logs</h1>
-                    <div className=" bg-red w-fit h-fit border-[10px] border-white">
-                    <article className="w-[360px] sm:w-[420px] lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
-                        <LogItem
-                        faIcon={faHammer}
-                        category="Carpenter"
-                        isOpen={openIndex === 0}
-                        onToggle={() => handleToggle(0)}
-                        >
-                        </LogItem>
-                        
-                        <LogItem
-                        faIcon={faLightbulb}
-                        category="Electritian"
-                        isOpen={openIndex === 1}
-                        onToggle={() => handleToggle(1)}
-                        >
-                        </LogItem>
+                <div className="flex flex-col xl:flex-row">
+                    <article>
+                        <aside>
+                            <h1 className="font-bold text-xl mb-3">Your Logs</h1>
+                            <div className="bg-red w-fit h-fit border-[10px] border-white">
+                                <article className="w-[360px] sm:w-[420px] lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
+                                    <LogItem
+                                        faIcon={faHammer}
+                                        category="Carpenter"
+                                        isOpen={openIndex === 0}
+                                        onToggle={() => handleToggle(0)}
+                                    />
+                                    <LogItem
+                                        faIcon={faLightbulb}
+                                        category="Electrician"
+                                        isOpen={openIndex === 1}
+                                        onToggle={() => handleToggle(1)}
+                                    />
+                                </article>
+                            </div>
+                        </aside>
                     </article>
-                    </div>
-                </aside>
-            </article>
-{/*
-            <section className="">
-                <h1 className="font-bold text-xl">Personalized Blog feeds</h1>
-                <BlogPosts 
-                 category="Plumbing"
-                 heading="How to lorem"
-                ></BlogPosts>
-                
-                <BlogPosts 
-                 category="Plumbing"
-                 heading="How to lorem"
-                ></BlogPosts>
-                
-                <BlogPosts 
-                 category="Plumbing"
-                 heading="How to lorem"
-                ></BlogPosts>
+                </div>
             </section>
-
-*/            }
-
-
-
-            </div>
-        </section>
-        
         </>
-    )
-}
+    );
+};
 
-export default UserDashboard
+export default UserDashboard;

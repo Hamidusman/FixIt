@@ -9,7 +9,7 @@ import Form from './pages/form'
 import Register from './pages/register'
 import Login from './pages/login';
 import Homepage from './home-page/landing'
-import UserDashboard from './pages/user-dashboard';
+import Profile from './pages/user-dashboard';
 import CreateProfile from './pages/profile';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
       <Route path='/locations' element={<Location />} />
       <Route path='/booking' element={<Form />} />
       
-      <Route path='/user' element={<UserDashboard />} />
+      <Route path='/user' element={<Profile />} />
 
 
 

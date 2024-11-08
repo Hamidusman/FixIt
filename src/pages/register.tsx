@@ -2,7 +2,7 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link, useNavigate } from "react-router-dom"
 import { FormEvent, useState } from "react"
-import axios from "axios"
+import axios from '../utils/axiosConfig'
 import { motion } from "framer-motion"
 
 interface RegisterState {
@@ -43,7 +43,7 @@ const Register = () =>{
         }
 
         try{
-            const response = await axios.post("http://localhost:8000/auth/users/", {
+            const response = await axios.post("auth/users/", {
                 email: formState.email,
                 password: formState.password,
                 re_password: formState.confirm

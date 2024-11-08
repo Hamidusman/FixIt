@@ -4,28 +4,39 @@ import axios, { isAxiosError } from 'axios';
 import { faBuilding, faMap, faMapLocation, faPerson, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+interface ProfileData {
+    firstname: string;
+    lastname: string;
+    phone_number: number;
+    state: string;
+    region: string;
+    address: string;
+}
+
 const CreateProfile = () => {
     const [profileData, setProfileData] = useState({
         firstname: '',
         lastname: '',
+        phone_number: '',
         state: '',
         region: '',
         address: '',
-        phone_number: ''
     });
+    const [error, setError] = useState<string | null>(null);
 
     const iconColor = '#E68C1A';
     const navigate = useNavigate()
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (e: React.ChangeEvent) => {
         setProfileData({
             ...profileData,
             [e.target.name]: e.target.value
         });
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setError(null)
     
         try {
             const token = localStorage.getItem('authToken');
@@ -34,24 +45,31 @@ const CreateProfile = () => {
                 return;  // Prevent the submission if no token
             }
     
-            const config = {
+
+            const response = await axios.post('http://127.0.0.1:8000/profile/', profileData, {
+
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `token ${token}`
                 }
-            };
-    
-            const response = await axios.post('http://localhost:8000/profile/', profileData, config);
+                    });
+            setProfileData({
+                firstname: "",
+                lastname: "",
+                phone_number: "",
+                state: "",
+                region: "",
+                address: ""
+            });
             console.log('Profile created:', response.data);
             navigate('/user')
             // Handle success (e.g., show a success message or redirect)
         } catch (error) {
-            if (isAxiosError(error)) {
-                console.error('Error creating profile:', error.response?.data);
-                alert(`Error: ${error.response?.data.detail || 'An unknown error occurred.'}`);
+            if (axios.isAxiosError(error) && error.response) {
+                console.log("Error data:", error.response.data);
+                setError("Failed to submit form: " + JSON.stringify(error.response.data));
             } else {
-                console.error('An unexpected error occurred:', (error as Error).message);
-                alert(`Error: ${(error as Error).message}`);
+                setError("Failed to submit form. " + (error as Error).message);
             }
         }
     };
