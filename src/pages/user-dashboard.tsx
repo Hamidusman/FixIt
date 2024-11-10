@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "../utils/axiosConfig";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Interface } from "readline";
 
 interface StatProp{
     count: number,
@@ -46,14 +47,28 @@ const BlogPosts: React.FC<BlogProp> = ({ category, heading }) =>{
 
 */}
 interface LogProp{
-    faIcon: IconDefinition;
-    category: string;
+    id: number,
+    service: string;
+    description: string;
+    address: string,
+    region: string;
+    state: string;
+    date: string;
+    time: string;
+    duration: number,
+    status: string
+
 
     isOpen: boolean;
     onToggle: () => void;
 }
 
-const LogItem: React.FC<LogProp> = ({ faIcon, category, isOpen, onToggle }) => {
+const LogItem: React.FC<LogProp> = ({ 
+    service,
+    description, address, region, state,
+    status, date, time, duration,
+
+    isOpen, onToggle }) => {
     return(
         <div className="flex flex-col">
             <div className="bg-secondary px-3 py-1 
@@ -61,12 +76,7 @@ const LogItem: React.FC<LogProp> = ({ faIcon, category, isOpen, onToggle }) => {
                 onClick={onToggle}>
 
                 <div className="flex items-center gap-2">
-                    <FontAwesomeIcon
-                    icon={faIcon}
-                    size="lg"
-                    className="px-3 py-2 rounded-full text-accent hover:animate-pulse">
-                    </FontAwesomeIcon>
-                    <h1 className="">Request for {category} on (pending)</h1>
+                    <h1 className="">{service} on {date}</h1>
                 </div>
                 
                 <span className="transform bg transition-transform duration-200">
@@ -86,24 +96,65 @@ const LogItem: React.FC<LogProp> = ({ faIcon, category, isOpen, onToggle }) => {
             >
                 <div className="p-4 mt-[-2px] bg-secondary ">
                     <ul className="text-[16px]">
-                        <li>Date: 18-09-2024</li>
-                        <li>Location: 5th Avenue</li>
-                        <li>Description: Problem stated</li>
-                        <li>Status: Completed | Pending | Cancelled</li>
+                        <li>time: {time}</li>
+                        <li>Location: {address}, {region}, {state}</li>
+                        <li>Description: {description}</li>
+                        <li>Status: {status}</li>
+                        <li>Duration: {duration}</li>
                     </ul>
                 </div>
             </div>
         </div>
     )
 }
+
+type Booking = {
+    id: number,
+    service: string;
+    description: string;
+    address: string,
+    region: string;
+    state: string;
+    date: string;
+    time: string;
+    duration: number,
+    status: string
+}
 const UserDashboard = () =>{
     const [user, setUser] = useState<any>(null);
+    const [bookings, setBookings] = useState<Booking[] | null>(null)
     const [error, setError] = useState<string | null>(null);
     
     const token = localStorage.getItem('authToken');
     if (!token){
         console.log('No token found')
     }
+
+    // GET endpoint for the user's booking log
+    const fecthBooking = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/profile/user_booking_log/', {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': `Token ${token}`
+                },
+            })
+            if(!response.ok){
+                throw new Error("No logs to fetch");
+            }
+            const data = await response.json()
+            setBookings(data);
+        }
+
+        catch(error) {
+            setError((error as Error).message)
+        }
+    }
+    useEffect(() => {
+        fecthBooking()
+        }
+    )
 
     useEffect(() => {
         fetch('http://127.0.0.1:8000/profile/me/', {
@@ -179,18 +230,27 @@ const UserDashboard = () =>{
                             <h1 className="font-bold text-xl mb-3">Your Logs</h1>
                             <div className="bg-red w-fit h-fit border-[10px] border-white">
                                 <article className="w-[360px] sm:w-[420px] lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
-                                    <LogItem
-                                        faIcon={faHammer}
-                                        category="Carpenter"
+                                {bookings ? (
+                                    bookings.map((booking) => (
+                                        <LogItem
+                                        id={booking.id}
+                                        service={booking.service}
+                                        description={booking.description}
+                                        time={booking.time}
+                                        address={booking.address}
+                                        region={booking.region}
+                                        state={booking.state}
+                                        status={booking.status}
+                                        date={booking.date}
+                                        duration={booking.duration}
+
                                         isOpen={openIndex === 0}
                                         onToggle={() => handleToggle(0)}
                                     />
-                                    <LogItem
-                                        faIcon={faLightbulb}
-                                        category="Electrician"
-                                        isOpen={openIndex === 1}
-                                        onToggle={() => handleToggle(1)}
-                                    />
+                                    ))
+                                ) :
+                                <p>Booking log is empty</p>
+                                }
                                 </article>
                             </div>
                     </article>
