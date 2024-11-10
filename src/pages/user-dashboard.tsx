@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DashboardNav from "../components/dashboard-nav";
+import GetStarted from "../base-components/start";
 import { faArrowDown, faArrowUp,  faEdit,  faHammer, faLightbulb, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import axios from "../utils/axiosConfig";
@@ -13,9 +14,8 @@ interface StatProp{
 
 const StatItem: React.FC<StatProp> = ({ count, description }) =>{
     return(
-        <div className="flex flex-col">
-            <h1 className="text-[22px] text-primary font-extrabold">{count}</h1>
-            <p>{description}</p>
+        <div className="">
+            <h1 className="text-[16px] text-primary">{count} <span className="text-dark">{description}</span></h1>
         </div>
     )
 }
@@ -138,43 +138,44 @@ const UserDashboard = () =>{
     return (
         <>
             <DashboardNav />
-            <section className="pt-[20px] flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10">
-                <article className="w-full h-[fit-content] bg-white shadow-lg rounded-md p-4 flex flex-col items-center text-center">
-                    <Link to='/create-profile' className="relative ml-auto">
-                        <motion.div
-                            whileHover={{ scale: 1.2 }}
-                            whileTap={{ y: 5 }}
-                            transition={{ duration: 0.6 }}>
-                            <FontAwesomeIcon icon={faEdit} size="xl" />
-                        </motion.div>
-                    </Link>
-                    <div className="w-[90px] h-[90px] bg-dark rounded-full"></div>
-                    <main className="flex flex-col px-2 justify-center pt-5">
-                        <div className="text-center">
+            <section className="px-5 md:px-20 pt-[20px] flex flex-col justify-center items-center lg:items-start gap-5">
+                <article className="w-[100%] h-[fit-content] px-5 md:px-10 lg:px-20
+                    bg-white shadow-lg rounded-md p-4 flex flex-col items-center md:flex-none md:flex-row md:gap-20 lg:gap-40">
+                    <div className="my-10 w-[120px] h-[120px] bg-dark rounded-full"></div>
+                    <main className="flex flex-col px-2">
+                        <div className="text-center md:text-start">
                             {user ? (
                                 <>
                                     <h3 className="text-[18px] font-semibold">
+
+                                
                                         {user.firstname} {user.lastname}
                                     </h3>
+                                    <div className="my-2 flex gap-10">
+                                        <StatItem count={2} description="Completed" />
+                                        <StatItem count={2} description="Jobs Booked" />
+                                        <StatItem count={2} description="Pending" />
+                                    </div>
                                     <p>{user.state}</p>
                                     <p>{user.phone_number}</p>
+                                    
                                 </>
                             ) : (
                                 <p>Loading user data...</p>
                             )}
+                            <Link to='/create-profile' className="relative ml-auto">
+                                <motion.div
+                                    whileTap={{ y: 20 }}
+                                    transition={{ duration: 0.6 }}>
+                                    <FontAwesomeIcon icon={faEdit} size="xl" />
+                                </motion.div>
+                            </Link>
                         </div>
 
-
-                        <div className="mt-5 flex gap-3">
-                            <StatItem count={2} description="Completed" />
-                            <StatItem count={2} description="Jobs Booked" />
-                            <StatItem count={2} description="Pending" />
-                        </div>
                     </main>
                 </article>
                 <div className="flex flex-col xl:flex-row">
                     <article>
-                        <aside>
                             <h1 className="font-bold text-xl mb-3">Your Logs</h1>
                             <div className="bg-red w-fit h-fit border-[10px] border-white">
                                 <article className="w-[360px] sm:w-[420px] lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
@@ -192,7 +193,6 @@ const UserDashboard = () =>{
                                     />
                                 </article>
                             </div>
-                        </aside>
                     </article>
                 </div>
             </section>
