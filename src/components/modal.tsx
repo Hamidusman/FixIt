@@ -28,6 +28,7 @@ const dropIn = {
     },
 };
 
+//expected change: need to redirect button to user profile
 const Modal: React.FC<ModalProp> = ({ handleClose, status, text}) => {
     return (
         <Backdrop onClick={handleClose}>
@@ -42,10 +43,11 @@ const Modal: React.FC<ModalProp> = ({ handleClose, status, text}) => {
             >
                 <h1 className="text-[25px] mb-2 font-semibold">{status}</h1>
                 <p className="tex-lg">{text}</p>
-                
+                {/*
                 <button onClick={handleClose} className="mt-4 px-6 py-2 bg-primary text-white rounded">
                     Close
                 </button>
+                */}
             </motion.div>
         </Backdrop>
     );

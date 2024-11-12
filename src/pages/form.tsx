@@ -83,6 +83,7 @@ const BookingForm: React.FC = () =>{
             }
             const data = await response.json()
             setMessage("Booking was successful")
+            setModalOpen(true)
             console.log("Created booking: ", data)
         }
         catch (err){
@@ -91,7 +92,6 @@ const BookingForm: React.FC = () =>{
             } else {
                 setError("An unknown error occurred.");
             }
-            setModalOpen(false)
 
         }
     }
@@ -186,26 +186,25 @@ const BookingForm: React.FC = () =>{
 
                 <div className="text-center">
                 <button
-                    onClick={() => (modalOpen ? close() : open())}
-                    type="button"
-                    className="px-20 md:px-40 py-3 rounded-2xl border bg-primary hover:text-primary 
+                    type="submit"
+                    className="px-20 md:px-[220px] py-3 rounded-2xl border bg-primary hover:text-primary 
                         hover:bg-dark transition duration-500 ease-in-out font-bold text-xl"
                 >
                     Submit
                 </button>
-                <AnimatePresence
-                initial={false}
-                mode="wait"
-                onExitComplete={() => null}>
-                    {modalOpen && !error && (
-        <Modal
-            handleClose={close}
-            status="Booking Successful"
-            text="You've successfully booked for a serviceman. You will be in contact with him in due time"
-        />
-    )}
-                </AnimatePresence>
-                {error && <div className="error-message">{error}</div>}
+                    <AnimatePresence initial={false} mode="wait"
+                    onExitComplete={() => null}>
+                        {modalOpen && !error && (
+                            <Modal
+                                handleClose={close}
+                                status="Booking Successful"
+                                text="You've successfully booked for a serviceman. You will be in contact with him in due time."
+                            />
+                        )}
+                    </AnimatePresence>
+
+                    {/* Error message display */}
+                    {error && <div className="error-message text-red-500 mt-4">{error}</div>}
                 </div>
             </form>
         </section>
