@@ -1,9 +1,7 @@
-import { error } from "console";
 import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react"
 import Calendar, {CalendarProps} from "react-calendar"
 import 'react-calendar/dist/Calendar.css'
-import { motion } from "framer-motion";
 import Modal from "../components/modal";
 
 interface BookingProp {
@@ -192,6 +190,7 @@ const BookingForm: React.FC = () =>{
                 >
                     Submit
                 </button>
+
                     <AnimatePresence initial={false} mode="wait"
                     onExitComplete={() => null}>
                         {modalOpen && !error && (
