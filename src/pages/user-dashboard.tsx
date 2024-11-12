@@ -230,9 +230,10 @@ const UserDashboard = () =>{
                             <h1 className="font-bold text-xl mb-3">Your Logs</h1>
                             <div className="bg-red w-fit h-fit border-[10px] border-white">
                                 <article className="w-[360px] sm:w-[420px] lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
-                                {bookings ? (
+                                {bookings && bookings.length > 0 ? (
                                     bookings.map((booking) => (
                                         <LogItem
+                                        key={booking.id}
                                         id={booking.id}
                                         service={booking.service}
                                         description={booking.description}
@@ -244,8 +245,8 @@ const UserDashboard = () =>{
                                         date={booking.date}
                                         duration={booking.duration}
 
-                                        isOpen={openIndex === 0}
-                                        onToggle={() => handleToggle(0)}
+                                        isOpen={openIndex === booking.id}
+                                        onToggle={() => handleToggle(booking.id)}
                                     />
                                     ))
                                 ) :

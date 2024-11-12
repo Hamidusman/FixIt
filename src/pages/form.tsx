@@ -1,7 +1,10 @@
 import { error } from "console";
+import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react"
 import Calendar, {CalendarProps} from "react-calendar"
 import 'react-calendar/dist/Calendar.css'
+import { motion } from "framer-motion";
+import Modal from "../components/modal";
 
 interface BookingProp {
     service: string;
@@ -34,6 +37,11 @@ const BookingForm: React.FC = () =>{
     })
     const [message, setMessage] = useState<string>('')
     const [error, setError] = useState<string>('')
+    const [isOpen, setIsOpen] = useState(false)
+    const [modalOpen, setModalOpen] = useState(false)
+
+    const close = () => setModalOpen(false)
+    const open = () => setModalOpen(true)
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -56,6 +64,7 @@ const BookingForm: React.FC = () =>{
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(``)
+        setMessage("")
 
         try {
             const token = localStorage.getItem('authToken')
@@ -82,6 +91,7 @@ const BookingForm: React.FC = () =>{
             } else {
                 setError("An unknown error occurred.");
             }
+            setModalOpen(false)
 
         }
     }
@@ -175,11 +185,27 @@ const BookingForm: React.FC = () =>{
                 </div>
 
                 <div className="text-center">
-                
-                    <button type="submit" className="px-20 md:px-40 py-3 rounded-2xl border bg-primary hover:text-primary hover:bg-dark transition duration-500 ease-in-out font-bold text-xl">Submit</button>
-                    
-                    {message && <p className="text-green-500 text-center">{message}</p>}
-                    {error && <p className="text-red-500 text-center">{error}</p>}
+                <button
+                    onClick={() => (modalOpen ? close() : open())}
+                    type="button"
+                    className="px-20 md:px-40 py-3 rounded-2xl border bg-primary hover:text-primary 
+                        hover:bg-dark transition duration-500 ease-in-out font-bold text-xl"
+                >
+                    Submit
+                </button>
+                <AnimatePresence
+                initial={false}
+                mode="wait"
+                onExitComplete={() => null}>
+                    {modalOpen && !error && (
+        <Modal
+            handleClose={close}
+            status="Booking Successful"
+            text="You've successfully booked for a serviceman. You will be in contact with him in due time"
+        />
+    )}
+                </AnimatePresence>
+                {error && <div className="error-message">{error}</div>}
                 </div>
             </form>
         </section>
