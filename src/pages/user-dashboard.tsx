@@ -158,7 +158,7 @@ const UserDashboard = () =>{
     }
     useEffect(() => {
         fetchStats()
-    })
+    }, [])
     // GET endpoint for the user's booking log
     const fecthBooking = async () => {
         try {
@@ -183,7 +183,7 @@ const UserDashboard = () =>{
     useEffect(() => {
         fecthBooking()
         }
-    )
+    ,[])
 
     useEffect(() => {
         fetch('http://127.0.0.1:8000/profile/me/', {
@@ -206,7 +206,7 @@ const UserDashboard = () =>{
             setError(error.message);
             console.error(error);
         });
-    })
+    },[])
 
     ;
     const [openIndex, setOpenIndex] = useState<number | null>(null);
