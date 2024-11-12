@@ -108,6 +108,7 @@ const LogItem: React.FC<LogProp> = ({
     )
 }
 
+
 type Booking = {
     id: number,
     service: string;
@@ -123,6 +124,7 @@ type Booking = {
 const UserDashboard = () =>{
     const [user, setUser] = useState<any>(null);
     const [bookings, setBookings] = useState<Booking[] | null>(null)
+    const [stat, setStats] = useState<number | null>(null)
     const [error, setError] = useState<string | null>(null);
     
     const token = localStorage.getItem('authToken');
@@ -130,6 +132,33 @@ const UserDashboard = () =>{
         console.log('No token found')
     }
 
+    const fetchStats = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/profile/user-stat/', {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': `Token ${token}`
+                },
+            })
+            if(!response.ok){
+                throw new Error("No logs to fetch");
+            }
+            const data = await response.json() // Log response for debugging
+
+            // Check if total_booking exists and is a number before setting state
+            if (data && typeof data.total_booking === 'number') {
+                setStats(data.total_booking);
+            } else {
+                throw new Error('Invalid data format received');}
+        }
+        catch(error) {
+            setError((error as Error).message)
+        }
+    }
+    useEffect(() => {
+        fetchStats()
+    })
     // GET endpoint for the user's booking log
     const fecthBooking = async () => {
         try {
@@ -195,6 +224,13 @@ const UserDashboard = () =>{
                     <div className="my-10 w-[120px] h-[120px] bg-dark rounded-full"></div>
                     <main className="flex flex-col px-2">
                         <div className="text-center md:text-start">
+                            <Link to='/create-profile' className="relative ml-auto">
+                                <motion.div
+                                    whileTap={{ y: 20 }}
+                                    transition={{ duration: 0.6 }}>
+                                    <FontAwesomeIcon icon={faEdit} size="xl" />
+                                </motion.div>
+                            </Link>
                             {user ? (
                                 <>
                                     <h3 className="text-[18px] font-semibold">
@@ -203,9 +239,6 @@ const UserDashboard = () =>{
                                         {user.firstname} {user.lastname}
                                     </h3>
                                     <div className="my-2 flex gap-10">
-                                        <StatItem count={2} description="Completed" />
-                                        <StatItem count={2} description="Jobs Booked" />
-                                        <StatItem count={2} description="Pending" />
                                     </div>
                                     <p>{user.state}</p>
                                     <p>{user.phone_number}</p>
@@ -214,13 +247,21 @@ const UserDashboard = () =>{
                             ) : (
                                 <p>Loading user data...</p>
                             )}
-                            <Link to='/create-profile' className="relative ml-auto">
-                                <motion.div
-                                    whileTap={{ y: 20 }}
-                                    transition={{ duration: 0.6 }}>
-                                    <FontAwesomeIcon icon={faEdit} size="xl" />
-                                </motion.div>
-                            </Link>
+                            {error ? (
+                                <p className="error">{error}</p>
+                            ) : (
+                                <>
+                                <>total bookings: {stat}
+                                {/*
+                                <StatItem count={2} description="Completed" />    {stat !== null ? (
+                                <StatItem count={stat} description="Total Bookings" />
+                                ) : (
+                                <p>Loading...</p>
+                                )}
+                                <StatItem count={1} description="Pending" />
+                                */} </>
+                            </>
+                            )}
                         </div>
 
                     </main>
