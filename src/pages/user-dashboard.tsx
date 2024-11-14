@@ -7,6 +7,7 @@ import axios from "../utils/axiosConfig";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Interface } from "readline";
+import ReviewModal from "../components/reviewModals";
 
 interface StatProp{
     count: number,
@@ -126,6 +127,10 @@ const UserDashboard = () =>{
     const [bookings, setBookings] = useState<Booking[] | null>(null)
     const [stat, setStats] = useState<number | null>(null)
     const [error, setError] = useState<string | null>(null);
+    const [modalOpen, setModalOpen] = useState(false)
+
+    const openModal = () => setModalOpen(true)
+    const closeModal = () => setModalOpen(false)
     
     const token = localStorage.getItem('authToken');
     if (!token){
@@ -295,6 +300,12 @@ const UserDashboard = () =>{
                                 }
                                 </article>
                             </div>
+                            <button type="button" onClick={openModal}>Click</button>
+
+                            {modalOpen && (<ReviewModal></ReviewModal>
+                            )}
+
+
                     </article>
                 </div>
             </section>

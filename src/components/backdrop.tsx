@@ -2,9 +2,8 @@ import { motion } from "framer-motion"
 
 interface BackdropProp {
     children: React.ReactNode,
-    onClick:() => void
 }
-const Backdrop: React.FC<BackdropProp> = ({children, onClick}) => {
+const Backdrop: React.FC<BackdropProp> = ({children}) => {
     
     return (
         <motion.div
@@ -13,7 +12,7 @@ const Backdrop: React.FC<BackdropProp> = ({children, onClick}) => {
         exit= {{opacity: 0}}
         className="fixed top-0 left-0 w-full h-full bg-[#000000e1]
                 flex justify-center items-center"
-        onClick={onClick}>
+        >
             {children}
 
         </motion.div>

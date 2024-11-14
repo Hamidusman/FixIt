@@ -36,10 +36,6 @@ const BookingForm: React.FC = () =>{
     const [message, setMessage] = useState<string>('')
     const [error, setError] = useState<string>('')
     const [isOpen, setIsOpen] = useState(false)
-    const [modalOpen, setModalOpen] = useState(false)
-
-    const close = () => setModalOpen(false)
-    const open = () => setModalOpen(true)
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

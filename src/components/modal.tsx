@@ -31,7 +31,8 @@ const dropIn = {
 };
 
 //Under considertion: redirecting Modal button to user profile
-const Modal: React.FC<ModalProp> = ({ handleClose, status, text}) => {    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+const Modal: React.FC<ModalProp> = ({ handleClose, status, text}) => {
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
 
     useEffect(() => {
