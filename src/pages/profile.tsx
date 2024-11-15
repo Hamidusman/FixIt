@@ -1,6 +1,6 @@
-import { useState } from 'react';
+{/*import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios, { isAxiosError } from 'axios';
+import axios from 'axios';
 import { faBuilding, faMap, faMapLocation, faPerson, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -27,7 +27,7 @@ const CreateProfile = () => {
     const iconColor = '#E68C1A';
     const navigate = useNavigate()
 
-    const handleChange = (e: React.ChangeEvent) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setProfileData({
             ...profileData,
             [e.target.name]: e.target.value
@@ -175,3 +175,4 @@ const CreateProfile = () => {
 };
 
 export default CreateProfile;
+ */}

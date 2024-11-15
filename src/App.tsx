@@ -10,7 +10,7 @@ import Register from './pages/register'
 import Login from './pages/login';
 import Homepage from './home-page/landing'
 import Profile from './pages/user-dashboard';
-import CreateProfile from './pages/profile';
+//import CreateProfile from './pages/profile';
 
 function App() {
   return (
@@ -19,7 +19,8 @@ function App() {
 
       <Route path='/register' element={<Register />} />
       <Route path='/login' element={<Login />} />
-      <Route path='/create-profile' element={<CreateProfile />} />
+      {/*
+      <Route path='/create-profile' element={<CreateProfile />} />*/}
       <Route path='/' element={<Homepage />} />
       <Route path='/services' element={<Service />} />
       <Route path='/locations' element={<Location />} />

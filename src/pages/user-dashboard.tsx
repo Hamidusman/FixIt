@@ -1,26 +1,23 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DashboardNav from "../components/dashboard-nav";
-import GetStarted from "../base-components/start";
-import { faArrowDown, faArrowUp,  faEdit,  faHammer, faLightbulb, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faArrowUp,  faEdit, } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import axios from "../utils/axiosConfig";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Interface } from "readline";
 import ReviewModal from "../components/reviewModals";
 
+{/* 
 interface StatProp{
     count: number,
     description: string
 }
-
 const StatItem: React.FC<StatProp> = ({ count, description }) =>{
     return(
         <div className="">
             <h1 className="text-[16px] text-primary">{count} <span className="text-dark">{description}</span></h1>
         </div>
     )
-}
+*/}
 
 
 {/*
@@ -70,6 +67,10 @@ const LogItem: React.FC<LogProp> = ({
     status, date, time, duration,
 
     isOpen, onToggle }) => {
+    const [modalOpen, setModalOpen] = useState(false)
+
+    const openModal = () => setModalOpen(true)
+    const closeModal = () => setModalOpen(false)
     return(
         <div className="flex flex-col">
             <div className="bg-secondary px-3 py-1 
@@ -77,7 +78,7 @@ const LogItem: React.FC<LogProp> = ({
                 onClick={onToggle}>
 
                 <div className="flex items-center gap-2">
-                    <h1 className="">{service} on {date}</h1>
+                    <h1 className="">{service} on {date} ({status})</h1>
                 </div>
                 
                 <span className="transform bg transition-transform duration-200">
@@ -93,18 +94,29 @@ const LogItem: React.FC<LogProp> = ({
             </div>
 
             <div
-                className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? 'max-h-40' : 'max-h-0'}`}
+                className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? 'max-h-60' : 'max-h-0'}`}
             >
                 <div className="p-4 mt-[-2px] bg-secondary ">
                     <ul className="text-[16px]">
                         <li>time: {time}</li>
                         <li>Location: {address}, {region}, {state}</li>
                         <li>Description: {description}</li>
-                        <li>Status: {status}</li>
                         <li>Duration: {duration}</li>
                     </ul>
                 </div>
+                <button
+                    type="button"
+                    className="bg-primary w-full hover:scale-[1.13] duration-700 ease-in-out"
+                    onClick={openModal}
+                >
+                    Give Review
+                </button>
+            {modalOpen && (<ReviewModal
+            closeModal={closeModal}
+            ></ReviewModal>
+            )}
             </div>
+
         </div>
     )
 }
@@ -127,10 +139,6 @@ const UserDashboard = () =>{
     const [bookings, setBookings] = useState<Booking[] | null>(null)
     const [stat, setStats] = useState<number | null>(null)
     const [error, setError] = useState<string | null>(null);
-    const [modalOpen, setModalOpen] = useState(false)
-
-    const openModal = () => setModalOpen(true)
-    const closeModal = () => setModalOpen(false)
     
     const token = localStorage.getItem('authToken');
     if (!token){
@@ -139,7 +147,7 @@ const UserDashboard = () =>{
 
     const fetchStats = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/profile/user-stat/', {
+            const response = await fetch('https://fixit-api-u7ie.onrender.com/profile/user-stat/', {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -167,7 +175,7 @@ const UserDashboard = () =>{
     // GET endpoint for the user's booking log
     const fecthBooking = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/profile/user_booking_log/', {
+            const response = await fetch('https://fixit-api-u7ie.onrender.com/profile/user_booking_log/', {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -191,7 +199,7 @@ const UserDashboard = () =>{
     ,[])
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/profile/me/', {
+        fetch('https://fixit-api-u7ie.onrender.com/profile/me/', {
             method: 'GET',
             headers: {
                 'Authorization': `Token ${token}`,
@@ -245,8 +253,9 @@ const UserDashboard = () =>{
                                     </h3>
                                     <div className="my-2 flex gap-10">
                                     </div>
-                                    <p>{user.state}</p>
-                                    <p>{user.phone_number}</p>
+                                    <p>{user.address},</p>
+                                    <p>{user.region}, {user.state}</p>
+                                    
                                     
                                 </>
                             ) : (
@@ -274,8 +283,8 @@ const UserDashboard = () =>{
                 <div className="flex flex-col xl:flex-row">
                     <article>
                             <h1 className="font-bold text-xl mb-3">Your Logs</h1>
-                            <div className="bg-red w-fit h-fit border-[10px] border-white">
-                                <article className="w-[360px] sm:w-[420px] lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
+                            <div className="bg-red  h-fit border-[10px] border-white">
+                                <article className="w-[420px] lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
                                 {bookings && bookings.length > 0 ? (
                                     bookings.map((booking) => (
                                         <LogItem
@@ -300,10 +309,6 @@ const UserDashboard = () =>{
                                 }
                                 </article>
                             </div>
-                            <button type="button" onClick={openModal}>Click</button>
-
-                            {modalOpen && (<ReviewModal></ReviewModal>
-                            )}
 
 
                     </article>

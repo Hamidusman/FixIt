@@ -11,6 +11,24 @@ body{
   letter-spacing: -3px; 
   margin-right: 20px;
 }
+/* Custom scrollbar styles */
+html {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #4A90E2 #F0F0F0;
+}
+
+html::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #4A90E2;
+  border-radius: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #F0F0F0;
+}
 
 .backdrop{
   position: fixed;
@@ -21,6 +39,16 @@ body{
 .modal {
   width: clamp(50%, 700px, 90%);
   height: min(50%, 300px);
+  margin: auto;
+  border-radius: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-modal {
+  width: clamp(20%, 550px, 85%);
+  height: fit-content;
   margin: auto;
   border-radius: 10;
   display: flex;

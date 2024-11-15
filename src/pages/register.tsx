@@ -2,7 +2,6 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link, useNavigate } from "react-router-dom"
 import { FormEvent, useState } from "react"
-import axios from '../utils/axiosConfig'
 import { motion } from "framer-motion"
 
 interface RegisterState {
@@ -33,30 +32,39 @@ const Register = () =>{
     }
     
     /** submit function */
-
     const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault()
-
-        if (formState.password != formState.confirm) {
-            setError("Password does not match")
+        e.preventDefault();
+    
+        if (formState.password !== formState.confirm) {
+            setError("Password does not match");
             return;
         }
-
-        try{
-            const response = await axios.post("auth/users/", {
-                email: formState.email,
-                password: formState.password,
-                re_password: formState.confirm
+    
+        try {
+            const response = await fetch("https://fixit-api-u7ie.onrender.com/auth/users/", {
+                method: "POST", // Specify the method as POST
+                headers: {
+                    "Content-Type": "application/json", // Set the content type to JSON
+                },
+                body: JSON.stringify({
+                    email: formState.email,
+                    password: formState.password,
+                    re_password: formState.confirm
+                })
             });
-            if(response.status === 201) {
+    
+            if (response.status === 201) {
+                // If registration is successful, navigate to the user page
                 navigate('/user');
+            } else {
+                const errorData = await response.json(); // Capture any error messages from the response
+                setError(errorData.detail || "Failed to register");
             }
         } catch (err) {
             setError("Failed to register");
         }
-
-
     };
+    
 
     return(
         <section className="px-5 flex flex-col justify-center items-center h-[100vh]">

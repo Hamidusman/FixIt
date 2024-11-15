@@ -17,7 +17,7 @@ const Login: React.FC = () => {
         e.preventDefault();
         setError(null); // Reset error state before making the request
         try {
-            const response = await axios.post("http://localhost:8000/auth/token/login/", {
+            const response = await axios.post("https://fixit-api-u7ie.onrender.com/auth/token/login/", {
                 email,
                 password,
             });

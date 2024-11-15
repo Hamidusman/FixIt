@@ -33,9 +33,8 @@ const BookingForm: React.FC = () =>{
         status: 'pending',
 
     })
-    const [message, setMessage] = useState<string>('')
     const [error, setError] = useState<string>('')
-    const [isOpen, setIsOpen] = useState(false)
+    const [modalOpen, setModalOpen] = useState(false); 
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -58,11 +57,10 @@ const BookingForm: React.FC = () =>{
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(``)
-        setMessage("")
 
         try {
             const token = localStorage.getItem('authToken')
-            const response = await fetch('http://127.0.0.1:8000/booking/', {
+            const response = await fetch('https://fixit-api-u7ie.onrender.com/booking/', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
@@ -76,7 +74,6 @@ const BookingForm: React.FC = () =>{
                 throw new Error("Couldn't book your request")
             }
             const data = await response.json()
-            setMessage("Booking was successful")
             setModalOpen(true)
             console.log("Created booking: ", data)
         }
