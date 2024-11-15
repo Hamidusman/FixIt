@@ -1,21 +1,23 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DashboardNav from "../components/dashboard-nav";
-import { faArrowDown, faArrowUp,  faHammer, faLightbulb, IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { faArrowDown, faArrowUp,  faEdit, } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import ReviewModal from "../components/reviewModals";
 
+{/* 
 interface StatProp{
     count: number,
     description: string
 }
-
 const StatItem: React.FC<StatProp> = ({ count, description }) =>{
     return(
-        <>
-            <h1 className="text-[22px] text-primary font-extrabold">{count}</h1>
-            <p>{description}</p>
-        </>
+        <div className="">
+            <h1 className="text-[16px] text-primary">{count} <span className="text-dark">{description}</span></h1>
+        </div>
     )
-}
+*/}
 
 
 {/*
@@ -24,11 +26,6 @@ interface BlogProp{
     heading: string
 }
 
-<<<<<<< HEAD
-=======
-{/*
->>>>>>> 02235df2c36d83331704e1e6f968d50dced70e84
-    
 const BlogPosts: React.FC<BlogProp> = ({ category, heading }) =>{
     return(
 
@@ -48,14 +45,32 @@ const BlogPosts: React.FC<BlogProp> = ({ category, heading }) =>{
 
 */}
 interface LogProp{
-    faIcon: IconDefinition;
-    category: string;
+    id: number,
+    service: string;
+    description: string;
+    address: string,
+    region: string;
+    state: string;
+    date: string;
+    time: string;
+    duration: number,
+    status: string
+
 
     isOpen: boolean;
     onToggle: () => void;
 }
 
-const LogItem: React.FC<LogProp> = ({ faIcon, category, isOpen, onToggle }) => {
+const LogItem: React.FC<LogProp> = ({ 
+    service,
+    description, address, region, state,
+    status, date, time, duration,
+
+    isOpen, onToggle }) => {
+    const [modalOpen, setModalOpen] = useState(false)
+
+    const openModal = () => setModalOpen(true)
+    const closeModal = () => setModalOpen(false)
     return(
         <div className="flex flex-col">
             <div className="bg-secondary px-3 py-1 
@@ -63,12 +78,7 @@ const LogItem: React.FC<LogProp> = ({ faIcon, category, isOpen, onToggle }) => {
                 onClick={onToggle}>
 
                 <div className="flex items-center gap-2">
-                    <FontAwesomeIcon
-                    icon={faIcon}
-                    size="lg"
-                    className="px-3 py-2 rounded-full text-accent bg-white hover:animate-pulse">
-                    </FontAwesomeIcon>
-                    <h1 className="">Request for {category} on (pending)</h1>
+                    <h1 className="">{service} on {date} ({status})</h1>
                 </div>
                 
                 <span className="transform bg transition-transform duration-200">
@@ -84,117 +94,228 @@ const LogItem: React.FC<LogProp> = ({ faIcon, category, isOpen, onToggle }) => {
             </div>
 
             <div
-                className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? 'max-h-40' : 'max-h-0'}`}
+                className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? 'max-h-60' : 'max-h-0'}`}
             >
                 <div className="p-4 mt-[-2px] bg-secondary ">
                     <ul className="text-[16px]">
-                        <li>Date: 18-09-2024</li>
-                        <li>Location: 5th Avenue</li>
-                        <li>Description: Problem stated</li>
-                        <li>Status: Completed | Pending | Cancelled</li>
+                        <li>time: {time}</li>
+                        <li>Location: {address}, {region}, {state}</li>
+                        <li>Description: {description}</li>
+                        <li>Duration: {duration}</li>
                     </ul>
                 </div>
+                <button
+                    type="button"
+                    className="bg-primary w-full hover:scale-[1.13] duration-700 ease-in-out"
+                    onClick={openModal}
+                >
+                    Give Review
+                </button>
+            {modalOpen && (<ReviewModal
+            closeModal={closeModal}
+            ></ReviewModal>
+            )}
             </div>
+
         </div>
     )
 }
+
+
+type Booking = {
+    id: number,
+    service: string;
+    description: string;
+    address: string,
+    region: string;
+    state: string;
+    date: string;
+    time: string;
+    duration: number,
+    status: string
+}
 const UserDashboard = () =>{
+    const [user, setUser] = useState<any>(null);
+    const [bookings, setBookings] = useState<Booking[] | null>(null)
+    const [stat, setStats] = useState<number | null>(null)
+    const [error, setError] = useState<string | null>(null);
+    
+    const token = localStorage.getItem('authToken');
+    if (!token){
+        console.log('No token found')
+    }
+
+    const fetchStats = async () => {
+        try {
+            const response = await fetch('https://fixit-api-u7ie.onrender.com/profile/user-stat/', {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': `Token ${token}`
+                },
+            })
+            if(!response.ok){
+                throw new Error("No logs to fetch");
+            }
+            const data = await response.json() // Log response for debugging
+
+            // Check if total_booking exists and is a number before setting state
+            if (data && typeof data.total_booking === 'number') {
+                setStats(data.total_booking);
+            } else {
+                throw new Error('Invalid data format received');}
+        }
+        catch(error) {
+            setError((error as Error).message)
+        }
+    }
+    useEffect(() => {
+        fetchStats()
+    }, [])
+    // GET endpoint for the user's booking log
+    const fecthBooking = async () => {
+        try {
+            const response = await fetch('https://fixit-api-u7ie.onrender.com/profile/user_booking_log/', {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': `Token ${token}`
+                },
+            })
+            if(!response.ok){
+                throw new Error("No logs to fetch");
+            }
+            const data = await response.json()
+            setBookings(data);
+        }
+
+        catch(error) {
+            setError((error as Error).message)
+        }
+    }
+    useEffect(() => {
+        fecthBooking()
+        }
+    ,[])
+
+    useEffect(() => {
+        fetch('https://fixit-api-u7ie.onrender.com/profile/me/', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'application/json',
+            },
+        })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error("Failed to fetch user data");
+            }
+            return res.json();
+        })
+        .then((data) => {
+            setUser(data);
+        })
+        .catch((error) => {
+            setError(error.message);
+            console.error(error);
+        });
+    },[])
+
+    ;
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     const handleToggle = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
-
-    return(
+    return (
         <>
-        <DashboardNav />
-        <section className=" pt-[20px] flex flex-col lg:flex-row justify-center items-center lg:items-start gap-20">
+            <DashboardNav />
+            <section className="px-5 md:px-20 pt-[20px] flex flex-col justify-center items-center lg:items-start gap-5">
+                <article className="w-[100%] h-[fit-content] px-5 md:px-10 lg:px-20
+                    bg-white shadow-lg rounded-md p-4 flex flex-col items-center md:flex-none md:flex-row md:gap-20 lg:gap-40">
+                    <div className="my-10 w-[120px] h-[120px] bg-dark rounded-full"></div>
+                    <main className="flex flex-col px-2">
+                        <div className="text-center md:text-start">
+                            <Link to='/create-profile' className="relative ml-auto">
+                                <motion.div
+                                    whileTap={{ y: 20 }}
+                                    transition={{ duration: 0.6 }}>
+                                    <FontAwesomeIcon icon={faEdit} size="xl" />
+                                </motion.div>
+                            </Link>
+                            {user ? (
+                                <>
+                                    <h3 className="text-[18px] font-semibold">
 
-                <article className="w-[350px] h-[480px] bg-white shadow-lg rounded-md p-4 flex flex-col items-center text-center">
-                    <p className="relative ml-auto">kk</p> {/** to work on the dropdown */}
-                    <div className="w-[90px] h-[90px] bg-gray rounded-full"></div>
+                                
+                                        {user.firstname} {user.lastname}
+                                    </h3>
+                                    <div className="my-2 flex gap-10">
+                                    </div>
+                                    <p>{user.address},</p>
+                                    <p>{user.region}, {user.state}</p>
+                                    
+                                    
+                                </>
+                            ) : (
+                                <p>Loading user data...</p>
+                            )}
+                            {error ? (
+                                <p className="error">{error}</p>
+                            ) : (
+                                <>
+                                <>total bookings: {stat}
+                                {/*
+                                <StatItem count={2} description="Completed" />    {stat !== null ? (
+                                <StatItem count={stat} description="Total Bookings" />
+                                ) : (
+                                <p>Loading...</p>
+                                )}
+                                <StatItem count={1} description="Pending" />
+                                */} </>
+                            </>
+                            )}
+                        </div>
 
-                    
-                    <main className="flex flex-col px-2 justify-center pt-5">
-                        <div className="text-center">
-                            <h3 className="text-[18px] font-semibold">Abdulhamid Usman</h3>
-                            <p className="text-">No 237 GRA, Bida</p>
-                            <p>+2348160803194</p>
-                        </div>
-                        <div className="mt-5">
-                            <StatItem
-                            count={2}
-                            description="Completed" >
-                            </StatItem><StatItem
-                            count={2}
-                            description="Jobs Booked" >
-                            </StatItem>
-                            <StatItem
-                            count={2}
-                            description="Pending" >
-                            </StatItem>
-                        </div>
                     </main>
                 </article>
+                <div className="flex flex-col xl:flex-row">
+                    <article>
+                            <h1 className="font-bold text-xl mb-3">Your Logs</h1>
+                            <div className="bg-red  h-fit border-[10px] border-white">
+                                <article className="w-[420px] lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
+                                {bookings && bookings.length > 0 ? (
+                                    bookings.map((booking) => (
+                                        <LogItem
+                                        key={booking.id}
+                                        id={booking.id}
+                                        service={booking.service}
+                                        description={booking.description}
+                                        time={booking.time}
+                                        address={booking.address}
+                                        region={booking.region}
+                                        state={booking.state}
+                                        status={booking.status}
+                                        date={booking.date}
+                                        duration={booking.duration}
+
+                                        isOpen={openIndex === booking.id}
+                                        onToggle={() => handleToggle(booking.id)}
+                                    />
+                                    ))
+                                ) :
+                                <p>Booking log is empty</p>
+                                }
+                                </article>
+                            </div>
 
 
-
-            <div className="flex flex-col xl:flex-row">
-                
-            <article className="">
-
-                <aside>
-                    <h1 className="font-bold text-xl mb-3">Your Logs</h1>
-                    <div className=" bg-red w-fit h-fit border-[10px] border-white">
-                    <article className="w-[360px] sm:w-[420px] lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
-                        <LogItem
-                        faIcon={faHammer}
-                        category="Carpenter"
-                        isOpen={openIndex === 0}
-                        onToggle={() => handleToggle(0)}
-                        >
-                        </LogItem>
-                        
-                        <LogItem
-                        faIcon={faLightbulb}
-                        category="Electritian"
-                        isOpen={openIndex === 1}
-                        onToggle={() => handleToggle(1)}
-                        >
-                        </LogItem>
                     </article>
-                    </div>
-                </aside>
-            </article>
-{/*
-            <section className="">
-                <h1 className="font-bold text-xl">Personalized Blog feeds</h1>
-                <BlogPosts 
-                 category="Plumbing"
-                 heading="How to lorem"
-                ></BlogPosts>
-                
-                <BlogPosts 
-                 category="Plumbing"
-                 heading="How to lorem"
-                ></BlogPosts>
-                
-                <BlogPosts 
-                 category="Plumbing"
-                 heading="How to lorem"
-                ></BlogPosts>
+                </div>
             </section>
-
-*/            }
-
-
-
-            </div>
-        </section>
-        
         </>
-    )
-}
+    );
+};
 
-export default UserDashboard
+export default UserDashboard;
