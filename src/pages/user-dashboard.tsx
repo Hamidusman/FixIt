@@ -106,7 +106,7 @@ const LogItem: React.FC<LogProp> = ({
                 </div>
                 <button
                     type="button"
-                    className="bg-primary w-full hover:scale-[1.13] duration-700 ease-in-out"
+                    className="bg-primary w-full py-1 duration-700 ease-in-out"
                     onClick={openModal}
                 >
                     Give Review
@@ -284,7 +284,7 @@ const UserDashboard = () =>{
                     <article>
                             <h1 className="font-bold text-xl mb-3">Your Logs</h1>
                             <div className="bg-red  h-fit border-[10px] border-white">
-                                <article className="w-[420px] lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
+                                <article className="sm:w-[420px] lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
                                 {bookings && bookings.length > 0 ? (
                                     bookings.map((booking) => (
                                         <LogItem

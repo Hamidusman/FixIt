@@ -14,7 +14,7 @@ body{
 /* Custom scrollbar styles */
 html {
   scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #4A90E2 #F0F0F0;
+  scrollbar-color: #E68C1A #F0F0F0;
 }
 
 html::-webkit-scrollbar {
