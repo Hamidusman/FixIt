@@ -61,12 +61,12 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal }) => {
       >
         <h1 className="text-xl mb-4 font-bold">Give Review For This Log</h1>
         
-        <div className="flex gap-4 mt-4 justify-center">
+        <div className="flex gap-1 md:gap-4 mt-4 justify-center">
           {emojis.map((emoji, index) => (
             <motion.div
               key={index}
               onClick={() => handleEmojiClick(index)}
-              className={`bg-accent_low text-[35px] w-[50px] h-[50px] flex justify-center items-center rounded-full cursor-pointer transition-transform duration-300 ease-in-out ${
+              className={`bg-accent_low text-[25px] md:text-[35px] w-[50px] h-[50px] flex justify-center items-center rounded-full cursor-pointer transition-transform duration-300 ease-in-out ${
                 selectedRating === index + 1 ? 'scale-110' : ''
               }`}
               whileHover={{ scale: 1.2 }}
