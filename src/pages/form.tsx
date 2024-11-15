@@ -34,7 +34,9 @@ const BookingForm: React.FC = () =>{
 
     })
     const [error, setError] = useState<string>('')
-    const [modalOpen, setModalOpen] = useState(false); 
+    const [modalOpen, setModalOpen] = useState(false)
+
+    const closeModal = () => setModalOpen(false)
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -188,7 +190,7 @@ const BookingForm: React.FC = () =>{
                     onExitComplete={() => null}>
                         {modalOpen && !error && (
                             <Modal
-                                handleClose={close}
+                                handleClose={closeModal}
                                 status="Booking Successful"
                                 text="You've successfully booked for a serviceman. You will be in contact with him in due time."
                             />
