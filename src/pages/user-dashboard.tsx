@@ -231,30 +231,37 @@ const UserDashboard = () =>{
     return (
         <>
             <DashboardNav />
-            <section className="px-5 md:px-20 pt-[20px] flex flex-col justify-center items-center lg:items-start gap-5">
-                <article className="w-[100%] h-[fit-content] px-5 md:px-10 lg:px-20
-                    bg-white shadow-lg rounded-md p-4 flex flex-col items-center md:flex-none md:flex-row md:gap-20 lg:gap-40">
-                    <div className="my-10 w-[120px] h-[120px] bg-dark rounded-full"></div>
-                    <main className="flex flex-col px-2">
-                        <div className="text-center md:text-start">
-                            <Link to='/create-profile' className="relative ml-auto">
-                                <motion.div
-                                    whileTap={{ y: 20 }}
-                                    transition={{ duration: 0.6 }}>
-                                    <FontAwesomeIcon icon={faEdit} size="xl" />
-                                </motion.div>
-                            </Link>
+            <section className=" sm:px-10 md:px-20 pt-[20px] flex flex-col justify-center items-center lg:items-center gap-5">
+                <article className="w-full md:w-[480px] h-[fit-content]
+                    md:px-10 lg:px-20 pb-4
+                    bg-white shadow-lg rounded-md
+                    flex flex-col md:flex-none lg:gap-40
+                    ">
+                        <div className="w-full h-32 -mb-20 bg-accent relative 
+                        rounded-b-[30%]">
+
+                        </div>
+                        <div className="flex items-end px-3">
+                            <div className=" w-[120px] h-[120px] bg-dark rounded-full z-20"></div>
+                                <Link to='/create-profile' className="relative ml-auto">
+                                    <motion.div
+                                        whileTap={{ y: 20 }}
+                                        transition={{ duration: 0.6 }}>
+                                        <FontAwesomeIcon icon={faEdit} size="xl" />
+                                    </motion.div>
+                                </Link>
+                        </div>
+                    <main className="flex flex-col px-4">
+                        <div className=" md:text-start">
                             {user ? (
                                 <>
-                                    <h3 className="text-[18px] font-semibold">
-
-                                
+                                    <h3 className="text-[22px] font-semibold">
                                         {user.firstname} {user.lastname}
                                     </h3>
-                                    <div className="my-2 flex gap-10">
-                                    </div>
+                                    <div className="my-2 text-faded gap-10">
                                     <p>{user.address},</p>
                                     <p>{user.region}, {user.state}</p>
+                                    </div>
                                     
                                     
                                 </>
@@ -265,7 +272,7 @@ const UserDashboard = () =>{
                                 <p className="error">{error}</p>
                             ) : (
                                 <>
-                                <>total bookings: {stat}
+                                <p className="text-primary font-semibold">{stat} bookings
                                 {/*
                                 <StatItem count={2} description="Completed" />    {stat !== null ? (
                                 <StatItem count={stat} description="Total Bookings" />
@@ -273,18 +280,18 @@ const UserDashboard = () =>{
                                 <p>Loading...</p>
                                 )}
                                 <StatItem count={1} description="Pending" />
-                                */} </>
+                                */} </p>
                             </>
                             )}
                         </div>
 
                     </main>
                 </article>
-                <div className="flex flex-col xl:flex-row">
+                <div className="w-full md:w-[480px] flex flex-col xl:flex-row">
                     <article>
                             <h1 className="font-bold text-xl mb-3">Your Logs</h1>
-                            <div className="bg-red  h-fit border-[10px] border-white">
-                                <article className="sm:w-[420px] lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
+                            <div className="bg-red w-full bg-white p-3 h-fit border-white">
+                                <article className=" lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
                                 {bookings && bookings.length > 0 ? (
                                     bookings.map((booking) => (
                                         <LogItem

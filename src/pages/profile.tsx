@@ -1,20 +1,25 @@
-{/*import { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { faBuilding, faMap, faMapLocation, faPerson, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+const regions: Record<'Abuja' | 'Kaduna' | 'Lagos', string[]> = {
+    Abuja: ["Jabi"],
+    Kaduna: ["Kawo"],
+    Lagos: ["Lekki"],
+};
 interface ProfileData {
     firstname: string;
     lastname: string;
-    phone_number: number;
-    state: string;
+    phone_number: string;
+    state: keyof typeof regions | "";
     region: string;
     address: string;
 }
 
 const CreateProfile = () => {
-    const [profileData, setProfileData] = useState({
+    const [profileData, setProfileData] = useState<ProfileData>({
         firstname: '',
         lastname: '',
         phone_number: '',
@@ -26,31 +31,45 @@ const CreateProfile = () => {
 
     const iconColor = '#E68C1A';
     const navigate = useNavigate()
+    const regions = {
+        Abuja: ["Jabi"],
+        Kaduna: ["Kawo"],
+        Lagos: ["Lekki"],
+    };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        setProfileData({
-            ...profileData,
-            [e.target.name]: e.target.value
-        });
+        const {name, value} = e.target
+        setProfileData((prev) => ({
+            ...prev,
+            [name]: value,
+            ...(name === "state" && { region: "" }),
+        }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null)
+
+        // set to validate input
+        if (!profileData.firstname || !profileData.lastname || !profileData.phone_number || 
+            !profileData.state || !profileData.region || !profileData.address) {
+            setError("All fields are required.");
+            return;
+        }
     
         try {
             const token = localStorage.getItem('authToken');
             if (!token) {
                 alert("No authentication token found. Please log in again.");
-                return;  // Prevent the submission if no token
+                return;
             }
     
 
-            const response = await axios.post('http://127.0.0.1:8000/profile/', profileData, {
+            const response = await axios.post('https://fixit-api-u7ie.onrender.com/profile/', profileData, {
 
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `token ${token}`
+                    'Authorization': `Token ${token}`
                 }
                     });
             setProfileData({
@@ -63,7 +82,7 @@ const CreateProfile = () => {
             });
             console.log('Profile created:', response.data);
             navigate('/user')
-            // Handle success (e.g., show a success message or redirect)
+            
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {
                 console.log("Error data:", error.response.data);
@@ -106,34 +125,44 @@ const CreateProfile = () => {
                             className="w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none" 
                         />
                     </label>
-
                     <label htmlFor="state" className="flex gap-5 items-center">
                         <FontAwesomeIcon icon={faMap} size="2xl" color={iconColor} />
-                        <select 
-                            name="state" 
-                            id="state" 
-                            value={profileData.state} 
-                            onChange={handleChange} 
+                        <select
+                            name="state"
+                            id="state"
+                            value={profileData.state}
+                            onChange={handleChange}
                             className="w-[270px] md:w-[320px] text-xl border-b-dark border-b-2 focus:outline-none"
                         >
-                            <option value="Abuja">Abuja</option>
-                            <option value="Kaduna">Kaduna</option>
-                            <option value="Lagos">Lagos</option>
+                            <option value="" disabled>Select a State</option>
+                            {Object.keys(regions).map((state) => (
+                                <option key={state} value={state}>
+                                    {state}
+                                </option>
+                            ))}
                         </select>
                     </label>
 
                     <label htmlFor="region" className="flex gap-5 items-center">
                         <FontAwesomeIcon icon={faMapLocation} size="2xl" color={iconColor} />
-                        <select 
-                            name="region" 
-                            id="region" 
-                            value={profileData.region} 
-                            onChange={handleChange} 
-                            className="w-[270px] md:w-[320px] text-xl border-b-dark border-b-2 focus:outline-none"
+                        <select
+                            name="region"
+                            id="region"
+                            value={profileData.region}
+                            onChange={handleChange}
+                            className="w-[270px] md:w-[320px] text-xl
+                            border-b-dark border-b-2 focus:outline-none"
+                            disabled={!profileData.state}
                         >
-                            <option value="Jabi">Jabi</option>
-                            <option value="Kawo">Kawo</option>
-                            <option value="Lekki">Lekki</option>
+                            <option value="" disabled>
+                                Select a Region
+                            </option>
+                            {profileData.state &&
+                                regions[profileData.state].map((region) => (
+                                    <option key={region} value={region}>
+                                        {region}
+                                    </option>
+                                ))}
                         </select>
                     </label>
 
@@ -146,7 +175,8 @@ const CreateProfile = () => {
                             placeholder="Home/Work Address" 
                             value={profileData.address} 
                             onChange={handleChange} 
-                            className="w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none" 
+                            className="w-[270px] md:w-[320px] text-xl
+                            bg-transparent border-b-dark border-b-2 focus:outline-none" 
                         />
                     </label>
 
@@ -175,4 +205,3 @@ const CreateProfile = () => {
 };
 
 export default CreateProfile;
- */}

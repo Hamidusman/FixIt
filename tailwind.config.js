@@ -14,7 +14,8 @@ export default {
         gray: '#f8f7fd',
         w: '#fff',
         dark: '#212141',
-        smoke: '#f5f5f5'
+        smoke: '#f5f5f5',
+        faded: '#71717a'
 
       },
       boxShadow: {
