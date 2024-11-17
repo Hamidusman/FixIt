@@ -4,7 +4,6 @@ import { faArrowDown, faArrowUp,  faEdit, } from "@fortawesome/free-solid-svg-ic
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import ReviewModal from "../components/reviewModals";
 
 {/* 
 interface StatProp{
