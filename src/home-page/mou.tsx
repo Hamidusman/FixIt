@@ -1,17 +1,23 @@
-import { faTurnDown, faTurnUp } from "@fortawesome/free-solid-svg-icons";
+{/*import { faTurnDown, faTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, ReactNode} from 'react';
+import { motion } from "framer-motion";*/}
 import plumber from '../assets/Pipeline maintenance-amico.png'
-import { motion } from "framer-motion";
+import Reveal from '../assets/reveal.tsx';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "../components/ui/accordion.tsx"
 
-interface AccordionItemProps {
+{/*/ interface AccordionItemProps {
     title: string;
     children: ReactNode;
     isOpen: boolean;
     onToggle: () => void;
 }
 
-const AccordionItem: React.FC<AccordionItemProps> = ({ title, children, isOpen, onToggle }) => {
+const AccordionItems: React.FC<AccordionItemProps> = ({ title, children, isOpen, onToggle }) => {
     const colorIcon = '#E68C1A'
     return (
         <motion.div
@@ -48,14 +54,16 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, children, isOpen, 
         </motion.div>
     );
 };
+ */ }
+const Accordions: React.FC = () => {
 
-const Accordion: React.FC = () => {
+{/*    
+    
     const [openIndex, setOpenIndex] = useState<number | null>(null);
-
     const handleToggle = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
     };
-
+*/}
     const accordion= [
         {
             title: "Book A Fixer",
@@ -80,31 +88,33 @@ const Accordion: React.FC = () => {
             <h1 className="text-[33px] lg:text-[40px] text-center font-bold mt-20">How We <span className="text-primary">Operate</span></h1>
 
             
-            <section className="mx-5 md:mx-20 lg:flex justify-center items-center md:justify-between">
+            <section className="mx-5 md:mx-20 flex flex-col lg:flex-row justify-center items-center md:justify-between">
 
-            <div className='flex justify-center'>
                 <img 
                     src={plumber}
-                    className="w-[360px] lg:w-[550px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " 
+                    className=" mt-0 h-[350px] md:h-[340px] lg:h-[450px] " 
                     alt=""
-                /> 
-            </div>
-            <div className=''>
-                {accordion.map((acc, index) =>
-                    
-                    <AccordionItem
-                    key={index}
-                        title={acc.title}
-                        isOpen={openIndex === index}
-                        onToggle={() => handleToggle(index)}
-                        children={acc.children}
-                    >
-                    </AccordionItem>
-                )}
+                    /> 
+                <div className='w-[500px]'>
+                    <Reveal>
+                    {accordion.map((acc, index) =>
+                        
+                        
+                        <Accordion type="single" collapsible
+                            key={index}>
+                            <AccordionItem value="item-1">
+                            <AccordionTrigger className="font-bold text-lg"> {acc.title}</AccordionTrigger>
+                            <AccordionContent>
+                                {acc.children}
+                            </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                        )}
+                    </Reveal>
                 </div>
             </section>
         </>
     );
 };
 
-export default Accordion;
+export default Accordions;

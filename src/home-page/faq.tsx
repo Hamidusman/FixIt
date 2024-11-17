@@ -1,57 +1,14 @@
-import { faTurnDown, faTurnUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+
 import Reveal from "../assets/reveal";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "../components/ui/accordion"
 
-interface FAQProps {
-    title: string;
-    children: React.ReactNode;
-    isOpen: boolean;
-    onToggle: () => void;
-}
-
-const FaqItem:  React.FC<FAQProps> = ({ title, children, isOpen, onToggle }) => {
-    const colorIcon = '#E68C1A'
-    return (
-        <Reveal>
-            
-            <header
-                className="flex justify-between items-center p-4 cursor-pointer
-                            rounded-t-xl mt-2"
-                onClick={onToggle}
-            >
-                <h2 className="text-[18px] md:text-[24px] font-semibold">{title}</h2>
-                <span className="transform transition-transform duration-200">
-                    {isOpen ? 
-                    <FontAwesomeIcon
-                    icon={faTurnUp}
-                    color={colorIcon}
-                    size="xl">
-                    </FontAwesomeIcon>
-                    :
-                    <FontAwesomeIcon
-                    icon={faTurnDown}
-                    size="xl">
-                    </FontAwesomeIcon> }
-                </span>
-            </header>
-            <div
-                className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? 'max-h-40' : 'max-h-0'}`}
-            >
-                <div className="p-4 mt-[-2px] xl:text-[21px] rounded-b-xl">
-                    {children}
-                </div>
-            </div>
-        </Reveal>
-    );
-};
 
 const Faq = () => {
-    const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-    const handleToggle = (index: number) => {
-        setOpenIndex(openIndex === index ? null : index);
-    };
 
     const faqs = [
         {
@@ -71,20 +28,24 @@ const Faq = () => {
     return (
         <>
             
-            <h1 className='text-[40px] text-center font-bold my-10'><span className='text-primary'>FAQs</span></h1>
+        <h1 className='text-[40px] text-center font-bold my-10'><span className='text-primary'>FAQs</span></h1>
 
         <section className=" my-10 mx-5 mt-10 md:mx-20 lg:flex justify-between">
-            <div className=" flex flex-col gap-y-1">
+            <div className="w-full flex flex-col gap-y-1">
                 {faqs.map((faq, index) =>(
                     
-                    <FaqItem
-                        key={index}
-                        title={faq.title}
-                        isOpen={openIndex === index}
-                        onToggle={() => handleToggle(index)}
-                        children={faq.content}
-                        >
-                    </FaqItem>
+                    <Reveal>
+                        
+                    <Accordion type="single" collapsible
+                        key={index}>
+                        <AccordionItem value="item-1">
+                        <AccordionTrigger className="font-bold text-lg"> {faq.title}</AccordionTrigger>
+                        <AccordionContent>
+                            {faq.content}
+                        </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                    </Reveal>
                 ))}
             </div>
         </section>

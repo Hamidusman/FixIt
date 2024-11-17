@@ -3,10 +3,9 @@ import { motion, useInView, useAnimation } from "framer-motion";
 
 interface RevealItem{
     children: React.ReactNode,
-    width?: string
 }
 
-const Reveal: React.FC<RevealItem> = ({ children, width = "fit-content" }) => {
+const Reveal: React.FC<RevealItem> = ({ children }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
     const controls = useAnimation();
@@ -18,7 +17,7 @@ const Reveal: React.FC<RevealItem> = ({ children, width = "fit-content" }) => {
     }, [isInView, controls]);
 
     return (
-        <div ref={ref} style={{ width, overflow: "hidden" }}>
+        <div ref={ref} style={{ overflow: "hidden" }}>
             <motion.div
                 variants={{
                     hidden: { opacity: 0, y: 100 },

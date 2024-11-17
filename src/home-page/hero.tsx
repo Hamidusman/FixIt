@@ -14,8 +14,9 @@ function Hero() {
                 </Reveal>
                 <GetStarted />
             </div>
-
-            <img src={electritian} className="w-[350px] lg:w-[440px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " alt="" />
+            <Reveal>
+                <img src={electritian} className="w-[350px] lg:w-[440px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " alt="" />
+            </Reveal>
 
         </section>
     )
