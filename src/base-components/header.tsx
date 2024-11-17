@@ -10,7 +10,9 @@ const Header = () => {
 
     return (
         <Headroom>
-            <header className="bg-white px-4 md:px-20 h-[90px] flex justify-between items-center shadow-md relative">
+            <header className="bg-white px-4 md:px-20 h-[90px]
+            flex justify-between items-center shadow-md relative
+            z-30">
                 <div className="flex items-center gap-3">
                     <Link to='/' className="text-primary text-[50px] font-medium italic md:text-[50px]">
                         Fix<span>It</span>

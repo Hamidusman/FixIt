@@ -10,7 +10,7 @@ const Header = () => {
 
     return (
         <Headroom>
-            <header className="bg-white px-4 md:px-20 h-[90px] flex justify-between items-center shadow-md">
+            <header className="bg-white px-4 md:px-20 h-[90px] flex justify-between items-center shadow-md z-[5]">
                 <div className="flex items-center">
                     <h2 className="text-primary text-[28px] md:text-[35px] font-extrabold">
                         Fix<span>It</span>

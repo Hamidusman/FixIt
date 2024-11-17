@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import DashboardNav from "../components/dashboard-nav";
+import Header from "../components/dashboard-nav";
 import { faArrowDown, faArrowUp,  faEdit, } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -71,6 +71,7 @@ const LogItem: React.FC<LogProp> = ({
 
     const openModal = () => setModalOpen(true)
     const closeModal = () => setModalOpen(false)
+
     return(
         <div className="flex flex-col">
             <div className="bg-secondary px-3 py-1 
@@ -230,68 +231,51 @@ const UserDashboard = () =>{
 
     return (
         <>
-            <DashboardNav />
-            <section className=" sm:px-10 md:px-20 pt-[20px] flex flex-col justify-center items-center lg:items-center gap-5">
-                <article className="w-full md:w-[480px] h-[fit-content]
-                    md:px-10 lg:px-20 pb-4
-                    bg-white shadow-lg rounded-md
-                    flex flex-col md:flex-none lg:gap-40
-                    ">
-                        <div className="w-full h-32 -mb-20 bg-accent relative 
-                        rounded-b-[30%]">
-
-                        </div>
-                        <div className="flex items-end px-3">
-                            <div className=" w-[120px] h-[120px] bg-dark rounded-full z-20"></div>
-                                <Link to='/create-profile' className="relative ml-auto">
-                                    <motion.div
-                                        whileTap={{ y: 20 }}
-                                        transition={{ duration: 0.6 }}>
-                                        <FontAwesomeIcon icon={faEdit} size="xl" />
-                                    </motion.div>
-                                </Link>
-                        </div>
+            <Header/>
+            <section className=" sm:px-10  pt-[20px] flex flex-col justify-center items-center lg:items-center gap-5 z-[3]">
+                
+                <div className="w-full sm:w-[550px] lg:w-[720px] h-32 -mb-20 bg-accent relative 
+                    rounded-b-[40px] md:rounded-t-2xl">
+                </div>
+                <article className="w-full sm:w-[550px] lg:w-[720px] h-fit-content
+                    px-2 pb-4 bg-white shadow-lg rounded-md flex flex-col">
+                    <div className="flex items-end">
+                        <div className="w-[120px] h-[120px] bg-dark rounded-full z-10"></div>
+                        <Link to="/create-profile" className="relative ml-auto">
+                            <motion.div whileTap={{ y: 20 }} transition={{ duration: 0.6 }}>
+                                <FontAwesomeIcon icon={faEdit} size="xl" />
+                            </motion.div>
+                        </Link>
+                    </div>
                     <main className="flex flex-col px-4">
-                        <div className=" md:text-start">
+                        <div className="md:text-start">
                             {user ? (
                                 <>
                                     <h3 className="text-[22px] font-semibold">
                                         {user.firstname} {user.lastname}
                                     </h3>
                                     <div className="my-2 text-faded gap-10">
-                                    <p>{user.address},</p>
-                                    <p>{user.region}, {user.state}</p>
+                                        <p>{user.address},</p>
+                                        <p>{user.region}, {user.state}</p>
                                     </div>
-                                    
-                                    
                                 </>
                             ) : (
                                 <p>Loading user data...</p>
                             )}
-                            {error ? (
-                                <p className="error">{error}</p>
-                            ) : (
-                                <>
-                                <p className="text-primary font-semibold">{stat} bookings
-                                {/*
-                                <StatItem count={2} description="Completed" />    {stat !== null ? (
-                                <StatItem count={stat} description="Total Bookings" />
-                                ) : (
-                                <p>Loading...</p>
-                                )}
-                                <StatItem count={1} description="Pending" />
-                                */} </p>
-                            </>
+                            {error && <p className="text-red-500 font-semibold">{error}</p>}
+                            {!error && (
+                                <p className="text-primary font-semibold">
+                                    {stat !== null ? `${stat} bookings` : "Loading..."}
+                                </p>
                             )}
                         </div>
-
                     </main>
                 </article>
-                <div className="w-full md:w-[480px] flex flex-col xl:flex-row">
+                <div className="w-full sm:w-[550px] lg:w-[720px] flex flex-col xl:flex-row">
                     <article>
                             <h1 className="font-bold text-xl mb-3">Your Logs</h1>
-                            <div className="bg-red w-full bg-white p-3 h-fit border-white">
-                                <article className=" lg:w-[460px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
+                            <div className=" bg-white  p-3 h-fit border-white">
+                                <article className="lg:w-[720px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
                                 {bookings && bookings.length > 0 ? (
                                     bookings.map((booking) => (
                                         <LogItem

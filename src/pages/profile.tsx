@@ -198,6 +198,8 @@ const CreateProfile = () => {
                     <button type="submit" className="px-20 py-3 rounded-xl text-lg font-bold bg-primary hover:bg-dark hover:text-primary transition duration-100 ease-in">
                         Submit
                     </button>
+                    
+                    {error && <p className="text-red-500">{error}</p>}
                 </div>
             </form>
         </section>
