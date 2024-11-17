@@ -4,6 +4,7 @@ import { faArrowDown, faArrowUp,  faEdit, } from "@fortawesome/free-solid-svg-ic
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import ReviewModal from "../components/reviewModals";
 
 {/* 
 interface StatProp{
@@ -234,7 +235,7 @@ const UserDashboard = () =>{
     return (
         <>
             <Header/>
-            <section className=" sm:px-10  pt-[20px] flex flex-col justify-center items-center lg:items-center gap-5 z-[3]">
+            <section className=" sm:px-10  pt-[15px] flex flex-col justify-center items-center lg:items-center gap-5 z-[3]">
                 
                 <div className="w-full sm:w-[550px] lg:w-[720px] h-32 -mb-20 bg-accent relative 
                     rounded-b-[40px] md:rounded-t-2xl">
@@ -249,7 +250,7 @@ const UserDashboard = () =>{
                             </motion.div>
                         </Link>
                     </div>
-                    <main className="flex flex-col px-4 mt-2">
+                    <main className="flex flex-col px-2 mt-2">
                         <div className="md:text-start">
                             {loading ? (
                                     
@@ -285,9 +286,9 @@ const UserDashboard = () =>{
                 </article>
                 <div className="w-full sm:w-[550px] lg:w-[720px] flex flex-col xl:flex-row">
                     <article>
-                            <h1 className="font-bold text-xl mb-3">Your Logs</h1>
                             <div className=" bg-white  p-3 h-fit border-white">
-                                <article className="lg:w-[720px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
+                            <h1 className="font-bold text-xl mb-3">My Logs</h1>
+                                <article className="lg:w-[720px] overflow-y-scroll h-[250px] bg-white flex flex-col gap-2">
                                 {loading ? (
                                     
                                     <div className="bg-secondary px-3 py-5 animate-pulse
