@@ -140,6 +140,7 @@ const UserDashboard = () =>{
     const [bookings, setBookings] = useState<Booking[] | null>(null)
     const [stat, setStats] = useState<number | null>(null)
     const [error, setError] = useState<string | null>(null);
+    const [loading, isLoading] = useState(true)
     
     const token = localStorage.getItem('authToken');
     if (!token){
@@ -168,6 +169,8 @@ const UserDashboard = () =>{
         }
         catch(error) {
             setError((error as Error).message)
+        } finally{
+            isLoading(false)
         }
     }
     useEffect(() => {
@@ -247,9 +250,15 @@ const UserDashboard = () =>{
                             </motion.div>
                         </Link>
                     </div>
-                    <main className="flex flex-col px-4">
+                    <main className="flex flex-col px-4 mt-2">
                         <div className="md:text-start">
-                            {user ? (
+                            {loading ? (
+                                    
+                                    <div className="w-[90px] bg-secondary px-3 py-3 animate-pulse
+                                    flex justify-between items-center gap-3"
+                                    >
+                                </div>
+                                ) : user ? (
                                 <>
                                     <h3 className="text-[22px] font-semibold">
                                         {user.firstname} {user.lastname}
@@ -265,7 +274,11 @@ const UserDashboard = () =>{
                             {error && <p className="text-red-500 font-semibold">{error}</p>}
                             {!error && (
                                 <p className="text-primary font-semibold">
-                                    {stat !== null ? `${stat} bookings` : "Loading..."}
+                                    {stat !== null ? `${stat} bookings` : 
+                                    <div className="w-[90px] bg-secondary px-3 py-3 animate-pulse
+                                    flex justify-between items-center gap-3 mt-2"
+                                    >
+                                </div>}
                                 </p>
                             )}
                         </div>
@@ -276,9 +289,15 @@ const UserDashboard = () =>{
                             <h1 className="font-bold text-xl mb-3">Your Logs</h1>
                             <div className=" bg-white  p-3 h-fit border-white">
                                 <article className="lg:w-[720px] overflow-y-scroll h-[350px] px-3 bg-white flex flex-col gap-2">
-                                {bookings && bookings.length > 0 ? (
+                                {loading ? (
+                                    
+                                    <div className="bg-secondary px-3 py-5 animate-pulse
+                                    flex justify-between items-center gap-3"
+                                    >
+                                </div>
+                                ) : bookings && bookings.length > 0 ? (
                                     bookings.map((booking) => (
-                                        <LogItem
+                                    <LogItem
                                         key={booking.id}
                                         id={booking.id}
                                         service={booking.service}
@@ -290,14 +309,13 @@ const UserDashboard = () =>{
                                         status={booking.status}
                                         date={booking.date}
                                         duration={booking.duration}
-
                                         isOpen={openIndex === booking.id}
                                         onToggle={() => handleToggle(booking.id)}
                                     />
                                     ))
-                                ) :
-                                <p>Booking log is empty</p>
-                                }
+                                ) : (
+                                    <p>Booking log is empty</p>
+                                )}
                                 </article>
                             </div>
 
