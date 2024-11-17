@@ -235,7 +235,7 @@ const UserDashboard = () =>{
     return (
         <>
             <Header/>
-            <section className=" sm:px-10  pt-[15px] flex flex-col justify-center items-center lg:items-center gap-5 z-[3]">
+            <section className=" sm:px-10  pt-2 md:pt-4 flex flex-col justify-center items-center lg:items-center gap-5 z-[3]">
                 
                 <div className="w-full sm:w-[550px] lg:w-[720px] h-32 -mb-20 bg-accent relative 
                     rounded-b-[40px] md:rounded-t-2xl">

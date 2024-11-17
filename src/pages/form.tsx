@@ -37,6 +37,11 @@ const BookingForm: React.FC = () =>{
     const [modalOpen, setModalOpen] = useState(false)
 
     const closeModal = () => setModalOpen(false)
+    const stateToRegions: { [key: string]: string[] } = {
+        Abuja: ["Jabi", "Gwarinpa", "Wuse"],
+        Kaduna: ["Kawo", "Barnawa", "Ungwan Rimi"],
+        Lagos: ["Lekki", "Ikeja", "Victoria Island"],
+    };
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -44,6 +49,7 @@ const BookingForm: React.FC = () =>{
         setBooking((prevData) =>({
             ...prevData,
             [name]: value,
+            ...(name === "state" && { region: "" })
         }));
     };
 
@@ -151,7 +157,12 @@ const BookingForm: React.FC = () =>{
 
                     <div className="flex font-bold flex-col gap-2 my-3">
                         <p className=" text-xl">State</p>
-                        <select name="state" value={booking.state} onChange={handleChange} className="bg-accent_low font-normal px-3 py-2 rounded-lg  sm:w-[420px] p-1  border-b-dark border-b-2 focus:outline-none">
+                        <select name="state"
+                            value={booking.state}
+                            onChange={handleChange}
+                            className="bg-accent_low font-normal px-3 py-2
+                                        rounded-lg  sm:w-[420px] p-1
+                                        border-b-dark border-b-2 focus:outline-none">
                             <option value="Abuja">Abuja</option>
                             <option value="Kaduna">Kaduna</option>
                             <option value="Lagos">Lagos</option>
@@ -159,10 +170,19 @@ const BookingForm: React.FC = () =>{
                     </div>
                     <div className="flex flex-col gap-2">
                         <p className="font-bold text-xl">Region</p>
-                        <select name="region" value={booking.region} onChange={handleChange} className="bg-accent_low font-normal px-3 py-2 rounded-lg sm:w-[420px] p-1  border-b-dark border-b-2 focus:outline-none">
-                            <option value="Jabi">Jabi</option>
-                            <option value="Kawu">Kawo</option>
-                            <option value="Lekki">Lekki</option>
+                        <select name="region"
+                                value={booking.region}
+                                onChange={handleChange}
+                                className="bg-accent_low font-normal px-3 py-2 rounded-lg 
+                                            sm:w-[420px] p-1 border-b-dark border-b-2
+                                            focus:outline-none">
+                                <option value="">-- Select Region --</option>
+                                {booking.state &&
+                                    stateToRegions[booking.state].map((region) => (
+                                    <option key={region} value={region}>
+                                        {region}
+                                    </option>
+                                    ))}
                         </select>
                     </div>
                 </div>
@@ -192,7 +212,7 @@ const BookingForm: React.FC = () =>{
                             <Modal
                                 handleClose={closeModal}
                                 status="Booking Successful"
-                                text="You've successfully booked for a serviceman. You will be in contact with him in due time."
+                                text="You've successfully booked for a serviceman. You will be in contact with him very soon."
                             />
                         )}
                     </AnimatePresence>

@@ -73,6 +73,10 @@ const Modal: React.FC<ModalProp> = ({ handleClose, status, text}) => {
                 animate="visible"
                 exit="exit"
             >
+                
+                <img src="src\assets\8e97d100673bfb291a8801734c899bda.png"
+                    alt="A Happy Pipboy"
+                    className="w-[120px] h-[120px] relative right-5"/>
                 <h1 className="text-[25px] mb-2 font-semibold">{status}</h1>
                 <p className="tex-lg">{text}</p>
                 {/*
