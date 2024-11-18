@@ -95,7 +95,7 @@ const Accordions: React.FC = () => {
                     className=" mt-0 h-[350px] md:h-[340px] lg:h-[450px] " 
                     alt=""
                     /> 
-                <div className='w-full md:w-[500px]'>
+                <div className='w-full md:w-[720px]'>
                     <Reveal
                     duration="1.2">
                     {accordion.map((acc, index) =>
