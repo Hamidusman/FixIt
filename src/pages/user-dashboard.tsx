@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../components/dashboard-nav";
-import { faArrowDown, faArrowUp,  faEdit, } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -79,19 +79,10 @@ const LogItem: React.FC<LogProp> = ({
                 onClick={onToggle}>
 
                 <div className="flex items-center gap-2">
-                    <h1 className="">{service} on {date} ({status})</h1>
+                    <h1 className="">{service} on {date} </h1>
                 </div>
+                <div>({status})</div>
                 
-                <span className="transform bg transition-transform duration-200">
-                {isOpen ? 
-                    <FontAwesomeIcon
-                    icon={faArrowUp}>
-                    </FontAwesomeIcon> 
-                    :
-                    <FontAwesomeIcon
-                    icon={faArrowDown}>
-                    </FontAwesomeIcon>}
-                </span>
             </div>
 
             <div
@@ -99,7 +90,7 @@ const LogItem: React.FC<LogProp> = ({
             >
                 <div className="p-4 mt-[-2px] bg-secondary ">
                     <ul className="text-[16px]">
-                        <li>time: {time}</li>
+                        <li>Time: {time}</li>
                         <li>Location: {address}, {region}, {state}</li>
                         <li>Description: {description}</li>
                         <li>Duration: {duration}</li>
@@ -288,7 +279,7 @@ const UserDashboard = () =>{
                     <article>
                             <div className=" bg-white  p-3 h-fit border-white">
                             <h1 className="font-bold text-xl mb-3">My Logs</h1>
-                                <article className="lg:w-[720px] overflow-y-scroll h-[250px] bg-white flex flex-col gap-2">
+                                <article className="lg:w-[720px] overflow-y-scroll bg-white flex flex-col gap-2">
                                 {loading ? (
                                     
                                     <div className="bg-secondary px-3 py-5 animate-pulse

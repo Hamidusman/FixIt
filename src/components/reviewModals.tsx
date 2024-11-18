@@ -27,53 +27,54 @@ const dropIn = {
 const emojis = ["😡", "😕", "😐", "😊", "😍"];
 
 interface ReviewModalProps {
-  closeModal: () => void;
+    closeModal: () => void;
 }
 
 const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal }) => {
-  const [selectedRating, setSelectedRating] = useState<number | null>(null);
-  const [comment, setComment] = useState<string>('');
+    const [selectedRating, setSelectedRating] = useState<number | null>(null);
+    const [comment, setComment] = useState<string>('');
 
-  const handleEmojiClick = (index: number) => {
+    const handleEmojiClick = (index: number) => {
     setSelectedRating(index + 1); // Store rating as 1 to 5 based on index
-  };
+};
 
-  const submitReview = () => {
+    const submitReview = () => {
     if (selectedRating !== null) {
-      const reviewData = {
+    const reviewData = {
         rating: selectedRating,
         comment,
-      };
-      console.log("Review Data to Submit:", reviewData);
+    };
+    console.log("Review Data to Submit:", reviewData);
     }
     closeModal();
-  };
+};
 
-  return (
+return (
     <Backdrop onClick={closeModal}>
-      <motion.div
+        <motion.div
         onClick={(e) => e.stopPropagation()} // Prevent backdrop click from closing modal
         className="review-modal bg-white p-4 md:px-20 rounded shadow-lg flex flex-col"
         variants={dropIn}
         initial="hidden"
         animate="visible"
         exit="exit"
-      >
+        >
         <h1 className="text-xl mb-4 font-bold">Give Review For This Log</h1>
         
-        <div className="flex gap-1 md:gap-4 mt-4 justify-center">
-          {emojis.map((emoji, index) => (
+        <div className="flex gap-2 md:gap-4 mt-4 justify-center">
+            {emojis.map((emoji, index) => (
             <motion.div
-              key={index}
-              onClick={() => handleEmojiClick(index)}
-              className={`bg-accent_low text-[25px] md:text-[35px] w-[50px] h-[50px] flex justify-center items-center rounded-full cursor-pointer transition-transform duration-300 ease-in-out ${
+                key={index}
+                onClick={() => handleEmojiClick(index)}
+                className={`bg-accent_low text-[25px] md:text-[35px] w-[50px] h-[50px]
+                flex justify-center items-center rounded-full cursor-pointer transition-transform duration-300 ease-in-out ${
                 selectedRating === index + 1 ? 'scale-110' : ''
-              }`}
-              whileHover={{ scale: 1.2 }}
+                }`}
+                whileHover={{ scale: 1.25 }}
             >
-              {emoji}
+                {emoji}
             </motion.div>
-          ))}
+            ))}
         </div>
 
         {selectedRating !== null && (
