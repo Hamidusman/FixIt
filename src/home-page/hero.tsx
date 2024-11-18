@@ -13,7 +13,11 @@ function Hero() {
                 <h1 className="hero-text text-[40px] lg:text-[65px] xl:text-[95px] m-0 font-bold">Technical Service Made Easy</h1>
                 <p className="text-[16px] md:text-[18px] my-3 lg:my-5 flex flex-wrap">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis totam sed officiis ea nulla blanditiis tempora eveniet! Corrupti dolorum sit, quod officiis tempora distinctio nemo. Qui veniam corporis cum! Repellat?</p>
                 </Reveal>
-                <GetStarted />
+                <GetStarted
+                    link="/register"
+                >
+                    Get Started
+                </GetStarted>
             </div>
             <Reveal
             duration="1.8">

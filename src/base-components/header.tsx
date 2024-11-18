@@ -28,7 +28,10 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className="flex items-center">
-                    <GetStarted />
+                    <GetStarted
+                        link='/register'>Get Started!
+
+                    </GetStarted>
                     <button
                         className="hidden ml-4 focus:outline-none"
                         onClick={() => setIsOpen(!isOpen)}

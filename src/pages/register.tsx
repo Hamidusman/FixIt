@@ -70,7 +70,7 @@ const Register = () =>{
         <section className="px-5 flex flex-col justify-center items-center h-[100vh]">
             <form 
                 onSubmit={handleSubmit}
-                className="w-[360px] md:w-[420px] min-h-60 bg-white shadow-2xl  flex flex-col rounded-xl pt-10 px-7">
+                className="w-full sm:w-[420px] min-h-60 bg-white shadow-2xl  flex flex-col rounded-xl pt-10 px-7">
                 <div className="font-bold text-3xl">Register</div>
                 <p>Fill in the form to get started</p>
                 <div className="pt-14 gap-10 text-dark flex flex-col justify-center items-center">
@@ -86,7 +86,7 @@ const Register = () =>{
                             id="" placeholder="Email"
                             value={formState.email}
                             onChange={handleChange}
-                            className="w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none" />
+                            className="sm:w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none" />
                     </label>
                     
                     <label htmlFor="" className="flex gap-5 items-center">
@@ -100,7 +100,7 @@ const Register = () =>{
                             placeholder="Password"
                             value={formState.password}
                             onChange={handleChange}
-                            className="w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
+                            className="sm:w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
                             required
                             />
                     </label>
@@ -116,7 +116,7 @@ const Register = () =>{
                             placeholder="Confirm Password"
                             value={formState.confirm}
                             onChange={handleChange}
-                            className="w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
+                            className="sm:w-[270px] md:w-[320px]  text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
                             required
                         />
                     </label>

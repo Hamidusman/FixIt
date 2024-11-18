@@ -43,7 +43,8 @@ const Login: React.FC = () => {
     };
     return (
         <section className="px-5 flex flex-col justify-center items-center h-[100vh]">
-            <form onSubmit={handleSubmit} className="bg-white w-[360px] md:w-[420px] min-h-60 shadow-2xl flex flex-col rounded-xl pt-10 px-7">
+            <form onSubmit={handleSubmit}
+                className="w-full sm:w-[420px] bg-white md:w-[420px] min-h-60 shadow-2xl flex flex-col rounded-xl pt-10 px-7">
                 <div className="font-bold text-3xl">Login</div>
                 <p>Happy to have you back</p>
                 <div className="pt-14 gap-10 text-dark flex flex-col justify-center items-center">
@@ -54,7 +55,7 @@ const Login: React.FC = () => {
                             placeholder="Email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
+                            className="sm:w-[270px] md:w-[320px]  text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
                             required
                         />
                     </label>
@@ -65,7 +66,7 @@ const Login: React.FC = () => {
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
+                            className="sm:w-[270px] md:w-[320px]  text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
                             required
                         />
                     </label>
