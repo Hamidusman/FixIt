@@ -88,15 +88,16 @@ const Accordions: React.FC = () => {
             <h1 className="text-[33px] lg:text-[40px] text-center font-bold mt-20">How We <span className="text-primary">Operate</span></h1>
 
             
-            <section className="mx-5 md:mx-20 flex flex-col lg:flex-row justify-center items-center md:justify-between">
+            <section className="px-5 md:mx-20 flex flex-col lg:flex-row justify-center items-center md:justify-between">
 
                 <img 
                     src={plumber}
                     className=" mt-0 h-[350px] md:h-[340px] lg:h-[450px] " 
                     alt=""
                     /> 
-                <div className='w-[500px]'>
-                    <Reveal>
+                <div className='w-full md:w-[500px]'>
+                    <Reveal
+                    duration="1.2">
                     {accordion.map((acc, index) =>
                         
                         

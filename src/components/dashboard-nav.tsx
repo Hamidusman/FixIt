@@ -10,7 +10,7 @@ const Header = () => {
 
     return (
         <Headroom>
-            <header className="bg-white px-4 md:px-20 h-[90px] flex justify-between items-center shadow-md z-[5]">
+            <header className="bg-white px-4 md:px-10 h-[90px] flex justify-between items-center shadow-md z-[5]">
                 <div className="flex items-center">
                     <h2 className="text-primary text-[28px] md:text-[35px] font-extrabold">
                         Fix<span>It</span>
@@ -30,7 +30,7 @@ const Header = () => {
                 <div className="flex items-center">
                     <GetStarted />
                     <button
-                        className="md:hidden ml-4 focus:outline-none"
+                        className="hidden ml-4 focus:outline-none"
                         onClick={() => setIsOpen(!isOpen)}
                         aria-label="Toggle menu"
                     >

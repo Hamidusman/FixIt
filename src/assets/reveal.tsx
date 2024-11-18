@@ -3,9 +3,10 @@ import { motion, useInView, useAnimation } from "framer-motion";
 
 interface RevealItem{
     children: React.ReactNode,
+    duration: string
 }
 
-const Reveal: React.FC<RevealItem> = ({ children }) => {
+const Reveal: React.FC<RevealItem> = ({ children, duration }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
     const controls = useAnimation();
@@ -23,7 +24,7 @@ const Reveal: React.FC<RevealItem> = ({ children }) => {
                     hidden: { opacity: 0, y: 100 },
                     visible: { opacity: 1, y: 0 },
                 }}
-                transition={{ duration: 1.2 }}
+                transition={{ duration: duration }}
                 initial="hidden"
                 animate={controls}
             >

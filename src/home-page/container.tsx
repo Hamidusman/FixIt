@@ -22,7 +22,8 @@ const AboutCard: React.FC<AboutProp> = ({title, content, icon}) =>{
                     py-5 rounded-2xl  lg:w-[390px]
                     flex-flex-col
                     ">
-            <Reveal>
+            <Reveal
+                duration='1.2'>
                 <h1 className="font-bold text-[22px]">{title}</h1>
                 <p className="my-4">{content}</p>
                 <div className=''>
@@ -40,7 +41,8 @@ interface StatProp{
 
 const StatItem: React.FC<StatProp> = ({ number, description }) =>{
     return(
-        <Reveal>
+        <Reveal
+            duration="1.2">
             
         <div className='text-center'>
             <h1 className='text-[40px] md:text-[55px] text-accent font-bold'>

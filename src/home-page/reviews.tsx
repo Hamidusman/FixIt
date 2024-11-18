@@ -50,6 +50,7 @@ const Reviews = () => {
                         comment={review.content}
                         customer={review.name}>
                     </ReviewItem>
+                    
                 
 
                 ))}

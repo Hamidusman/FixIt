@@ -16,10 +16,10 @@ const Services: React.FC<ServiceProp> = ({header, description, image}) => {
     return(
         <div className=' md:even:flex-row-reverse flex flex-col md:flex-row justify-between items-center mt-10 mb-20 md:mb-0'>
             <div className="md:w-[50%] h-full">
-                <Reveal>
-                    
-                <h1 className="hero-text text-[35px]  lg:text-[50px] font-bold my-0">{header}</h1>
-                <p className="text-[18px] my-5 ">{description}</p>
+                <Reveal
+                    duration='1.2'>
+                    <h1 className="hero-text text-[35px]  lg:text-[50px] font-bold my-0">{header}</h1>
+                    <p className="text-[18px] my-5 ">{description}</p>
                 </Reveal>
                 <GetStarted />
             </div>
