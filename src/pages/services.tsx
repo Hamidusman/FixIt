@@ -1,4 +1,3 @@
-import GetStarted from '../base-components/start'
 import Reveal from '../assets/reveal'
 import React from 'react'
 import Header from '../base-components/header'
@@ -21,7 +20,6 @@ const Services: React.FC<ServiceProp> = ({header, description, image}) => {
                     <h1 className="hero-text text-[35px]  lg:text-[50px] font-bold my-0">{header}</h1>
                     <p className="text-[18px] my-5 ">{description}</p>
                 </Reveal>
-                <GetStarted />
             </div>
 
             <img src={image} className="rounded-3xl mx-50 w-[360px] lg:w-[440px] mt-0 h-[350px] md:h-[340px] lg:h-[450px] " alt="" />

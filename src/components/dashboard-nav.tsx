@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import GetStarted from '../base-components/start';
 import Headroom from 'react-headroom';
 import { Link } from 'react-router-dom';
 
@@ -28,7 +27,6 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className="flex items-center">
-                    <GetStarted />
                     <button
                         className="hidden ml-4 focus:outline-none"
                         onClick={() => setIsOpen(!isOpen)}
