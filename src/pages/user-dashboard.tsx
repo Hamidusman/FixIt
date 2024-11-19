@@ -61,8 +61,8 @@ interface LogProp{
     onToggle: () => void;
 }
 
-const LogItem: React.FC<LogProp> = ({ 
-    service,
+const LogItem: React.FC<LogProp> = ({
+    id, service,
     description, address, region, state,
     status, date, time, duration,
 
@@ -103,8 +103,10 @@ const LogItem: React.FC<LogProp> = ({
                 >
                     Give Review
                 </button>
-            {modalOpen && (<ReviewModal
-            closeModal={closeModal}
+            {modalOpen && (
+            <ReviewModal
+                closeModal={closeModal}
+                bookingID={id}
             ></ReviewModal>
             )}
             </div>

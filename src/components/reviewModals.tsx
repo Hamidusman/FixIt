@@ -28,25 +28,50 @@ const emojis = ["😡", "😕", "😐", "😊", "😍"];
 
 interface ReviewModalProps {
     closeModal: () => void;
+    bookingID: number;
 }
 
-const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal }) => {
+const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal, bookingID }) => {
     const [selectedRating, setSelectedRating] = useState<number | null>(null);
     const [comment, setComment] = useState<string>('');
+
+    const token = localStorage.getItem('authToken');
+    if (!token){
+        console.log('No token found')
+    }
 
     const handleEmojiClick = (index: number) => {
     setSelectedRating(index + 1); // Store rating as 1 to 5 based on index
 };
 
-    const submitReview = () => {
-    if (selectedRating !== null) {
-    const reviewData = {
-        rating: selectedRating,
-        comment,
-    };
-    console.log("Review Data to Submit:", reviewData);
-    }
-    closeModal();
+    const submitReview = async () => {
+        if (selectedRating !== null) {
+        const reviewData = {
+            booking: bookingID,
+            rating: selectedRating,
+            comment,
+        };
+        try {
+            const response = await fetch("https://fixit-api-u7ie.onrender.com/rating", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Token ${token}`
+                },
+                body: JSON.stringify(reviewData),
+                });
+        
+                if (response.ok) {
+                console.log("Review submitted successfully");
+                } else {
+                console.error("Error submitting review");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        console.log("Review Data to Submit:", reviewData);
+        }
+        closeModal();
 };
 
 return (
@@ -59,7 +84,7 @@ return (
         animate="visible"
         exit="exit"
         >
-        <h1 className="text-xl mb-4 font-bold">Give Review For This Log</h1>
+        <h1 className="text-xl mb-4 font-bold">Give Review For This Log {bookingID}</h1>
         
         <div className="flex gap-2 md:gap-4 mt-4 justify-center">
             {emojis.map((emoji, index) => (
