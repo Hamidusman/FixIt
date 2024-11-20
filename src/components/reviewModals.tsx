@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Backdrop from './backdrop';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const dropIn = {
   hidden: {
@@ -26,14 +27,23 @@ const dropIn = {
 // Array of emojis representing ratings from 1 to 5
 const emojis = ["😡", "😕", "😐", "😊", "😍"];
 
+interface ReviewProp {
+  bookingID: number,
+  rating: number,
+  comment: string
+}
 interface ReviewModalProps {
     closeModal: () => void;
     bookingID: number;
+    setReview: React.Dispatch<React.SetStateAction<ReviewProp | null>>;
 }
 
-const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal, bookingID }) => {
-    const [selectedRating, setSelectedRating] = useState<number | null>(null);
+
+const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal, bookingID, setReview }) => {
+    const [rating, setRating] = useState<number | null>(null);
     const [comment, setComment] = useState<string>('');
+
+    const navigate = useNavigate()
 
     const token = localStorage.getItem('authToken');
     if (!token){
@@ -41,18 +51,21 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal, bookingID }) => {
     }
 
     const handleEmojiClick = (index: number) => {
-    setSelectedRating(index + 1); // Store rating as 1 to 5 based on index
+    setRating(index + 1); // Store rating as 1 to 5 based on index
 };
 
-    const submitReview = async () => {
-        if (selectedRating !== null) {
+    const submitReview = async (event: React.FormEvent) => {
+      event.preventDefault();
+      if (rating === null || comment.trim() === '') {
+          return; // validation if rating or comment is empty
+      } 
         const reviewData = {
             booking: bookingID,
-            rating: selectedRating,
+            rating: rating,
             comment,
         };
         try {
-            const response = await fetch("https://fixit-api-u7ie.onrender.com/rating", {
+            const response = await fetch("https://fixit-api-u7ie.onrender.com/rating/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -63,6 +76,10 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal, bookingID }) => {
         
                 if (response.ok) {
                 console.log("Review submitted successfully");
+                const data = await response.json()
+                setReview(data);  // Update the parent component with the new review data
+                closeModal();
+                navigate('/user')
                 } else {
                 console.error("Error submitting review");
                 }
@@ -70,7 +87,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal, bookingID }) => {
                 console.error("Error:", error);
             }
         console.log("Review Data to Submit:", reviewData);
-        }
+        
         closeModal();
 };
 
@@ -93,7 +110,7 @@ return (
                 onClick={() => handleEmojiClick(index)}
                 className={`bg-accent_low text-[25px] md:text-[35px] w-[50px] h-[50px]
                 flex justify-center items-center rounded-full cursor-pointer transition-transform duration-300 ease-in-out ${
-                selectedRating === index + 1 ? 'scale-110' : ''
+                rating === index + 1 ? 'scale-110' : ''
                 }`}
                 whileHover={{ scale: 1.25 }}
             >
@@ -102,9 +119,9 @@ return (
             ))}
         </div>
 
-        {selectedRating !== null && (
+        {rating !== null && (
           <p className="mt-4 text-lg font-semibold text-center">
-            {selectedRating} {emojis[selectedRating - 1]}
+            {rating} {emojis[rating - 1]}
           </p>
         )}
 
