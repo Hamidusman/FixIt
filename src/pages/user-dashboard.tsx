@@ -53,8 +53,9 @@ interface LogProp{
     state: string;
     date: string;
     time: string;
-    duration: number,
-    status: string
+    duration: number;
+    status: string;
+    price: number
 
 
     isOpen: boolean;
@@ -70,12 +71,13 @@ interface ReviewProp {
 const LogItem: React.FC<LogProp> = ({
     id, service,
     description, address, region, state,
-    status, date, time, duration,
+    status, date, time, duration, price,
 
     isOpen, onToggle }) => {
     const [modalOpen, setModalOpen] = useState(false)
     const [review, setReview] = useState<ReviewProp | null>(null)
     const [error, setError] = useState<string | null>(null);
+    const [logStatus, setLogStatus] = useState(status);
 
     const openModal = () => setModalOpen(true)
     const closeModal = () => setModalOpen(false)
@@ -106,16 +108,40 @@ const LogItem: React.FC<LogProp> = ({
         if (isOpen) fetchReview();
     }, [isOpen]);
 
+    const updateStatus = async () => {
+        if (status === 'pending') {
+            try {
+                const response = await fetch(`https://fixit-api-u7ie.onrender.com/booking/${id}/`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Token ${token}`,
+                    },
+                    body: JSON.stringify({ status: 'completed' }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to update status');
+                }
+
+                const data = await response.json();
+                setLogStatus(data.status); // update the local status after successful update
+            } catch (error) {
+                setError((error as Error).message);
+            }
+        }
+    };
+
     return(
         <div className="flex flex-col">
-            <div className="bg-secondary px-3 py-1 
+            <div className="bg-secondary rounded-md px-3 py-1 
                 flex justify-between items-center gap-3"
                 onClick={onToggle}>
 
                 <div className="flex items-center gap-2">
                     <h1 className="">{service} on {date} </h1>
                 </div>
-                <div>({status})</div>
+                <div>({logStatus})</div>
                 
             </div>
 
@@ -128,22 +154,33 @@ const LogItem: React.FC<LogProp> = ({
                         <li>Location: {address}, {region}, {state}</li>
                         <li>Description: {description}</li>
                         <li>Duration: {duration}</li>
+                        <li>Price: ${price}</li>
                         {review ? (
                             <>
                             
                         <p><strong>Rating:</strong> {review.rating}</p>
-                        <p><strong>Comment:</strong> {review.comment ? review.comment : <i> No comment</i> }</p></>
-                        ): (<p>No reviews</p>)}
+                        <p><strong>Comment:</strong> {review.comment ? review.comment : '...' }</p></>
+                        ): ( logStatus === 'completed' && (
+                            
+                            <button
+                                type="button"
+                                className="bg-primary w-full py-1 duration-700 ease-in-out rounded-md"
+                                onClick={openModal}
+                            >
+                                Give Review
+                            </button>
+                        ))}
+                        {logStatus === 'pending' && (
+                            <button
+                                type="button"
+                                className="bg-accent w-full py-1 duration-700 ease-in-out rounded-md"
+                                onClick={updateStatus}
+                            >
+                                Mark as Completed
+                            </button>
+                        )}
                     </ul>
-                    {error && (<p>Couldn't fetch data</p>)}
                 </div>
-                <button
-                    type="button"
-                    className="bg-primary w-full py-1 duration-700 ease-in-out"
-                    onClick={openModal}
-                >
-                    Give Review
-                </button>
             {modalOpen && (
             <ReviewModal
                 closeModal={closeModal}
@@ -168,13 +205,14 @@ type Booking = {
     date: string;
     time: string;
     duration: number,
-    status: string
+    status: string;
+    price: number
 }
 
 const UserDashboard = () =>{
     const [user, setUser] = useState<any>(null);
     const [bookings, setBookings] = useState<Booking[] | null>(null)
-    const [stat, setStats] = useState<number | null>(null)
+    const [stat, setStats] = useState<{total_booking: number; completed: number} | null>(null)
     const [error, setError] = useState<string | null>(null);
     const [loading, isLoading] = useState(true)
     
@@ -194,13 +232,13 @@ const UserDashboard = () =>{
                 },
             })
             if(!response.ok){
-                throw new Error("No logs to fetch");
+                throw new Error("No counts to fetch");
             }
             const data = await response.json() // Log response for debugging
 
             // Check if total_booking exists and is a number before setting state
-            if (data && typeof data.total_booking === 'number') {
-                setStats(data.total_booking);
+            if (data && typeof data === 'object' && 'total_booking' in data) {
+                setStats(data);
             } else {
                 throw new Error('Invalid data format received');}
         }
@@ -310,13 +348,19 @@ const UserDashboard = () =>{
                             )}
                             {error && <p className="text-red-500 font-semibold">{error}</p>}
                             {!error && (
-                                <p className="text-primary font-semibold">
-                                    {stat !== null ? `${stat} bookings` : 
+                                <div className="text-primary font-semibold">
+                                    {stat ? (
+                                        <div className="flex flex-col gap-1">
+                                            <p className="text-sm md:text-[16px]">{stat?.total_booking ?? 0} Bookings</p>
+                                            <p className="text-sm md:text-[16px]">{stat?.completed ?? 0} Completed</p>
+                                        </div>
+                                    )
+                                    : 
                                     <div className="w-[90px] bg-secondary px-3 py-3 animate-pulse
                                     flex justify-between items-center gap-3 mt-2"
                                     >
-                                </div>}
-                                </p>
+                                    </div>}
+                                </div>
                             )}
                         </div>
                     </main>
@@ -324,14 +368,22 @@ const UserDashboard = () =>{
                 <div className="w-full sm:w-[550px] lg:w-[720px] flex flex-col xl:flex-row">
                     <article>
                             <div className=" bg-white  p-3 h-fit border-white">
-                            <h1 className="font-bold text-xl mb-3">My Logs</h1>
+                            <div className="flex justify-between">
+                                <h1 className="font-bold text-xl mb-3">My Logs</h1>
+                                <Link to="/booking"
+                                    className=" font-bold transition duration-500
+                                    text-accent"
+                                    >
+                                        Hire A Worker
+                                </Link>
+                            </div>
                                 <article className="lg:w-[720px] overflow-y-scroll bg-white flex flex-col gap-2">
                                 {loading ? (
                                     
-                                    <div className="bg-secondary px-3 py-5 animate-pulse
+                                    <div className="bg-secondary rounded-md px-3 py-5 animate-pulse
                                     flex justify-between items-center gap-3"
                                     >
-                                </div>
+                                    </div>
                                 ) : bookings && bookings.length > 0 ? (
                                     bookings.map((booking) => (
                                     <LogItem
@@ -346,6 +398,7 @@ const UserDashboard = () =>{
                                         status={booking.status}
                                         date={booking.date}
                                         duration={booking.duration}
+                                        price={booking.price}
                                         isOpen={openIndex === booking.id}
                                         onToggle={() => handleToggle(booking.id)}
                                     />

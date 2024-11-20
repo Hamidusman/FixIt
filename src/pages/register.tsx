@@ -55,7 +55,7 @@ const Register = () =>{
     
             if (response.status === 201) {
                 // If registration is successful, navigate to the user page
-                navigate('/user');
+                navigate('/login');
             } else {
                 const errorData = await response.json(); // Capture any error messages from the response
                 setError(errorData.detail || "Failed to register");
