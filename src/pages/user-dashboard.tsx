@@ -61,6 +61,12 @@ interface LogProp{
     onToggle: () => void;
 }
 
+
+interface ReviewProp {
+    bookingID: number,
+    rating: number,
+    comment: string
+}
 const LogItem: React.FC<LogProp> = ({
     id, service,
     description, address, region, state,
@@ -68,9 +74,37 @@ const LogItem: React.FC<LogProp> = ({
 
     isOpen, onToggle }) => {
     const [modalOpen, setModalOpen] = useState(false)
+    const [review, setReview] = useState<ReviewProp | null>(null)
+    const [error, setError] = useState<string | null>(null);
 
     const openModal = () => setModalOpen(true)
     const closeModal = () => setModalOpen(false)
+    const token = localStorage.getItem('authToken');
+    if (!token){
+        console.log('No token found')
+    }
+    
+    const fetchReview = async () => {
+        try {
+            const response = await fetch(`https://fixit-api-u7ie.onrender.com/rating/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem('authToken')}`
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Could not fetch review');
+            }
+            const data = await response.json();
+            setReview(data);
+        } catch (error) {
+            setError((error as Error).message);
+        }
+    };
+    useEffect(() => {
+        if (isOpen) fetchReview();
+    }, [isOpen]);
 
     return(
         <div className="flex flex-col">
@@ -94,6 +128,12 @@ const LogItem: React.FC<LogProp> = ({
                         <li>Location: {address}, {region}, {state}</li>
                         <li>Description: {description}</li>
                         <li>Duration: {duration}</li>
+                        {review ? (
+                            <>
+                            
+                        <p><strong>Rating:</strong> {review.rating}</p>
+                        <p><strong>Comment:</strong> {review.comment ? review.comment : <i> No comment</i> }</p></>
+                        ): (<p>No reviews</p>)}
                     </ul>
                 </div>
                 <button
@@ -107,6 +147,7 @@ const LogItem: React.FC<LogProp> = ({
             <ReviewModal
                 closeModal={closeModal}
                 bookingID={id}
+                setReview={setReview}
             ></ReviewModal>
             )}
             </div>
@@ -128,6 +169,7 @@ type Booking = {
     duration: number,
     status: string
 }
+
 const UserDashboard = () =>{
     const [user, setUser] = useState<any>(null);
     const [bookings, setBookings] = useState<Booking[] | null>(null)
@@ -139,6 +181,7 @@ const UserDashboard = () =>{
     if (!token){
         console.log('No token found')
     }
+
 
     const fetchStats = async () => {
         try {
