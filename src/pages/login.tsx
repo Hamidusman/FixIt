@@ -55,18 +55,18 @@ const Login: React.FC = () => {
                             placeholder="Email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="sm:w-[270px] md:w-[320px]  text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
+                            className="w-[220px] sm:w-[320px]  text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
                             required
                         />
                     </label>
-                    <label className="flex gap-5 items-center">
+                    <label className="flex gap-5 items-center transition duration-500">
                         <FontAwesomeIcon icon={faLock} size="xl" color={iconColor} />
                         <input
                             type="password"
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="sm:w-[270px] md:w-[320px]  text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
+                            className="w-[220px] sm:w-[320px]  text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
                             required
                         />
                     </label>
@@ -75,8 +75,12 @@ const Login: React.FC = () => {
                     <motion.button 
                         whileHover={{scale: '1.06'}}
                         whileTap={{scale: '0.7'}}
-                        type="submit" className="px-14 py-2 rounded-xl text-lg font-bold bg-primary hover:bg-dark hover:text-primary transition duration-200 ease-in">
-                        Login
+                        type="submit"
+                        className="px-14 py-2 rounded-xl text-lg font-bold
+                            bg-primary hover:bg-dark hover:text-primary
+                            transition duration-200 ease-in"
+                        >
+                            Login
                     </motion.button>
                     {error && <p className="text-red-500">{error}</p>}
                     <p>Don't have an account? <Link to="/register" className="text-primary mt-10">Register</Link> here.</p>

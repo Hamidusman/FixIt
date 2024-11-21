@@ -155,6 +155,7 @@ const LogItem: React.FC<LogProp> = ({
                         <li>Description: {description}</li>
                         <li>Duration: {duration}</li>
                         <li>Price: ${price}</li>
+                        {error ?(<p>dd</p>): (<p></p>)}
                         {review ? (
                             <>
                             
@@ -344,7 +345,7 @@ const UserDashboard = () =>{
                                     </div>
                                 </>
                             ) : (
-                                <p>Loading user data...</p>
+                                <p>No profile...</p>
                             )}
                             {error && <p className="text-red-500 font-semibold">{error}</p>}
                             {!error && (

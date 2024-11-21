@@ -86,7 +86,7 @@ const Register = () =>{
                             id="" placeholder="Email"
                             value={formState.email}
                             onChange={handleChange}
-                            className="sm:w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none" />
+                            className="w-[220px] sm:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none" />
                     </label>
                     
                     <label htmlFor="" className="flex gap-5 items-center">
@@ -100,7 +100,7 @@ const Register = () =>{
                             placeholder="Password"
                             value={formState.password}
                             onChange={handleChange}
-                            className="sm:w-[270px] md:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
+                            className="w-[220px] sm:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
                             required
                             />
                     </label>
@@ -116,7 +116,7 @@ const Register = () =>{
                             placeholder="Confirm Password"
                             value={formState.confirm}
                             onChange={handleChange}
-                            className="sm:w-[270px] md:w-[320px]  text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
+                            className="w-[220px] sm:w-[320px] text-xl bg-transparent border-b-dark border-b-2 focus:outline-none"
                             required
                         />
                     </label>

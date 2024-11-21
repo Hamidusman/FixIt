@@ -140,8 +140,11 @@ const BookingForm: React.FC = () =>{
                             onChange={handleChange}
                             className="bg-accent_low px-3 py-2 rounded-lg w-[270px] h-[50px] sm:w-[420px] hover:text-pr" />
                     </label>
-                    <label htmlFor="" className="flex flex-col gap-2">
+                    <label htmlFor="" className="flex flex-col mt-2 gap-2">
+                        <div>
                         <p className="font-bold text-xl">Estimated Minutes</p>
+                        <p className="text-sm">(The base price is $10 and is increased by 5 at every 15 minutes. Not permenant)</p>
+                        </div>
                         <select name="duration"value={booking.duration} onChange={handleChange} 
                             className="bg-accent_low font-normal
                             px-3 py-2 rounded-lg
@@ -163,6 +166,7 @@ const BookingForm: React.FC = () =>{
                             className="bg-accent_low font-normal px-3 py-2
                                         rounded-lg  sm:w-[420px] p-1
                                         border-b-dark border-b-2 focus:outline-none">
+                            <option value="">-- Select State --</option>
                             <option value="Abuja">Abuja</option>
                             <option value="Kaduna">Kaduna</option>
                             <option value="Lagos">Lagos</option>
