@@ -5,8 +5,8 @@ import { faBuilding, faMap, faMapLocation, faPerson, faPhone } from "@fortawesom
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const regions: Record<'Abuja' | 'Kaduna' | 'Lagos', string[]> = {
-    Abuja: ["Jabi"],
-    Kaduna: ["Kawo"],
+    Abuja: ['Kubwa', 'Wuse'],
+    Kaduna: [],
     Lagos: ["Lekki"],
 };
 interface ProfileData {
@@ -32,9 +32,9 @@ const CreateProfile = () => {
     const iconColor = '#E68C1A';
     const navigate = useNavigate()
     const regions = {
-        Abuja: ["Jabi"],
-        Kaduna: ["Kawo"],
-        Lagos: ["Lekki"],
+        Abuja: ["Jabi", "Kubwa", 'Wuse'],
+        Kaduna: ["Kakuri", "Kawo", 'Sabon Gari'],
+        Lagos: ["Ajah", "Ikorodu", "Lekki"],
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
