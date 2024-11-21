@@ -116,15 +116,19 @@ const BookingForm: React.FC = () =>{
                 </div>
 
                 <label htmlFor="" className="font-bold text-xl">Description</label>
-                <textarea 
+                <textarea
                     name='description' value={booking.description} onChange={handleChange}
-                    className="focus:ring-2 focus:ring-primary focus:outline-none bg-accent_low  min-h-40 max-h-40 rounded-lg p-5"></textarea>
+                    className="focus:ring-2 focus:ring-primary focus:outline-none
+                            bg-accent_low  min-h-40 max-h-40 rounded-lg p-5"
+                            placeholder="Repair or Maintainance"></textarea>
 
                 <label htmlFor="" className=" flex flex-col gap-2">
                     <p className="font-bold text-xl">Address</p>
                     <input type="text"
                         name="address" value={booking.address} onChange={handleChange}
-                        className="focus:ring-2 focus:ring-primary focus:outline-none bg-accent_low md:w-[100%] w-full h-[50px] rounded-lg hover:text-pr px-5" />
+                        className="focus:ring-2 focus:ring-primary focus:outline-none
+                                bg-accent_low md:w-[100%] w-full h-[50px] rounded-lg 
+                                hover:text-pr px-5" placeholder="State the location" />
                 </label>
                 
                 <label htmlFor="" className="flex gap-2 justify-center lg:justify-start">
