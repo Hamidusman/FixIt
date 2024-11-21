@@ -134,8 +134,8 @@ const LogItem: React.FC<LogProp> = ({
 
     return(
         <div className="flex flex-col">
-            <div className="bg-secondary rounded-md px-3 py-1 
-                flex justify-between items-center gap-3"
+            <div className="bg-secondary rounded-t-md px-3 py-1 
+                flex justify-between items-center "
                 onClick={onToggle}>
 
                 <div className="flex items-center gap-2">
@@ -148,19 +148,20 @@ const LogItem: React.FC<LogProp> = ({
             <div
                 className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? 'max-h-60' : 'max-h-0'}`}
             >
-                <div className="p-4 mt-[-2px] bg-secondary ">
+                <div className="px-3 py-2 bg-secondary rounded-b-md flex flex-col gap-2 ">
                     <ul className="text-[16px]">
                         <li>Time: {time}</li>
                         <li>Location: {address}, {region}, {state}</li>
                         <li>Description: {description}</li>
                         <li>Duration: {duration}</li>
                         <li>Price: ${price}</li>
-                        {error ?(<p>dd</p>): (<p></p>)}
-                        {review ? (
+                        {error ?(<p></p>): (<p></p>)}
+
+                    </ul>                        {review ? (
                             <>
                             
                         <p><strong>Rating:</strong> {review.rating}</p>
-                        <p><strong>Comment:</strong> {review.comment ? review.comment : '...' }</p></>
+                        <p><strong>Comment:</strong> {review.comment ? review.comment : '/' }</p></>
                         ): ( logStatus === 'completed' && (
                             
                             <button
@@ -180,7 +181,6 @@ const LogItem: React.FC<LogProp> = ({
                                 Mark as Completed
                             </button>
                         )}
-                    </ul>
                 </div>
             {modalOpen && (
             <ReviewModal
@@ -319,7 +319,7 @@ const UserDashboard = () =>{
                 <article className="w-full sm:w-[550px] lg:w-[720px] h-fit-content
                     px-2 pb-4 bg-white shadow-lg rounded-md flex flex-col">
                     <div className="flex items-end">
-                        <div className="w-[120px] h-[120px] bg-dark rounded-full z-10"></div>
+                        <div className="w-[120px] h-[120px] bg-dark rounded-full relative"></div>
                         <Link to="/create-profile" className="relative ml-auto">
                             <motion.div whileTap={{ y: 20 }} transition={{ duration: 0.6 }}>
                                 <FontAwesomeIcon icon={faEdit} size="xl" />
@@ -368,7 +368,7 @@ const UserDashboard = () =>{
                 </article>
                 <div className="w-full sm:w-[550px] lg:w-[720px] flex flex-col xl:flex-row">
                     <article>
-                            <div className=" bg-white  p-3 h-fit border-white">
+                            <div className=" bg-white  px-4 py-2 h-fit border-white">
                             <div className="flex justify-between">
                                 <h1 className="font-bold text-xl mb-3">My Logs</h1>
                                 <Link to="/booking"
@@ -378,7 +378,7 @@ const UserDashboard = () =>{
                                         Hire A Worker
                                 </Link>
                             </div>
-                                <article className="lg:w-[720px] overflow-y-scroll bg-white flex flex-col gap-2">
+                                <article className=" sm:w-[550px] lg:w-[700px] px-2 pb-4 rounded-md bg-white flex flex-col gap-2">
                                 {loading ? (
                                     
                                     <div className="bg-secondary rounded-md px-3 py-5 animate-pulse

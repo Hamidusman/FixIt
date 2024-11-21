@@ -11,13 +11,30 @@ const Footer = () =>{
                 <p>If you would want to check the repository or reachout to me, be sure to use any of the links below.</p>
                 
                 <div className="mt-5 text-primary font-bold flex flex-col gap-4">
-                    <p className="">Technologies:</p>
+                    <p className="text-lg">Technologies:</p>
                     <ol className="flex flex-col md:flex-row md:justify-center gap-2">
-                        <li>React</li>
+                        <li>ReactTS</li>
                         <li>Django</li>
-                        <li>TypeScript</li>
                         <li>Tailwind</li>
                         <li>Framer-Motion</li>
+                        <li>ShadCN</li>
+                        {/*
+                        <AlertDialog>
+                            <AlertDialogTrigger>Open</AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    This action cannot be undone. This will permanently delete your account
+                                    and remove your data from our servers.
+                                </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction>Continue</AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog> */}
                     </ol>
                 </div>
             </div>

@@ -28,7 +28,6 @@ const Login: React.FC = () => {
                     // Store the token in localStorage
                     localStorage.setItem('authToken', token);
                     console.log("Token stored successfully:", token);
-
                     // Navigate to the user profile page after successful login
                     navigate('/user');
                 } else {
@@ -83,7 +82,7 @@ const Login: React.FC = () => {
                             Login
                     </motion.button>
                     {error && <p className="text-red-500">{error}</p>}
-                    <p>Don't have an account? <Link to="/register" className="text-primary mt-10">Register</Link> here.</p>
+                    <p className="text-center">Don't have an account? <Link to="/register" className="text-primary mt-10">Register</Link> here.</p>
                 </div>
             </form>
         </section>

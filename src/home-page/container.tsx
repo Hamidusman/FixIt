@@ -89,7 +89,7 @@ const About = () => {
             icon: faPeopleGroup,
         },
 
-        {   title: 'Maximum Satisfaction',
+        {   title: 'Skilled Professionals',
             content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis.',
             icon: faThumbsUp,
         },

@@ -133,7 +133,7 @@ const Register = () =>{
                         hover:bg-dark hover:text-primary
                         transition duration-200 ease-in">Register</motion.button>
                         {error && <p className="text-red-500">{error}</p>}
-                    <p>Already have an account? <Link to="/login"  className="text-primary mt-10">Login</Link> here.</p>
+                    <p className="text-center">Already have an account? <Link to="/login"  className="text-primary mt-10">Login</Link> here.</p>
                 </div>
             </form>
         </section>
