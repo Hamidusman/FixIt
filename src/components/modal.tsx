@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Backdrop from "./backdrop";
 import ReactConfetti from "react-confetti";
 import { useEffect, useState } from "react";
+import pipbob from "../assets/pipboy.jpeg"
 
 interface ModalProp {
     handleClose: () => void;
@@ -74,7 +75,7 @@ const Modal: React.FC<ModalProp> = ({ handleClose, status, text}) => {
                 exit="exit"
             >
                 
-                <img src="src\assets\8e97d100673bfb291a8801734c899bda.png"
+                <img src={pipbob}
                     alt="A Happy Pipboy"
                     className="w-[120px] h-[120px] relative right-5"/>
                 <h1 className="text-[25px] mb-2 font-semibold">{status}</h1>
