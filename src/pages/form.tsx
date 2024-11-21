@@ -104,7 +104,7 @@ const BookingForm: React.FC = () =>{
 
             <form action="" onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <div>
-                    <p className="font-bold text-xl mb-2">Whp do you need?:</p>
+                    <p className="font-bold text-xl mb-2">Who do you need?:</p>
                     <label htmlFor="" className="flex gap-2">
                         <input type="radio" name="service" onChange={handleChange} value='Electrician' />
                         <p>Electrician</p>
