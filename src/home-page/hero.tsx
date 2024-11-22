@@ -1,5 +1,5 @@
 import GetStarted from "../base-components/start"
-import Reveal from '../assets/reveal'
+import Reveal from '../assets/animations/reveal'
 import electritian from '../assets/Electrician-bro (1).png'
 
 function Hero() {

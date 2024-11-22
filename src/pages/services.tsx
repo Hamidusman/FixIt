@@ -1,5 +1,9 @@
+<<<<<<< Updated upstream
 import GetStarted from '../base-components/start'
 import Reveal from '../assets/reveal'
+=======
+import Reveal from '../assets/animations/reveal'
+>>>>>>> Stashed changes
 import React from 'react'
 import Header from '../base-components/header'
 import plumber from '../assets/Pipeline maintenance-amico.png'

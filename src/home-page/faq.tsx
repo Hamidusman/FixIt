@@ -1,7 +1,18 @@
+<<<<<<< Updated upstream
 import { faTurnDown, faTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import Reveal from "../assets/reveal";
+=======
+
+import Reveal from "../assets/animations/reveal";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "../components/ui/accordion"
+>>>>>>> Stashed changes
 
 interface FAQProps {
     title: string;

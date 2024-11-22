@@ -1,98 +1,11 @@
-import NumberCount from '../assets/numberCount.js'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHammer, faPeopleGroup, faThumbsUp } from '@fortawesome/free-solid-svg-icons'; 
-import Reveal from '../assets/reveal'
-import React from 'react';
-import { motion } from 'framer-motion';
 
-interface AboutProp{
-    title: string,
-    content: string,
-    icon: any
-}
-const AboutCard: React.FC<AboutProp> = ({title, content, icon}) =>{
-    return(
-        <motion.article
-        initial={{ opacity: 0, y: 50 }}  // Initial state before the animation
-        animate={{ opacity: 1, y: 0 }}   // Final state after the animation
-        exit={{ opacity: 0, y: 50 }}     // Optional exit state
-        transition={{ duration: 0.7 }}   // Duration for enter and exit animation
-        whileHover={{ y: -20 }} 
-        className="shadow-2xl bg-white mb-5 px-5
-                    py-5 rounded-2xl  lg:w-[390px]
-                    flex-flex-col
-                    ">
-            <Reveal>
-                <h1 className="font-bold text-[22px]">{title}</h1>
-                <p className="my-4">{content}</p>
-                <div className=''>
-                    <FontAwesomeIcon icon={icon} size='xl' className=' mb[] p-5 w-[30px] h-[30px] bg-primary rounded-[100%] '/>
-                </div>
-            </Reveal>
-        </motion.article>
-    )
-}
+import { StatItem } from '../hooks/stat-hook';
+import AboutCard from '../hooks/about-hook';
+import { abouts, stats } from '../data/about-data.js';
 
-interface StatProp{
-    number: number,
-    description: string
-}
 
-const StatItem: React.FC<StatProp> = ({ number, description }) =>{
-    return(
-        <Reveal>
-            
-        <div className='text-center'>
-            <h1 className='text-[40px] md:text-[55px] text-accent font-bold'>
-            <NumberCount from={0} to={number} duration={2000}>
-
-            </NumberCount>
-
-            </h1>
-            <p className='text-sm md:text-[16px]'>{description}</p>
-        </div>
-        </Reveal>
-
-    )
-}
 const About = () => {
-    const stats = [
-        {
-            number: 2,
-            description: 'Years of dedicated services' 
-        },
 
-        {
-            number: 900,
-            description: 'Jobs completed' },
-
-        {
-            number: 20, 
-            description: 'Registered professionals' 
-        },
-
-        {
-            number: 3,
-            description: 'Total Branches'
-        },
-    ];
-    const abouts = [
-        {   title: 'Home Repairs',
-            content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis.',
-            icon: faHammer,
-        },
-
-        {   title: 'Fully Installment',
-            content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis.',
-            icon: faPeopleGroup,
-        },
-
-        {   title: 'Maximum Satisfaction',
-            content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium numquam possimus maxime voluptatibus provident ut iste temporibus eius veritatis.',
-            icon: faThumbsUp,
-        },
-
-    ]
     return(
         <>
             <section className=" px-5 md:px-20 py-5 flex flex-col gap-5 lg:flex-row justify-between items-center">

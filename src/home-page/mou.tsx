@@ -2,7 +2,17 @@ import { faTurnDown, faTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, ReactNode} from 'react';
 import plumber from '../assets/Pipeline maintenance-amico.png'
+<<<<<<< Updated upstream
 import { motion } from "framer-motion";
+=======
+import Reveal from '../assets/animations/reveal.tsx';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "../components/ui/accordion.tsx"
+>>>>>>> Stashed changes
 
 interface AccordionItemProps {
     title: string;
