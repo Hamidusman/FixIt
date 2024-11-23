@@ -65,7 +65,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal, bookingID, setRev
             comment,
         };
         try {
-            const response = await fetch("https://fixit-api-u7ie.onrender.com/rating/", {
+            const response = await fetch("http://127.0.0.1:8000/rating/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

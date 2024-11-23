@@ -41,7 +41,7 @@ const Register = () =>{
         }
     
         try {
-            const response = await fetch("https://fixit-api-u7ie.onrender.com/auth/users/", {
+            const response = await fetch(" http://127.0.0.1:8000/auth/users/", {
                 method: "POST", // Specify the method as POST
                 headers: {
                     "Content-Type": "application/json", // Set the content type to JSON

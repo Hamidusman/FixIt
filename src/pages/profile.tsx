@@ -65,7 +65,7 @@ const CreateProfile = () => {
             }
     
 
-            const response = await axios.post('https://fixit-api-u7ie.onrender.com/profile/', profileData, {
+            const response = await axios.post('http://127.0.0.1:8000/profile/', profileData, {
 
                 headers: {
                     'Content-Type': 'application/json',

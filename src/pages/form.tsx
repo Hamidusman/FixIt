@@ -68,7 +68,7 @@ const BookingForm: React.FC = () =>{
 
         try {
             const token = localStorage.getItem('authToken')
-            const response = await fetch('https://fixit-api-u7ie.onrender.com/booking/', {
+            const response = await fetch('http://127.0.0.1:8000/booking/', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

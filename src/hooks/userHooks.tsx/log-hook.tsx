@@ -46,10 +46,17 @@ export const LogItem: React.FC<LogProp> = ({
     useEffect(() => {
         if (isOpen) {
             fetchReview(id, token)
-                .then(setReview)
-                .catch((err) => setError(err.message));
+                .then((data) => {
+                    console.log("Fetched Review:", data);
+                    setReview(data);
+                })
+                .catch((err) => {
+                    console.error("Error fetching review:", err);
+                    setError(err.message);
+                });
         }
     }, [isOpen]);
+    
 
     const handleStatus = async () => {
         const token = localStorage.getItem('authToken');
@@ -94,11 +101,14 @@ export const LogItem: React.FC<LogProp> = ({
                         
                     <ReviewDetail review={review} />
                     </ul>
+                    {!review && (
+                        
                     <ActionButtons
-                        logStatus={logStatus}
-                        onUpdateStatus={handleStatus}
-                        openReviewModal={openModal}
-                    />
+                    logStatus={logStatus}
+                    onUpdateStatus={handleStatus}
+                    openReviewModal={openModal}
+                />
+                    )}
                 </div>
             {modalOpen && (
             <ReviewModal

@@ -4,7 +4,7 @@ export const updateStatus = async (id: number, token: string, status: string, on
         console.log('No token found')
     }
     if (status === 'pending') {
-            const response = await fetch(`https://fixit-api-u7ie.onrender.com/booking/${id}/`, {
+            const response = await fetch(`http://127.0.0.1:8000/booking/${id}/`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

@@ -5,19 +5,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { LogItem } from "../hooks/userHooks.tsx/log-hook";
-
-{/* 
-interface StatProp{
-    count: number,
-    description: string
-}
-const StatItem: React.FC<StatProp> = ({ count, description }) =>{
-    return(
-        <div className="">
-            <h1 className="text-[16px] text-primary">{count} <span className="text-dark">{description}</span></h1>
-        </div>
-    )
-*/}
+import { fetchStats } from "../hooks/userHooks.tsx/StatAPI";
 
 
 {/*
@@ -73,39 +61,32 @@ const UserDashboard = () =>{
     }
 
 
-    const fetchStats = async () => {
-        try {
-            const response = await fetch('https://fixit-api-u7ie.onrender.com/profile/user-stat/', {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json',
-                    'Authorization': `Token ${token}`
-                },
-            })
-            if(!response.ok){
-                throw new Error("No counts to fetch");
-            }
-            const data = await response.json() // Log response for debugging
-
-            // Check if total_booking exists and is a number before setting state
-            if (data && typeof data === 'object' && 'total_booking' in data) {
-                setStats(data);
-            } else {
-                throw new Error('Invalid data format received');}
-        }
-        catch(error) {
-            setError((error as Error).message)
-        } finally{
-            isLoading(false)
-        }
-    }
+    // UseEffect function for user's record/stat
     useEffect(() => {
-        fetchStats()
-    }, [])
+        if (token) {
+            fetchStats(token)
+                .then((data) => {
+                    if (data) {
+                        setStats(data);
+                    }
+                })
+                .catch((error) => {
+                    setError((error as Error).message);
+                })
+                .finally(() => {
+                    isLoading(false);
+                });
+        } else {
+            console.log('No token found');
+            isLoading(false);
+        }
+    }, [token]);
+
+
     // GET endpoint for the user's booking log
     const fecthBooking = async () => {
         try {
-            const response = await fetch('https://fixit-api-u7ie.onrender.com/profile/user_booking_log/', {
+            const response = await fetch(' http://127.0.0.1:8000/profile/user_booking_log/', {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -129,7 +110,7 @@ const UserDashboard = () =>{
     ,[])
 
     useEffect(() => {
-        fetch('https://fixit-api-u7ie.onrender.com/profile/me/', {
+        fetch(' http://127.0.0.1:8000/profile/me/', {
             method: 'GET',
             headers: {
                 'Authorization': `Token ${token}`,
