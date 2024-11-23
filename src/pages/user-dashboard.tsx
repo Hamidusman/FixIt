@@ -4,7 +4,7 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import ReviewModal from "../components/reviewModals";
+import { LogItem } from "../hooks/userHooks.tsx/log-hook";
 
 {/* 
 interface StatProp{
@@ -44,156 +44,6 @@ const BlogPosts: React.FC<BlogProp> = ({ category, heading }) =>{
 }
 
 */}
-interface LogProp{
-    id: number,
-    service: string;
-    description: string;
-    address: string,
-    region: string;
-    state: string;
-    date: string;
-    time: string;
-    duration: number;
-    status: string;
-    price: number
-
-
-    isOpen: boolean;
-    onToggle: () => void;
-}
-
-
-interface ReviewProp {
-    bookingID: number,
-    rating: number,
-    comment: string
-}
-const LogItem: React.FC<LogProp> = ({
-    id, service,
-    description, address, region, state,
-    status, date, time, duration, price,
-
-    isOpen, onToggle }) => {
-    const [modalOpen, setModalOpen] = useState(false)
-    const [review, setReview] = useState<ReviewProp | null>(null)
-    const [error, setError] = useState<string | null>(null);
-    const [logStatus, setLogStatus] = useState(status);
-
-    const openModal = () => setModalOpen(true)
-    const closeModal = () => setModalOpen(false)
-    const token = localStorage.getItem('authToken');
-    if (!token){
-        console.log('No token found')
-    }
-    
-    const fetchReview = async () => {
-        try {
-            const response = await fetch(`https://fixit-api-u7ie.onrender.com/rating/${id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Token ${localStorage.getItem('authToken')}`
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Could not fetch review');
-            }
-            const data = await response.json();
-            setReview(data);
-        } catch (error) {
-            setError((error as Error).message);
-        }
-    };
-    useEffect(() => {
-        if (isOpen) fetchReview();
-    }, [isOpen]);
-
-    const updateStatus = async () => {
-        if (status === 'pending') {
-            try {
-                const response = await fetch(`https://fixit-api-u7ie.onrender.com/booking/${id}/`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Token ${token}`,
-                    },
-                    body: JSON.stringify({ status: 'completed' }),
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to update status');
-                }
-
-                const data = await response.json();
-                setLogStatus(data.status); // update the local status after successful update
-            } catch (error) {
-                setError((error as Error).message);
-            }
-        }
-    };
-
-    return(
-        <div className="flex flex-col">
-            <div className="bg-secondary rounded-t-md px-3 py-1 
-                flex justify-between items-center "
-                onClick={onToggle}>
-
-                <div className="flex items-center gap-2">
-                    <h1 className="">{service} on {date} </h1>
-                </div>
-                <div>({logStatus})</div>
-                
-            </div>
-
-            <div
-                className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? 'max-h-60' : 'max-h-0'}`}
-            >
-                <div className="px-3 py-2 bg-secondary rounded-b-md flex flex-col gap-2 ">
-                    <ul className="text-[16px]">
-                        <li>Time: {time}</li>
-                        <li>Location: {address}, {region}, {state}</li>
-                        <li>Description: {description}</li>
-                        <li>Duration: {duration}</li>
-                        <li>Price: ${price}</li>
-                        {error ?(<p></p>): (<p></p>)}
-
-                    </ul>                        {review ? (
-                            <>
-                            
-                        <p><strong>Rating:</strong> {review.rating}</p>
-                        <p><strong>Comment:</strong> {review.comment ? review.comment : '/' }</p></>
-                        ): ( logStatus === 'completed' && (
-                            
-                            <button
-                                type="button"
-                                className="bg-primary w-full py-1 duration-700 ease-in-out rounded-md"
-                                onClick={openModal}
-                            >
-                                Give Review
-                            </button>
-                        ))}
-                        {logStatus === 'pending' && (
-                            <button
-                                type="button"
-                                className="bg-accent w-full py-1 duration-700 ease-in-out rounded-md"
-                                onClick={updateStatus}
-                            >
-                                Mark as Completed
-                            </button>
-                        )}
-                </div>
-            {modalOpen && (
-            <ReviewModal
-                closeModal={closeModal}
-                bookingID={id}
-                setReview={setReview}
-            ></ReviewModal>
-            )}
-            </div>
-
-        </div>
-    )
-}
 
 
 type Booking = {
@@ -368,7 +218,7 @@ const UserDashboard = () =>{
                 </article>
                 <div className="w-full sm:w-[550px] lg:w-[720px] flex flex-col xl:flex-row">
                     <article>
-                            <div className=" bg-white  px-4 py-2 h-fit border-white">
+                            <div className="w-full lg:w-[720px] bg-white px-4 py-2 h-fit border-white">
                             <div className="flex justify-between">
                                 <h1 className="font-bold text-xl mb-3">My Logs</h1>
                                 <Link to="/booking"
@@ -378,7 +228,7 @@ const UserDashboard = () =>{
                                         Hire A Worker
                                 </Link>
                             </div>
-                                <article className=" sm:w-[550px] lg:w-[700px] px-2 pb-4 rounded-md bg-white flex flex-col gap-2">
+                                <article className=" pb-4 rounded-md bg-white flex flex-col gap-2">
                                 {loading ? (
                                     
                                     <div className="bg-secondary rounded-md px-3 py-5 animate-pulse
@@ -409,8 +259,6 @@ const UserDashboard = () =>{
                                 )}
                                 </article>
                             </div>
-
-
                     </article>
                 </div>
             </section>
