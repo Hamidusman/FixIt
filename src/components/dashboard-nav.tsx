@@ -1,12 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import GetStarted from '../base-components/start';
 import Headroom from 'react-headroom';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { logoutUser } from '../hooks/api-hooks/LogOut';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [logOut, setLogOut] = useState(false);
+    const token = localStorage.getItem('authToken') || ""
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        setLogOut(true);
+    }
+
+    useEffect(() => {
+        if (logOut && token) {
+            logoutUser();
+            setLogOut(false)
+            navigate("/login")
+        }
+    }, [logOut, token]);
 
     return (
         <Headroom>
@@ -33,7 +49,8 @@ const Header = () => {
                 <div className="flex items-center">
                     <GetStarted
                         link=''
-                    >...
+                        onClick={handleLogout}
+                    >Logout
                     </GetStarted>
                     <div className="flex items-center">
                         <button

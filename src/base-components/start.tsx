@@ -3,10 +3,11 @@ import { motion } from "framer-motion"
 import { easeInOut } from "framer-motion/dom"
 
 interface ButtonProp{
+    onClick: () => void
     link: string;
     children: React.ReactNode
 }
-const GetStarted: React.FC<ButtonProp> = ({ link, children }) =>{
+const GetStarted: React.FC<ButtonProp> = ({ onClick, link, children }) =>{
     return(
         <motion.div
         whileHover={{rotate: '-2.5deg'}}
@@ -18,6 +19,7 @@ const GetStarted: React.FC<ButtonProp> = ({ link, children }) =>{
             transition duration-500 text-dark 
             font-medium rounded-2xl text-[16px] 
             md:text-base"
+            onClick={onClick}
             >
                 {children}
             </Link>
