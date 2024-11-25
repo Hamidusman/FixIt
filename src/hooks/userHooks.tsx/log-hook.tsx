@@ -44,7 +44,7 @@ export const LogItem: React.FC<LogProp> = ({
     
     // UseEffect for Review Hook
     useEffect(() => {
-        if (isOpen) {
+        if (token) {
             fetchReview(id, token)
                 .then((data) => {
                     console.log("Fetched Review:", data);
@@ -54,8 +54,10 @@ export const LogItem: React.FC<LogProp> = ({
                     console.error("Error fetching review:", err);
                     setError(err.message);
                 });
+        } else {
+            console.error("No token available");
         }
-    }, [isOpen]);
+    }, [id, token]);
     
 
     const handleStatus = async () => {
@@ -99,7 +101,8 @@ export const LogItem: React.FC<LogProp> = ({
                         <li>Price: ${price}</li>
                         {error ?(<p></p>): (<p></p>)}
                         
-                    <ReviewDetail review={review} />
+                        {review ? <ReviewDetail review={review} /> : <p>Loading review...</p>}
+
                     </ul>
                     {!review && (
                         
