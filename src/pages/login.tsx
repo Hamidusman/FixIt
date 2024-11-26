@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { apiUrl } from "../utils/BaseUrl";
 
 
 const Login: React.FC = () => {
@@ -12,12 +13,11 @@ const Login: React.FC = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
-
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setError(null); // Reset error state before making the request
         try {
-            const response = await axios.post("http://127.0.0.1:8000/auth/token/login/", {
+            const response = await axios.post(`${apiUrl}/auth/token/login/`, {
                 email,
                 password,
             });

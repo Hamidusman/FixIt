@@ -20,6 +20,12 @@ const Register = () =>{
         password: "",
         confirm: "",
     })
+    const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
+
+    if (!apiUrl) {
+        console.error("API URL is not defined in the environment variables.");
+        return;
+    }
 
     const [error, setError] = useState<string | null>(null);
 
@@ -41,7 +47,7 @@ const Register = () =>{
         }
     
         try {
-            const response = await fetch(" http://127.0.0.1:8000/auth/users/", {
+            const response = await fetch(`${apiUrl}/auth/users/`, {
                 method: "POST", // Specify the method as POST
                 headers: {
                     "Content-Type": "application/json", // Set the content type to JSON

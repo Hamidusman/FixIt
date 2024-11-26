@@ -1,10 +1,11 @@
+import { apiUrl } from "../../utils/BaseUrl";
 
 export const updateStatus = async (id: number, token: string, status: string, onClick?: () => void) => {
     if (!token){
         console.log('No token found')
     }
     if (status === 'pending') {
-            const response = await fetch(`http://127.0.0.1:8000/booking/${id}/`, {
+            const response = await fetch(`${apiUrl}/booking/${id}/`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

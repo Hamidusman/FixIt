@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { LogItem } from "../hooks/userHooks.tsx/log-hook";
 import { fetchStats } from "../hooks/userHooks.tsx/StatAPI";
+import { apiUrl } from "../utils/BaseUrl";
 
 
 {/*
@@ -86,7 +87,7 @@ const UserDashboard = () =>{
     // GET endpoint for the user's booking log
     const fecthBooking = async () => {
         try {
-            const response = await fetch(' http://127.0.0.1:8000/profile/user_booking_log/', {
+            const response = await fetch(`${apiUrl}/profile/user_booking_log/`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -110,7 +111,7 @@ const UserDashboard = () =>{
     ,[])
 
     useEffect(() => {
-        fetch(' http://127.0.0.1:8000/profile/me/', {
+        fetch(`${apiUrl}/profile/me/`, {
             method: 'GET',
             headers: {
                 'Authorization': `Token ${token}`,

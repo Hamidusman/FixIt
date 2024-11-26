@@ -1,3 +1,6 @@
+import { apiUrl } from "../../utils/BaseUrl";
+
+
 export const logoutUser = async () => {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -6,7 +9,7 @@ export const logoutUser = async () => {
     }
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/auth/token/logout/", {
+        const response = await fetch(`${apiUrl}/auth/token/logout/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

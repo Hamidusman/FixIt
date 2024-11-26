@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Backdrop from './backdrop';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { apiUrl } from '../utils/BaseUrl';
 
 const dropIn = {
   hidden: {
@@ -65,7 +66,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal, bookingID, setRev
             comment,
         };
         try {
-            const response = await fetch("http://127.0.0.1:8000/rating/", {
+            const response = await fetch(`${apiUrl}/rating/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

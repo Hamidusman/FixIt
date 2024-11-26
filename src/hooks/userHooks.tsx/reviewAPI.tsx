@@ -1,3 +1,5 @@
+import { apiUrl } from "../../utils/BaseUrl";
+
 export const fetchReview = async (id: number, token: string | null) => {
     if (!token) {
         console.error("No token found");
@@ -5,7 +7,7 @@ export const fetchReview = async (id: number, token: string | null) => {
     }
 
     try {
-        const response = await fetch(`http://127.0.0.1:8000/rating/${id}/`, {
+        const response = await fetch(`${apiUrl}/rating/${id}/`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

@@ -1,8 +1,11 @@
+import { apiUrl } from "../../utils/BaseUrl";
+
 export const fetchStats = async (token: string | null) => {
+
     if (!token){
         console.log('No token found')
     }
-    const response = await fetch(' http://127.0.0.1:8000/profile/user-stat/', {
+    const response = await fetch(`${apiUrl}/profile/user-stat/`, {
         method: 'GET',
         headers: {
             'Content-type': 'application/json',

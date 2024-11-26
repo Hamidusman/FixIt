@@ -3,6 +3,8 @@ import React, { useState } from "react"
 import Calendar, {CalendarProps} from "react-calendar"
 import 'react-calendar/dist/Calendar.css'
 import Modal from "../components/modal";
+import { apiUrl } from "../utils/BaseUrl";
+
 
 interface BookingProp {
     service: string;
@@ -44,6 +46,7 @@ const BookingForm: React.FC = () =>{
     };
 
 
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setBooking((prevData) =>({
@@ -68,7 +71,7 @@ const BookingForm: React.FC = () =>{
 
         try {
             const token = localStorage.getItem('authToken')
-            const response = await fetch('http://127.0.0.1:8000/booking/', {
+            const response = await fetch(`${apiUrl}/booking/`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

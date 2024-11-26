@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { faBuilding, faMap, faMapLocation, faPerson, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { apiUrl } from '../utils/BaseUrl';
 
 const regions: Record<'Abuja' | 'Kaduna' | 'Lagos', string[]> = {
     Abuja: ['Kubwa', 'Wuse'],
@@ -65,7 +66,7 @@ const CreateProfile = () => {
             }
     
 
-            const response = await axios.post('http://127.0.0.1:8000/profile/', profileData, {
+            const response = await axios.post(`${apiUrl}profile/`, profileData, {
 
                 headers: {
                     'Content-Type': 'application/json',
