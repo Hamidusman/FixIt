@@ -49,7 +49,7 @@ const Header = () => {
                 <div className="flex items-center">
                     <GetStarted
                         link=''
-                        onClick={handleLogout}
+                        onclick={handleLogout}
                     >Logout
                     </GetStarted>
                     <div className="flex items-center">

@@ -34,7 +34,7 @@ const Header = () => {
                     <div className='hidden md:block'>
                     <GetStarted
                         link='/register'
-                        onClick={void}
+                        onclick={() => console.log('Redirecting to login...')}
 
                     >
                         Get Started!

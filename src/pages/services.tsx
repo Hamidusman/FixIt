@@ -23,6 +23,7 @@ const Services: React.FC<ServiceProp> = ({header, description, image}) => {
                 </Reveal>
                 <GetStarted 
                     link='/booking'
+                    onclick={() => console.log('Redirecting to login...')}
                 >Book Now</GetStarted>
             </div>
 

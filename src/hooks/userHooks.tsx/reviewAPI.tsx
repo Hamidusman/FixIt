@@ -21,9 +21,14 @@ export const fetchReview = async (id: number, token: string | null) => {
             throw new Error("Could not fetch review");
         }
 
-        return await response.json();
+        // Assuming the response returns an array with one review object.
+        const data = await response.json();
+        if (Array.isArray(data) && data.length > 0) {
+            return data[0]; // Return the first review object
+        }
+        throw new Error("No review data found");
     } catch (err) {
         console.error("Error fetching review:", err);
-        throw err; // Pass error to the calling function
+        throw err;
     }
 };

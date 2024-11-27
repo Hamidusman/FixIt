@@ -66,7 +66,7 @@ const CreateProfile = () => {
             }
     
 
-            const response = await axios.post(`${apiUrl}profile/`, profileData, {
+            const response = await axios.post(`${apiUrl}/profile/`, profileData, {
 
                 headers: {
                     'Content-Type': 'application/json',

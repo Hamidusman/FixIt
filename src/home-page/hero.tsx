@@ -15,6 +15,7 @@ function Hero() {
                 </Reveal>
                 <GetStarted
                     link="/register"
+                    onclick={()=> console.log('Redirecting to register')}
                 >
                     Get Started
                 </GetStarted>

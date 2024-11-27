@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { LogItem } from "../hooks/userHooks.tsx/log-hook";
-import { fetchStats } from "../hooks/userHooks.tsx/StatAPI";
 import { apiUrl } from "../utils/BaseUrl";
 
 
@@ -49,68 +48,82 @@ type Booking = {
     price: number
 }
 
-const UserDashboard = () =>{
+const UserDashboard = () => {
     const [user, setUser] = useState<any>(null);
-    const [bookings, setBookings] = useState<Booking[] | null>(null)
-    const [stat, setStats] = useState<{total_booking: number; completed: number} | null>(null)
+    const [bookings, setBookings] = useState<Booking[] | null>(null);
+    const [stat, setStats] = useState<{ total_booking: number; completed: number } | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [loading, isLoading] = useState(true)
-    
+    const [loading, setLoading] = useState(true); // Main loading state
+    const [bookingLoading, setBookingLoading] = useState(true); // Booking-specific loading state
+    const [statLoading, setStatLoading] = useState(true); // Stats-specific loading state
+
     const token = localStorage.getItem('authToken');
-    if (!token){
-        console.log('No token found')
+    if (!token) {
+        console.log('No token found');
+        return;
     }
 
-
-    // UseEffect function for user's record/stat
+    // Fetch Stats (API call for statistics)
     useEffect(() => {
-        if (token) {
-            fetchStats(token)
-                .then((data) => {
-                    if (data) {
-                        setStats(data);
-                    }
-                })
-                .catch((error) => {
-                    setError((error as Error).message);
-                })
-                .finally(() => {
-                    isLoading(false);
+        if (!token) return; // Only proceed if there's a valid token
+
+        const fetchStats = async () => {
+            setStatLoading(true); // Set loading state to true
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/profile/user-stat/`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'Authorization': `Token ${token}`,
+                    },
                 });
-        } else {
-            console.log('No token found');
-            isLoading(false);
-        }
+
+                if (!response.ok) throw new Error('Failed to fetch stats');
+                const data = await response.json();
+                setStats(data);
+            } catch (err) {
+                setError((err as Error).message);
+            } finally {
+                setStatLoading(false); // End loading after fetch is done
+            }
+        };
+
+        fetchStats();
     }, [token]);
 
-
-    // GET endpoint for the user's booking log
-    const fecthBooking = async () => {
+    // Fetch User Booking Log (API call for bookings)
+    const fetchBookings = async () => {
+        setBookingLoading(true); // Set booking loading state to true
         try {
             const response = await fetch(`${apiUrl}/profile/user_booking_log/`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': `Token ${token}`
+                    'Authorization': `Token ${token}`,
                 },
-            })
-            if(!response.ok){
-                throw new Error("No logs to fetch");
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setBookings(data);
+            } else {
+                setError('Failed to fetch bookings');
             }
-            const data = await response.json()
-            setBookings(data);
+        } catch (err) {
+            setError((err as Error).message);
+        } finally {
+            setBookingLoading(false); // End booking loading after fetch
         }
-
-        catch(error) {
-            setError((error as Error).message)
-        }
-    }
-    useEffect(() => {
-        fecthBooking()
-        }
-    ,[])
+    };
 
     useEffect(() => {
+        if (token) fetchBookings();
+    }, [token]); // Fetch bookings only when token is available
+
+    // Fetch user profile data (GET user data)
+    useEffect(() => {
+        if (!token) return;
+
         fetch(`${apiUrl}/profile/me/`, {
             method: 'GET',
             headers: {
@@ -118,22 +131,22 @@ const UserDashboard = () =>{
                 'Content-Type': 'application/json',
             },
         })
-        .then((res) => {
-            if (!res.ok) {
-                throw new Error("Failed to fetch user data");
-            }
-            return res.json();
-        })
-        .then((data) => {
-            setUser(data);
-        })
-        .catch((error) => {
-            setError(error.message);
-            console.error(error);
-        });
-    },[])
+            .then((res) => {
+                if (!res.ok) throw new Error('Failed to fetch user data');
+                return res.json();
+            })
+            .then((data) => {
+                setUser(data);
+            })
+            .catch((error) => {
+                setError(error.message);
+                console.error(error);
+            })
+            .finally(() => {
+                setLoading(false); // Set main loading state to false
+            });
+    }, [token]); // Only fetch user data if there's a token
 
-    ;
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     const handleToggle = (index: number) => {
@@ -142,14 +155,10 @@ const UserDashboard = () =>{
 
     return (
         <>
-            <Header/>
-            <section className=" sm:px-10  pt-2 md:pt-4 flex flex-col justify-center items-center lg:items-center gap-5 z-[3]">
-                
-                <div className="w-full sm:w-[550px] lg:w-[720px] h-32 -mb-20 bg-accent relative 
-                    rounded-b-[40px] md:rounded-t-2xl">
-                </div>
-                <article className="w-full sm:w-[550px] lg:w-[720px] h-fit-content
-                    px-2 pb-4 bg-white shadow-lg rounded-md flex flex-col">
+            <Header />
+            <section className=" sm:px-10 pt-2 md:pt-4 flex flex-col justify-center items-center lg:items-center gap-5 z-[3]">
+                <div className="w-full sm:w-[550px] lg:w-[720px] h-32 -mb-20 bg-accent relative rounded-b-[40px] md:rounded-t-2xl"></div>
+                <article className="w-full sm:w-[550px] lg:w-[720px] h-fit-content px-2 pb-4 bg-white shadow-lg rounded-md flex flex-col">
                     <div className="flex items-end">
                         <div className="w-[120px] h-[120px] bg-dark rounded-full relative"></div>
                         <Link to="/create-profile" className="relative ml-auto">
@@ -161,12 +170,8 @@ const UserDashboard = () =>{
                     <main className="flex flex-col px-2 mt-2">
                         <div className="md:text-start">
                             {loading ? (
-                                    
-                                    <div className="w-[90px] bg-secondary px-3 py-3 animate-pulse
-                                    flex justify-between items-center gap-3"
-                                    >
-                                </div>
-                                ) : user ? (
+                                <div className="w-[90px] bg-secondary px-3 py-3 animate-pulse flex justify-between items-center gap-3"></div>
+                            ) : user ? (
                                 <>
                                     <h3 className="text-[22px] font-semibold">
                                         {user.firstname} {user.lastname}
@@ -182,65 +187,58 @@ const UserDashboard = () =>{
                             {error && <p className="text-red-500 font-semibold">{error}</p>}
                             {!error && (
                                 <div className="text-primary font-semibold">
-                                    {stat ? (
-                                        <div className="flex flex-col gap-1">
-                                            <p className="text-sm md:text-[16px]">{stat?.total_booking ?? 0} Bookings</p>
-                                            <p className="text-sm md:text-[16px]">{stat?.completed ?? 0} Completed</p>
-                                        </div>
-                                    )
-                                    : 
-                                    <div className="w-[90px] bg-secondary px-3 py-3 animate-pulse
-                                    flex justify-between items-center gap-3 mt-2"
-                                    >
-                                    </div>}
+                                    {statLoading ? (
+                                        <div className="w-[90px] bg-secondary px-3 py-3 animate-pulse flex justify-between items-center gap-3 mt-2"></div>
+                                    ) : (
+                                        stat && (
+                                            <div className="flex flex-col gap-1">
+                                                <p className="text-sm md:text-[16px]">{stat.total_booking ?? 0} Bookings</p>
+                                                <p className="text-sm md:text-[16px]">{stat.completed ?? 0} Completed</p>
+                                            </div>
+                                        )
+                                    )}
                                 </div>
                             )}
                         </div>
                     </main>
                 </article>
+
                 <div className="w-full sm:w-[550px] lg:w-[720px] flex flex-col xl:flex-row">
                     <article>
-                            <div className="w-full lg:w-[720px] bg-white px-4 py-2 h-fit border-white">
+                        <div className="w-full lg:w-[720px] bg-white px-4 py-2 h-fit border-white">
                             <div className="flex justify-between">
                                 <h1 className="font-bold text-xl mb-3">My Logs</h1>
-                                <Link to="/booking"
-                                    className=" font-bold transition duration-500
-                                    text-accent"
-                                    >
-                                        Hire A Worker
+                                <Link to="/booking" className="font-bold transition duration-500 text-accent">
+                                    Hire A Worker
                                 </Link>
                             </div>
-                                <article className=" pb-4 rounded-md bg-white flex flex-col gap-2">
-                                {loading ? (
-                                    
-                                    <div className="bg-secondary rounded-md px-3 py-5 animate-pulse
-                                    flex justify-between items-center gap-3"
-                                    >
-                                    </div>
+                            <article className="pb-4 rounded-md bg-white flex flex-col gap-2">
+                                {bookingLoading ? (
+                                    <div className="bg-secondary rounded-md px-3 py-5 animate-pulse flex justify-between items-center gap-3"></div>
                                 ) : bookings && bookings.length > 0 ? (
                                     bookings.map((booking) => (
-                                    <LogItem
-                                        key={booking.id}
-                                        id={booking.id}
-                                        service={booking.service}
-                                        description={booking.description}
-                                        time={booking.time}
-                                        address={booking.address}
-                                        region={booking.region}
-                                        state={booking.state}
-                                        status={booking.status}
-                                        date={booking.date}
-                                        duration={booking.duration}
-                                        price={booking.price}
-                                        isOpen={openIndex === booking.id}
-                                        onToggle={() => handleToggle(booking.id)}
-                                    />
+                                        <LogItem
+                                            key={booking.id}
+                                            id={booking.id}
+                                            service={booking.service}
+                                            description={booking.description}
+                                            time={booking.time}
+                                            address={booking.address}
+                                            region={booking.region}
+                                            state={booking.state}
+                                            status={booking.status}
+                                            date={booking.date}
+                                            duration={booking.duration}
+                                            price={booking.price}
+                                            isOpen={openIndex === booking.id}
+                                            onToggle={() => handleToggle(booking.id)}
+                                        />
                                     ))
                                 ) : (
                                     <p>Booking log is empty</p>
                                 )}
-                                </article>
-                            </div>
+                            </article>
+                        </div>
                     </article>
                 </div>
             </section>

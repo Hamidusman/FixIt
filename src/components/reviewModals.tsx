@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Backdrop from './backdrop';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { apiUrl } from '../utils/BaseUrl';
 
 const dropIn = {
   hidden: {
@@ -29,18 +28,18 @@ const dropIn = {
 const emojis = ["😡", "😕", "😐", "😊", "😍"];
 
 interface ReviewProp {
-  bookingID: number,
+  booking: number;
   rating: number,
   comment: string
 }
 interface ReviewModalProps {
     closeModal: () => void;
-    bookingID: number;
+    booking: number;
     setReview: React.Dispatch<React.SetStateAction<ReviewProp | null>>;
 }
 
 
-const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal, bookingID, setReview }) => {
+const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal, setReview }) => {
     const [rating, setRating] = useState<number | null>(null);
     const [comment, setComment] = useState<string>('');
 
@@ -61,12 +60,11 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ closeModal, bookingID, setRev
           return; // validation if rating or comment is empty
       } 
         const reviewData = {
-            booking: bookingID,
             rating: rating,
             comment,
         };
         try {
-            const response = await fetch(`${apiUrl}/rating/`, {
+            const response = await fetch(`http://127.0.0.1:8000/rating/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -102,7 +100,7 @@ return (
         animate="visible"
         exit="exit"
         >
-        <h1 className="text-xl mb-4 font-bold">Give Review For This Log {bookingID}</h1>
+        <h1 className="text-xl mb-4 font-bold">Give Review For This Log</h1>
         
         <div className="flex gap-2 md:gap-4 mt-4 justify-center">
             {emojis.map((emoji, index) => (

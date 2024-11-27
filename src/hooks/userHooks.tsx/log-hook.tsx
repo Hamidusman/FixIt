@@ -4,7 +4,7 @@ import { updateStatus } from "./patchStatus";
 import ReviewModal from "../../components/reviewModals";
 import { ActionButtons } from "../../components/profile-components/actionButtons";
 import { ReviewDetail } from "../../components/profile-components/ReviewDetail";
-import { ReviewDetailProp } from "../../components/props/ReviewProps";
+import { ReviewDetailProps } from "../../components/props/ReviewProps";
 
 
 interface LogProp{
@@ -35,7 +35,7 @@ export const LogItem: React.FC<LogProp> = ({
     isOpen, onToggle }) => {
     const [modalOpen, setModalOpen] = useState(false)
     const [error, setError] = useState<string | null>(null);
-    const [review, setReview] = useState<ReviewDetailProp | null>(null)
+    const [review, setReview] = useState<ReviewDetailProps | null>(null)
     const [logStatus, setLogStatus] = useState(status);
 
     const openModal = () => setModalOpen(true)
@@ -47,7 +47,7 @@ export const LogItem: React.FC<LogProp> = ({
         if (token) {
             fetchReview(id, token)
                 .then((data) => {
-                    console.log("Fetched Review:", data);
+                    console.log("Fetched Review:", review);
                     setReview(data);
                 })
                 .catch((err) => {
@@ -58,6 +58,8 @@ export const LogItem: React.FC<LogProp> = ({
             console.error("No token available");
         }
     }, [id, token]);
+    
+    console.log("Current review state:", review);
     
 
     const handleStatus = async () => {
@@ -116,7 +118,7 @@ export const LogItem: React.FC<LogProp> = ({
             {modalOpen && (
             <ReviewModal
                 closeModal={closeModal}
-                bookingID={id}
+                booking={id}
                 setReview={setReview}
             ></ReviewModal>
             )}
